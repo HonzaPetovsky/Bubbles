@@ -7,8 +7,10 @@ var canvas = null,
 
 	isUserInteracting = false,
 	animate = false,
-	mouseDownX = 0, mouseX = 0,
-	mouseDownY = 0, mouseY = 0;
+	mouseDownX = 0, mouseX = 0, easingX = 0,
+	mouseDownY = 0, mouseY = 0, easingY = 0,
+	easing = 0;
+
 
 
 function Bubbles(container, xml) 
@@ -63,10 +65,12 @@ function onWindowResize()
 	renderer.render(scene, camera);
 }
 
-
 function onMouseDown(event)
 {
 	isUserInteracting = true;
+	easingX = 0;
+	easingY = 0;
+	easing = 0;
 
 	mouseDownX = event.clientX;
 	mouseDownY = event.clientY;
@@ -74,6 +78,10 @@ function onMouseDown(event)
 
 function onMouseUp()
 {
+	easingX = (mouseX-mouseDownX);
+	easingY = (mouseY-mouseDownY);
+	easing = 10;
+
 	isUserInteracting = false;
 	animate = false;
 }
@@ -93,11 +101,19 @@ function onMouseMove(event)
 
 function animateLookAt()
 {
-	if (isUserInteracting === true) {
+	if (isUserInteracting === true || easing > 0) {
 		requestAnimationFrame(animateLookAt);
 
-		lon += (mouseX-mouseDownX)*0.01;
-		lat -= (mouseY-mouseDownY)*0.01;
+		if (easing > 0) {
+			lon += easingX*0.01/10*easing;
+			lat -= easingY*0.01/10*easing;
+			easing -= 0.5;
+		} 
+		else {
+			lon += (mouseX-mouseDownX)*0.01;
+			lat -= (mouseY-mouseDownY)*0.01;
+		}
+
 
 		lat = Math.max(-85, Math.min(85, lat));
 		phi = THREE.Math.degToRad(90-lat);
@@ -128,4 +144,3 @@ function onMouseWheel(event)
 	camera.updateProjectionMatrix();
 	renderer.render(scene, camera);
 }
-
