@@ -1,83 +1,120 @@
-var camera, scene, renderer;
+var canvas = null,
+	camera = null,
+	renderer = null,
+	scene = null,
 
-var isUserInteracting = false,
-	onMouseDownMouseX = 0, onMouseDownMouseY = 0,
-	lon = 0, onMouseDownLon = 0,
-	lat = 0, onMouseDownLat = 0,
-	phi = 0, theta = 0;
+	lat = 0, lon = 0,
 
-init();
-animate();
+	isUserInteracting = false,
+	animate = false,
+	mouseDownX = 0, mouseX = 0,
+	mouseDownY = 0, mouseY = 0;
 
-function init() {
 
-	var container, mesh;
-	container = document.getElementById('container');
-	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1100);
-	camera.target = new THREE.Vector3(0, 0, 0);
+function Bubbles(container, xml) 
+{
+	canvas = document.getElementById(container);
+	init();
+}
 
+function init() 
+{
 	scene = new THREE.Scene();
-	
-
-	var geometry = new THREE.BoxGeometry(500, 500, 500);
-	geometry.scale(-1, 1, 1);
-	var material = new THREE.MeshFaceMaterial([
-		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture('pano/01_b.jpg')}),
-		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture('pano/01_f.jpg')}),
-		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture('pano/01_u.jpg')}),
-		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture('pano/01_d.jpg')}),
-		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture('pano/01_r.jpg')}),
-		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture('pano/01_l.jpg')}),
-	]);
-
-	mesh = new THREE.Mesh(geometry, material);
-
-	scene.add(mesh);
+	camera = new THREE.PerspectiveCamera(75, canvas.offsetWidth/canvas.offsetHeight, 0.1, 1000);
+	camera.target = new THREE.Vector3(1, 0, 0);
+	camera.lookAt(camera.target);
 
 	renderer = new THREE.WebGLRenderer();
-	renderer.setPixelRatio(window.devicePixelRatio);
-	renderer.setSize(window.innerWidth, window.innerHeight);
-	container.appendChild(renderer.domElement);
+	renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+	canvas.appendChild(renderer.domElement);
 
-	document.addEventListener('mousedown', onDocumentMouseDown, false);
-	document.addEventListener('mousemove', onDocumentMouseMove, false);
-	document.addEventListener('mouseup', onDocumentMouseUp, false);
-	document.addEventListener('mousewheel', onDocumentMouseWheel, false);
-	document.addEventListener('DOMMouseScroll', onDocumentMouseWheel, false);
+	var geometry = new THREE.BoxGeometry(1, 1, 1);
+	geometry.scale(-1, 1, 1);
+	var material = new THREE.MeshFaceMaterial([
+		new THREE.MeshBasicMaterial({color: 0xff0000}),
+		new THREE.MeshBasicMaterial({color: 0x00ff00}),
+		new THREE.MeshBasicMaterial({color: 0x0000ff}),
+		new THREE.MeshBasicMaterial({color: 0xffff00}),
+		new THREE.MeshBasicMaterial({color: 0x00ffff}),
+		new THREE.MeshBasicMaterial({color: 0xff00ff})
+		]);
 
-	window.addEventListener('resize', onWindowResize, false);
+	var cube = new THREE.Mesh(geometry, material);
+	scene.add(cube);
+
+	renderer.render(scene, camera);
+
+	
+	window.addEventListener('resize', onWindowResize);
+	document.addEventListener('mousedown', onMouseDown);
+	document.addEventListener('mouseup', onMouseUp);
+	document.addEventListener('mouseout', onMouseUp);
+	document.addEventListener('mousemove', onMouseMove);
+	document.addEventListener('mousewheel', onMouseWheel);
+	document.addEventListener('DOMMouseScroll', onMouseWheel);
 }
 
-function onWindowResize() {
-	camera.aspect = window.innerWidth / window.innerHeight;
+function onWindowResize() 
+{
+	camera.aspect = canvas.offsetWidth/canvas.offsetHeight;
 	camera.updateProjectionMatrix();
 
-	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+	renderer.render(scene, camera);
 }
 
-function onDocumentMouseDown(event) {
-	event.preventDefault();
 
+function onMouseDown(event)
+{
 	isUserInteracting = true;
 
-	onPointerDownPointerX = event.clientX;
-	onPointerDownPointerY = event.clientY;
-	onPointerDownLon = lon;
-	onPointerDownLat = lat;
+	mouseDownX = event.clientX;
+	mouseDownY = event.clientY;
 }
 
-function onDocumentMouseMove(event) {
+function onMouseUp()
+{
+	isUserInteracting = false;
+	animate = false;
+}
+
+function onMouseMove(event)
+{
 	if (isUserInteracting === true) {
-		lon = (onPointerDownPointerX - event.clientX) * 0.1 + onPointerDownLon;
-		lat = (event.clientY - onPointerDownPointerY) * 0.1 + onPointerDownLat;
+
+		mouseX = event.clientX;
+		mouseY = event.clientY;
+		if (animate === false) {
+			animate = true;
+			animateLookAt();
+		}
 	}
 }
 
-function onDocumentMouseUp(event) {
-	isUserInteracting = false;
+function animateLookAt()
+{
+	if (isUserInteracting === true) {
+		requestAnimationFrame(animateLookAt);
+
+		lon += (mouseX-mouseDownX)*0.01;
+		lat -= (mouseY-mouseDownY)*0.01;
+
+		lat = Math.max(-85, Math.min(85, lat));
+		phi = THREE.Math.degToRad(90-lat);
+		theta = THREE.Math.degToRad(lon);
+
+		camera.target.x = Math.sin(phi) * Math.cos(theta);
+		camera.target.y = Math.cos(phi);
+		camera.target.z = Math.sin(phi) * Math.sin(theta);
+
+		camera.lookAt(camera.target);
+
+		renderer.render(scene, camera);
+	}
 }
 
-function onDocumentMouseWheel(event) {
+function onMouseWheel(event)
+{
 	// WebKit
 	if (event.wheelDeltaY) {
 		camera.fov -= event.wheelDeltaY * 0.05;
@@ -89,27 +126,6 @@ function onDocumentMouseWheel(event) {
 		camera.fov += event.detail * 1.0;
 	}
 	camera.updateProjectionMatrix();
-}
-
-function animate() {
-	requestAnimationFrame(animate);
-	update();
-}
-
-function update() {
-	if (isUserInteracting === false) {
-		//lon += 0.1;
-	}
-
-	lat = Math.max(-85, Math.min(85, lat));
-	phi = THREE.Math.degToRad(90 - lat);
-	theta = THREE.Math.degToRad(lon);
-
-	camera.target.x = 500 * Math.sin(phi) * Math.cos(theta);
-	camera.target.y = 500 * Math.cos(phi);
-	camera.target.z = 500 * Math.sin(phi) * Math.sin(theta);
-
-	camera.lookAt(camera.target);
-
 	renderer.render(scene, camera);
 }
+
