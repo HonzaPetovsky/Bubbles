@@ -1,0 +1,15 @@
+{
+	"bubbles": [{
+		"image": {
+			"type": "cube",
+			"data": {
+				"back": "pano/01_b.jpg",
+				"down": "pano/01_d.jpg",
+				"front": "pano/01_f.jpg",
+				"left": "pano/01_l.jpg",
+				"right": "pano/01_r.jpg",
+				"up": "pano/01_u.jpg"
+			}
+		}
+	}]
+}
