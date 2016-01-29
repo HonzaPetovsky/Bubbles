@@ -2,6 +2,7 @@ var canvas = null,
 	camera = null,
 	renderer = null,
 	scene = null,
+	data = null,
 
 	lat = 0, lon = 0,
 
@@ -13,11 +14,24 @@ var canvas = null,
 
 
 
-function Bubbles(container, xml) 
+function Bubbles(container, url) 
 {
 	canvas = document.getElementById(container);
-	init();
+	
+	var loader = new THREE.XHRLoader();
+	loader.setResponseType("json");
+	try {
+		loader.load(url, function(text){
+			data = text;
+			init();
+		});
+	} 
+	catch (err) {
+		console.log("url error");
+	}	
 }
+
+
 
 function init() 
 {
@@ -32,19 +46,22 @@ function init()
 
 	var geometry = new THREE.BoxGeometry(1, 1, 1);
 	geometry.scale(-1, 1, 1);
+
+
 	var material = new THREE.MeshFaceMaterial([
-		new THREE.MeshBasicMaterial({color: 0xff0000}),
-		new THREE.MeshBasicMaterial({color: 0x00ff00}),
-		new THREE.MeshBasicMaterial({color: 0x0000ff}),
-		new THREE.MeshBasicMaterial({color: 0xffff00}),
-		new THREE.MeshBasicMaterial({color: 0x00ffff}),
-		new THREE.MeshBasicMaterial({color: 0xff00ff})
+		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.back, THREE.CubeReflectionMapping, render)}),
+		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.front, THREE.CubeReflectionMapping, render)}),
+		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.up, THREE.CubeReflectionMapping, render)}),
+		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.down, THREE.CubeReflectionMapping, render)}),
+		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.right, THREE.CubeReflectionMapping, render)}),
+		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.left, THREE.CubeReflectionMapping, render)})
 		]);
 
 	var cube = new THREE.Mesh(geometry, material);
 	scene.add(cube);
 
-	renderer.render(scene, camera);
+
+	render();
 
 	
 	window.addEventListener('resize', onWindowResize);
@@ -56,13 +73,18 @@ function init()
 	document.addEventListener('DOMMouseScroll', onMouseWheel);
 }
 
+function render()
+{
+	renderer.render(scene, camera);
+}
+
 function onWindowResize() 
 {
 	camera.aspect = canvas.offsetWidth/canvas.offsetHeight;
 	camera.updateProjectionMatrix();
 
 	renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
-	renderer.render(scene, camera);
+	render();
 }
 
 function onMouseDown(event)
@@ -89,7 +111,6 @@ function onMouseUp()
 function onMouseMove(event)
 {
 	if (isUserInteracting === true) {
-
 		mouseX = event.clientX;
 		mouseY = event.clientY;
 		if (animate === false) {
@@ -98,6 +119,7 @@ function onMouseMove(event)
 		}
 	}
 }
+
 
 function animateLookAt()
 {
@@ -125,7 +147,7 @@ function animateLookAt()
 
 		camera.lookAt(camera.target);
 
-		renderer.render(scene, camera);
+		render();
 	}
 }
 
@@ -142,5 +164,5 @@ function onMouseWheel(event)
 		camera.fov += event.detail * 1.0;
 	}
 	camera.updateProjectionMatrix();
-	renderer.render(scene, camera);
+	render();
 }
