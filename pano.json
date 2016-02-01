@@ -10,6 +10,13 @@
 				"right": "pano/01_r.jpg",
 				"up": "pano/01_u.jpg"
 			}
+		},
+		"view": {
+			"fov": {
+				"init": 75,
+				"max": 120,
+				"min": 45
+			}
 		}
 	}]
 }

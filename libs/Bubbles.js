@@ -48,14 +48,28 @@ function init()
 	geometry.scale(-1, 1, 1);
 
 
-	var material = new THREE.MeshFaceMaterial([
-		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.back, THREE.CubeReflectionMapping, render)}),
-		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.front, THREE.CubeReflectionMapping, render)}),
-		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.up, THREE.CubeReflectionMapping, render)}),
-		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.down, THREE.CubeReflectionMapping, render)}),
-		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.right, THREE.CubeReflectionMapping, render)}),
-		new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.left, THREE.CubeReflectionMapping, render)})
-		]);
+	var textures = [];
+	var tex = null;
+	tex = THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.back, THREE.CubeReflectionMapping, render);
+	tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
+	textures.push(new THREE.MeshBasicMaterial({map: tex}));
+	tex = THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.front, THREE.CubeReflectionMapping, render);
+	tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
+	textures.push(new THREE.MeshBasicMaterial({map: tex}));
+	tex = THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.up, THREE.CubeReflectionMapping, render);
+	tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
+	textures.push(new THREE.MeshBasicMaterial({map: tex}));
+	tex = THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.down, THREE.CubeReflectionMapping, render);
+	tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
+	textures.push(new THREE.MeshBasicMaterial({map: tex}));
+	tex = THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.right, THREE.CubeReflectionMapping, render);
+	tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
+	textures.push(new THREE.MeshBasicMaterial({map: tex}));
+	tex = THREE.ImageUtils.loadTexture(data.bubbles[0].image.data.left, THREE.CubeReflectionMapping, render);
+	tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
+	textures.push(new THREE.MeshBasicMaterial({map: tex}));
+
+	var material = new THREE.MeshFaceMaterial(textures);
 
 	var cube = new THREE.Mesh(geometry, material);
 	scene.add(cube);
@@ -90,6 +104,8 @@ function onWindowResize()
 function onMouseDown(event)
 {
 	isUserInteracting = true;
+	mouseX = event.clientX;
+	mouseY = event.clientY;
 	easingX = 0;
 	easingY = 0;
 	easing = 0;

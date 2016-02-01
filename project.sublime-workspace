@@ -1,0 +1,850 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"mouse",
+				"mouseY (num)"
+			],
+			[
+				"eas",
+				"easing (num)"
+			],
+			[
+				"easi",
+				"easingX (num)"
+			],
+			[
+				"x",
+				"x2"
+			],
+			[
+				"cub",
+				"THREE.CubeReflectionMapping"
+			],
+			[
+				"Line",
+				"THREE.LinearFilter"
+			],
+			[
+				"line",
+				"THREE.LinearFilter"
+			],
+			[
+				"Cub",
+				"THREE.CubeReflectionMapping"
+			],
+			[
+				"parse",
+				"parseXML (fn)"
+			],
+			[
+				"easin",
+				"easing (num)"
+			],
+			[
+				"easing",
+				"easingX (num)"
+			],
+			[
+				"mous",
+				"mouseY (num)"
+			],
+			[
+				"mar",
+				"margin"
+			],
+			[
+				"Ve",
+				"THREE.Vector3"
+			],
+			[
+				"y",
+				"y1"
+			],
+			[
+				"Mesh",
+				"THREE.MeshBasicMaterial"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"re",
+				"relative"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"rende",
+				"renderer (?)"
+			],
+			[
+				"func",
+				"function (?)"
+			],
+			[
+				"Cube",
+				"THREE.CubeGeometry"
+			],
+			[
+				"map",
+				"mapUrl (str)"
+			],
+			[
+				"V",
+				"THREE.Vector3"
+			],
+			[
+				"input",
+				"input_currency"
+			],
+			[
+				"new",
+				"newData"
+			],
+			[
+				"img",
+				"img1"
+			],
+			[
+				"con",
+				"content_type"
+			],
+			[
+				"requ",
+				"request"
+			],
+			[
+				"left",
+				"lefttop"
+			],
+			[
+				"curr",
+				"curr_path"
+			],
+			[
+				"Is",
+				"IsCoastTile"
+			],
+			[
+				"konec",
+				"konecMostu"
+			],
+			[
+				"kon",
+				"konecMostu"
+			],
+			[
+				"pre",
+				"prev"
+			],
+			[
+				"is",
+				"IsCoastTile"
+			],
+			[
+				"BU",
+				"BuildSign"
+			],
+			[
+				"Bui",
+				"BuildSign"
+			],
+			[
+				"Ai",
+				"AITile"
+			],
+			[
+				"po",
+				"pocetEpizod"
+			],
+			[
+				"poce",
+				"pocetKonfliktu"
+			],
+			[
+				"mozno",
+				"moznost"
+			],
+			[
+				"moz",
+				"moznost"
+			],
+			[
+				"aktu",
+				"aktualni"
+			],
+			[
+				"Ima",
+				"ImageDraw"
+			],
+			[
+				"ak",
+				"aktualniKonflikt"
+			],
+			[
+				"aktua",
+				"aktualniKonflikt"
+			],
+			[
+				"draw",
+				"draw_chessboard"
+			],
+			[
+				"akt",
+				"aktualni"
+			],
+			[
+				"nova",
+				"novaKonflikt"
+			],
+			[
+				"spo",
+				"spoctiKonflikt"
+			],
+			[
+				"ma",
+				"matice"
+			],
+			[
+				"sou",
+				"sousedi"
+			],
+			[
+				"rand",
+				"randint"
+			],
+			[
+				"max",
+				"maxStavu"
+			],
+			[
+				"man",
+				"manhattanskaVzdalenost"
+			],
+			[
+				"mini",
+				"minimalniChybneUmisteni"
+			],
+			[
+				"vrat",
+				"vratPocetKroku"
+			],
+			[
+				"sta",
+				"start"
+			],
+			[
+				"Tru",
+				"True"
+			],
+			[
+				"g",
+				"g"
+			],
+			[
+				"p",
+				"p	Tag"
+			],
+			[
+				"setDef",
+				"setDefaultValue"
+			],
+			[
+				"Peto",
+				"PetovskyAI"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "js/bubbles.js",
+			"settings":
+			{
+				"buffer_size": 4073,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "readme.md",
+			"settings":
+			{
+				"buffer_size": 213,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 547,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pano.json",
+			"settings":
+			{
+				"buffer_size": 249,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 74.0,
+		"last_filter": "git statu",
+		"selected_items":
+		[
+			[
+				"git statu",
+				"Git: Status"
+			],
+			[
+				"git com",
+				"Git: Commit"
+			],
+			[
+				"git stat",
+				"Git: Status"
+			],
+			[
+				"git ad",
+				"Git: Add All"
+			],
+			[
+				"git pus",
+				"Git: Push"
+			],
+			[
+				"git co",
+				"Git: Commit"
+			],
+			[
+				"git push",
+				"Git: Push"
+			],
+			[
+				"git pu",
+				"Git: Push"
+			],
+			[
+				"gitt",
+				"Git: Commit history"
+			],
+			[
+				"packa",
+				"Preferences: Browse Packages"
+			],
+			[
+				"sql",
+				"Set Syntax: SQL"
+			]
+		],
+		"width": 511.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/honza/Skola/Bubbles",
+		"/home/honza/Skola/Bubbles/js",
+		"/home/honza/Skola/Bubbles/pano"
+	],
+	"file_history":
+	[
+		"/home/honza/Skola/Bubbles/.gitignore",
+		"/home/honza/Dokumenty/kese/gcz11f.py",
+		"/home/honza/Dokumenty/kese/gc1zmat.py",
+		"/home/honza/Skola/Bubbles/pano.json",
+		"/home/honza/Skola/Bubbles/index.html",
+		"/home/honza/Skola/Bubbles/js/bubbles.js",
+		"/home/honza/Dokumenty/bkbl.sql",
+		"/home/honza/Skola/Bubbles/pano.xml",
+		"/home/honza/Stažené/krpano-1.18.5/viewer/krpano.js",
+		"/home/honza/.config/sublime-text-3/Packages/Git/Git.sublime-settings",
+		"/home/honza/Skola/Bubbles/project.sublime-project",
+		"/home/honza/.config/sublime-text-3/Packages/User/Git.sublime-settings",
+		"/home/honza/Stažené/krpano-1.18.5/viewer/embedpano.js",
+		"/home/honza/Dokumenty/kese/gc4q1tm.py",
+		"/home/honza/Dokumenty/kese/gc3pc9h.py",
+		"/home/honza/Dokumenty/kese/gc69vh7.py",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015-3/04.xml",
+		"/home/honza/Skola/diplomka/dokument/dipp.lau",
+		"/home/honza/Skola/diplomka/dokument/teoreticky-zaklad.lau",
+		"/home/honza/Dokumenty/kese/gc5m8yy.py",
+		"/home/honza/Dokumenty/kese/gc66nnx.py",
+		"/home/honza/Dokumenty/kese/gc696fz.py",
+		"/home/honza/Dropbox/skola/ppr/simulace_studium_f.py",
+		"/home/honza/Dokumenty/kese/test.py",
+		"/home/honza/Skola/diplomka/Bubbles/bubbles.sublime-project",
+		"/home/honza/Skola/diplomka/Bubbles/index.html",
+		"/home/honza/Skola/diplomka/Bubbles/js/bubbles.js",
+		"/home/honza/Dokumenty/kese/gc5p98w.py",
+		"/var/www/muzi-bkblansko/index.html",
+		"/var/www/muzi-bkblansko/css/styl.css",
+		"/home/honza/.lyx/layouts/dipp.layout",
+		"/home/honza/Skola/dipp/dipp.lau",
+		"/usr/share/lyx/layouts/report.layout",
+		"/usr/share/lyx/layouts/article-beamer.layout",
+		"/home/honza/Skola/Skypicker/currency_converter.py",
+		"/home/honza/Skola/Skypicker/currencies.json",
+		"/home/honza/Dokumenty/dip/dipp8.sty",
+		"/home/honza/Stažené/route.gpx",
+		"/home/honza/Skola/KAS/HideImage.py",
+		"/home/honza/Stažené/20150702_000_Kuki_for_ubuntu.run",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015-2/loadpano.xml",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015-2/spgs.xml",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015-2/tour.xml",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015-2/novy_28.xml",
+		"/home/honza/Skola/PG2/qtwin/shaders/c_vshader.vsh",
+		"/home/honza/Skola/PG2/qtwin/shaders/c_fshader.fsh",
+		"/home/honza/Skola/PG2/qtwin/cube.h",
+		"/home/honza/Skola/PG2/qtwin/cube.cpp",
+		"/home/honza/Skola/PG2/FlappyBird/FlappyBird.pro.user",
+		"/home/honza/Skola/PG2/_cviceni_GUI_v_QML/_cviceni_GUI_v_QML/cube.cpp",
+		"/home/honza/Skola/PG2/qtwin/3dmodel.h",
+		"/home/honza/Skola/PG2/qtwin/scene.cpp",
+		"/home/honza/Skola/PG2/_cviceni_GUI_v_QML/_cviceni_GUI_v_QML/3dmodel.cpp",
+		"/home/honza/Skola/KAS/test.py",
+		"/home/honza/Skola/KAS/Django/kas/lsb/templates/obnovit.html",
+		"/home/honza/Skola/KAS/Django/kas/lsb/forms.py",
+		"/home/honza/Skola/KAS/verze3/HideImage.py",
+		"/home/honza/Skola/KAS/Django/kas/lsb/hideimage.py",
+		"/home/honza/Skola/KAS/Django/kas/lsb/views.py",
+		"/home/honza/Skola/KAS/Django/kas/kas/settings.py",
+		"/home/honza/Skola/KAS/verze4/Django/kas/kas/settings.py",
+		"/home/honza/Skola/KAS/Django/settings.py",
+		"/home/honza/Skola/KAS/Django/kas/lsb/templates/index.html",
+		"/home/honza/Skola/KAS/Django/kas/lsb/templates/uschovat.html",
+		"/home/honza/Skola/KAS/Django/petovsky_cz",
+		"/home/honza/Skola/KAS/verze3/test.py",
+		"/home/honza/Skola/KAS/Django/kas/lsb/urls.py",
+		"/home/honza/Skola/KAS/Django/kas/lsb/static/css/styl.css",
+		"/home/honza/Skola/KAS/Django/kas/lsb/templates/base.html",
+		"/home/honza/Skola/KAS/Django/kas/kas/urls.py",
+		"/home/honza/Stažené/Pillow-3.0.0.zip",
+		"/home/honza/Skola/PG2/_cviceni_GUI_v_QML/_cviceni_GUI_v_QML/shaders/basic.vert",
+		"/home/honza/Stažené/heroes.txt",
+		"/home/honza/Skola/PG2/_cviceni_GUI_v_QML/_cviceni_GUI_v_QML/scene.cpp",
+		"/home/honza/Stažené/PIL-1.1.7/PIL/Image.py",
+		"/home/honza/Stažené/PIL-1.1.7/setup.py",
+		"/home/honza/Stažené/PIL-1.1.7/_imaging.c",
+		"/home/honza/Skola/KAS/PIL/__init__.py",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015-2/novy_29-2p.xml",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015-2/22-2p.xml",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015-2/novy_07-2p.xml",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015-2/novy_07.xml",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015-2/22.xml",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015-2/novy_29.xml",
+		"/home/honza/Skola/KAS/HideImage.1",
+		"/home/honza/Stažené/ssh.1",
+		"/home/honza/Skola/PG2/_cviceni_GUI_v_QML/_cviceni_GUI_v_QML/3dmodel.h",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015-2/data.xml",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015-2/novy_18.xml",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015/tour.xml",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015/novy_28.xml",
+		"/home/honza/Vpromotion/mendlak/mendlak-2015/loadpano.xml",
+		"/home/honza/Skola/PG2/_cviceni_GUI_v_QML/_cviceni_GUI_v_QML/cube.h",
+		"/tmp/83bcc9a3-bb67-4f4c-bef7-cd965cabb4c6_l.bmp",
+		"/home/honza/Stažené/latex.tex",
+		"/home/honza/Stažené/xpetovsk_veznovo_dilema/vezen.py",
+		"/home/honza/.openttd/content_download/ai/katureel/main.nut",
+		"/home/honza/.openttd/content_download/ai/PetovskyAI/main.nut",
+		"/home/honza/Dokumenty/Pathfinder.Rail.1/main.nut",
+		"/home/honza/Stažené/mrdoob-three.js-4bab468/build/three.js",
+		"/home/honza/Programy/VSCode/resources/app/out/vs/workbench/parts/git/electron-main/askpass.sh",
+		"/home/honza/Stažené/mrdoob-three.js-4bab468/examples/canvas_lines_colors.html",
+		"/home/honza/.local/share/applications/visual-studio-code.desktop",
+		"/home/honza/Skola/VUI2/ukol3/Graf.py",
+		"/home/honza/Skola/VUI2/ukol3/OsmDam.py",
+		"/home/honza/Skola/VUI2/ukol3/Sachovnice.py",
+		"/home/honza/Skola/VUI2/ukol3/vystup.csv",
+		"/home/honza/Skola/VUI2/ukol3/1/0.png",
+		"/home/honza/Skola/VUI2/ukol3/sachovnice.png",
+		"/home/honza/Stažené/models.py",
+		"/home/honza/Stažené/admin.py",
+		"/home/honza/Stažené/soupiska.html",
+		"/home/honza/Skola/VUI2/ukol3/test.py",
+		"/home/honza/Skola/VUI2/ukol2/OsmCtverecku.py",
+		"/home/honza/Skola/VUI2/ukol1/MisionariKanibalove.py",
+		"/home/honza/Skola/PG2/_cviceni_GUI_v_QML/_cviceni_GUI_v_QML/main.qml",
+		"/home/honza/Skola/PG2/_cviceni_GUI_v_QML/_cviceni_GUI_v_QML/main.cpp",
+		"/home/honza/Skola/PG2/_cviceni_GUI_v_QML/_cviceni_GUI_v_QML/scene.h",
+		"/home/honza/Plocha/mail.html",
+		"/home/honza/Skola/VUI2/ukol2/vystup.csv",
+		"/home/honza/Skola/VUI2/ukol2/OsmCtverecku-pole.py",
+		"/home/honza/Skola/VUI2/ukol2/test.py",
+		"/home/honza/Skola/VUI2/ukol2/Osm.cpp",
+		"/etc/default/tlp",
+		"/home/honza/Stažené/15Puzzle/Program.cs",
+		"/home/honza/Stažené/15Puzzle/Form1.cs",
+		"/home/honza/Stažené/15Puzzle/Strategy.cs",
+		"/home/honza/Vpromotion/bkblansko_cz/web/views.py"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"renderer.render(scene, camera);",
+			"}	",
+			";\n",
+			"canvas",
+			"66",
+			"sta_bg",
+			"black_bg",
+			"pio",
+			"plugin[pio]",
+			"piony",
+			"m_program",
+			"texCoords",
+			"m_texcoordAttribute",
+			"checkSizes",
+			"_imaging",
+			"import",
+			"setLight",
+			"277",
+			"240",
+			"bind",
+			"pionyrska",
+			"   \n",
+			"setYOrigin",
+			"m_yOrigin",
+			"m_rotationAngle",
+			"GetCargoID",
+			"neigh",
+			"xpetovsk",
+			"_neighbours",
+			"VT_RAIL",
+			"engList",
+			"List",
+			"UpdateSign",
+			"BuildSign",
+			"ret",
+			"Nepovedlo se postavit ",
+			"BuildDepot",
+			"Manhattan",
+			"xpetovsk",
+			"goal",
+			"path",
+			"BuildDepot",
+			"BuiltDepot",
+			"depot",
+			"Finish",
+			"GetStationCorner",
+			"Katureel",
+			"pocetEpizod",
+			"pocetKonfliktu",
+			"random",
+			"min(",
+			"paint",
+			"init",
+			"1",
+			"h2",
+			"vystup",
+			"pocitadlo",
+			"5000",
+			"print",
+			"devices to di",
+			"StartSolvingPuzzle",
+			"Solve",
+			"in",
+			"fronta",
+			"print",
+			"vratStrelce",
+			"SpiralWalker",
+			"Start",
+			"Vodacek",
+			"zapasyForm",
+			"DateTime",
+			"Vodacek",
+			"WEEK",
+			"zapasy",
+			"Vodacek"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "js/bubbles.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4073,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								620,
+								620
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false,
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "readme.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 213,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								119,
+								119
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 547,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro-master/Syntaxes/HTML (Django).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "pano.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 249,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 231.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 233.0
+	},
+	"pinned_build_system": "",
+	"project": "project.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 236.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
