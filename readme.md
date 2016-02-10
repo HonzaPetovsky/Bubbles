@@ -5,7 +5,7 @@
 * non-linear easing
 * mapky
 * progress loader
-* směrové ovládání
+* směrové ovládání klávesnicí
 * xml config
 * layers
 * licence + uzamknutí kódu
@@ -14,3 +14,6 @@
 * crossOrigin, CORS
 * různé typy vstupních fotek, nekompletní fotky
 * lensflares, snowflakes
+* dotyková obrazovka
+* js interface
+* cardboard
