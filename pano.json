@@ -20,31 +20,46 @@
 					"max": 85,
 					"min": 35
 				}
-			}
+			},
+			"hotspots": [
+				{
+					"url": "pano/ru.png",
+					"lat": -26,
+					"lon": -60
+				}
+			]
 		}
 	],
 	"sprites": [
 		{
 			"url": "pano/u.png",
 			"align": "bottom",
-			"y": 86
+			"position": {
+				"y": 86
+			}
 		},
 		{
 			"url": "pano/d.png",
 			"align": "bottom",
-			"y": 50
+			"position": {
+				"y": 50
+			}
 		},
 		{
 			"url": "pano/l.png",
 			"align": "bottom",
-			"x": -50,
-			"y": 68
+			"position": {
+				"x": -50,
+				"y": 68
+			}
 		},
 		{
 			"url": "pano/r.png",
 			"align": "bottom",
-			"x": 50,
-			"y": 68
+			"position": {
+				"x": 50,
+				"y": 68
+			}
 		}
 	]
 }

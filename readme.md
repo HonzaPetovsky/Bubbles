@@ -2,7 +2,7 @@
 
 * Závislost fov a rychlosti posunu animace
 * doladit zoom
-* non-linear easing
+* tween, easing
 * mapky
 * progress loader
 * směrové ovládání klávesnicí
@@ -17,3 +17,5 @@
 * dotyková obrazovka
 * js interface
 * cardboard
+* grafika
+* hotspot z-order
