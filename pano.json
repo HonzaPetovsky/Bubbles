@@ -25,7 +25,11 @@
 				{
 					"url": "pano/ru.png",
 					"lat": -26,
-					"lon": -60
+					"lon": -60,
+					"distorted": true
+				},
+				{
+					"url": "pano/ru.png"
 				}
 			]
 		}
