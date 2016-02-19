@@ -1,8 +1,7 @@
 {
-	"start": "pano",
-	"bubbles": [
-		{
-			"id": "pano",
+	"start": "skokanek",
+	"bubbles": {
+		"skluzavka": {
 			"image": {
 				"type": "cube",
 				"data": {
@@ -21,35 +20,48 @@
 					"min": 35
 				}
 			},
-			"hotspots": [
-				{
+			"hotspots": {
+				"sipka1": {
 					"url": "pano/ru.png",
 					"lat": -26,
 					"lon": -60,
 					"distorted": true
 				},
-				{
+				"sipka2": {
 					"url": "pano/ru.png"
 				}
-			]
+			}
+		},
+		"skokanek": {
+			"image": {
+				"type": "cube",
+				"data": {
+					"back": "pano/03_b.jpg",
+					"down": "pano/03_d.jpg",
+					"front": "pano/03_f.jpg",
+					"left": "pano/03_l.jpg",
+					"right": "pano/03_r.jpg",
+					"up": "pano/03_u.jpg"
+				}
+			}
 		}
-	],
-	"sprites": [
-		{
+	},
+	"sprites": {
+		"up": {
 			"url": "pano/u.png",
 			"align": "bottom",
 			"position": {
 				"y": 86
 			}
 		},
-		{
+		"down": {
 			"url": "pano/d.png",
 			"align": "bottom",
 			"position": {
 				"y": 50
 			}
 		},
-		{
+		"left": {
 			"url": "pano/l.png",
 			"align": "bottom",
 			"position": {
@@ -57,7 +69,7 @@
 				"y": 68
 			}
 		},
-		{
+		"right": {
 			"url": "pano/r.png",
 			"align": "bottom",
 			"position": {
@@ -65,5 +77,5 @@
 				"y": 68
 			}
 		}
-	]
+	}
 }
