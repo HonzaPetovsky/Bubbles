@@ -1,5 +1,5 @@
 {
-	"start": "skokanek",
+	"start": "skluzavka",
 	"bubbles": {
 		"skluzavka": {
 			"image": {
@@ -25,7 +25,12 @@
 					"url": "pano/ru.png",
 					"lat": -26,
 					"lon": -60,
-					"distorted": true
+					"distorted": true,
+					"events": {
+						"click": [
+							{"name": "changeBubble", "id": "skokanek"}
+						]
+					}
 				},
 				"sipka2": {
 					"url": "pano/ru.png"
