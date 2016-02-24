@@ -20,3 +20,4 @@
 * grafika
 * hotspot z-order
 * přetáčení vrchní a spodní plochy cube-panoramatu
+* fish-eye planetky

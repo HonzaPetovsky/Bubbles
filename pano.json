@@ -27,8 +27,14 @@
 					"lon": -60,
 					"distorted": true,
 					"events": {
-						"click": [
-							{"name": "changeBubble", "id": "skokanek"}
+						"onclick": [
+							{"action": "changeBubble", "id": "skokanek"}
+						],
+						"onover": [
+							{"action": "setProperty", "id": "sipka1", "property": "opacity", "value": 0.5}
+						],
+						"onout": [
+							{"action": "setProperty", "id": "sipka1", "property": "opacity", "value": 1}
 						]
 					}
 				},
