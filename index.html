@@ -12,16 +12,49 @@
 			#container {
 				position: absolute;
 				width: 100%;
-				height: 100%;
+				height: 100%;	
+			}
+			#container1 {
+				position: absolute;
+				width: 600px;
+				height: 300px;	
+			}
+			#container2 {
+				position: absolute;
+				top: 320px;
+				width: 600px;
+				height: 300px;
 			}
 		</style>
 	</head>
 	<body>
 		<div id="container"></div>
+		<div id="container1"></div>
+		<div id="container2"></div>
+
 		<script src="lib/three.min.js"></script>
-		<script src="lib/Bubbles.js"></script>
+
+		<!-- Bubbles -->
+		<script src="src/Bubbles.js"></script>
+		<script src="src/Scene.js"></script>
+		<script src="src/DataValidator.js"></script>
+		<script src="src/Skybox.js"></script>
+		<script src="src/Events.js"></script>
+		<script src="src/Animations.js"></script>
+		<script src="src/Objects.js"></script>
+		<script src="src/Sprite.js"></script>
+		<script src="src/Hotspot.js"></script>
+		<script src="src/Actions.js"></script>
+
 		<script>
-			Bubbles("container", "pano.json");
+			new Bubbles({
+				target: "container1",
+				data: "pano.json"
+			});
+			new Bubbles({
+				target: "container2",
+				data: "pano.json"
+			});
 		</script>
 	</body>
 </html>
