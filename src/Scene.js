@@ -3,7 +3,7 @@ Bubbles.Scene = function (ctx)
 	this.ctx = ctx;
 
 	this.canvas = this.ctx.canvas;
-	this.loadingManager = this.ctx.loadingManager;
+	this.loadingManager = this.ctx.loader.loadingManager;
 	this.data = null;
 
 	this.lat = 0;
@@ -32,6 +32,8 @@ Bubbles.Scene.prototype.loadJson = function (url)
 Bubbles.Scene.prototype.init = function ()
 {
 	this.data = new Bubbles.DataValidator(this.data);
+	this.ctx.loader.init(this.data.loader);
+
 
 	this.currentBubble = this.data.bubbles[this.data.start];
 
@@ -45,7 +47,7 @@ Bubbles.Scene.prototype.init = function ()
 	this.cameraOrtho = new THREE.OrthographicCamera( -this.canvas.offsetWidth/2, this.canvas.offsetWidth/2, this.canvas.offsetHeight/2, -this.canvas.offsetHeight/2, 0, 100);
 	this.cameraOrtho.position.z = 10;
 
-	this.renderer = new THREE.WebGLRenderer();
+	this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
 	this.renderer.setSize(this.canvas.offsetWidth, this.canvas.offsetHeight);
 	this.renderer.autoClear = false;
 

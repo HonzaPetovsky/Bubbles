@@ -1,5 +1,9 @@
 {
 	"start": "skluzavka",
+	"loader": {
+		"color": "black",
+		"url": "pano/loader.gif"
+	},
 	"bubbles": {
 		"skluzavka": {
 			"image": {
@@ -57,6 +61,32 @@
 					"right": "pano/03_r.jpg",
 					"up": "pano/03_u.jpg"
 				}
+			},
+			"view": {
+				"fov": {
+					"init": 75,
+					"max": 85,
+					"min": 35
+				}
+			},
+			"hotspots": {
+				"sipka3": {
+					"url": "pano/lu.png",
+					"lat": -20,
+					"lon": 75,
+					"distorted": true,
+					"events": {
+						"onclick": [
+							{"action": "changeBubble", "id": "skluzavka"}
+						],
+						"onover": [
+							{"action": "setProperty", "id": "sipka3", "property": "opacity", "value": 0.5}
+						],
+						"onout": [
+							{"action": "setProperty", "id": "sipka3", "property": "opacity", "value": 1}
+						]
+					}
+				}
 			}
 		}
 	},
@@ -68,6 +98,14 @@
 				"x": 0,
 				"y": 86,
 				"zorder": 0
+			},
+			"events": {
+				"onover": [
+					{"action": "setProperty", "id": "up", "property": "opacity", "value": 0.8}
+				],
+				"onout": [
+					{"action": "setProperty", "id": "up", "property": "opacity", "value": 1}
+				]
 			}
 		},
 		"down": {

@@ -15,18 +15,17 @@ Bubbles.Events = function (ctx)
 	this.mouseDownX = 0;
 	this.mouseDownY = 0;
 
-
 	var obj = this;
 	window.addEventListener('resize', function() {obj.onWindowResize();});
-	ctx.canvas.addEventListener('mousedown', function(event) {obj.onMouseDown(event);});
-	ctx.canvas.addEventListener('mouseup', function() {obj.onMouseUp();});
-	ctx.canvas.addEventListener('click', function() {obj.onMouseClick();});
-	ctx.canvas.addEventListener('mouseout', function() {obj.onMouseUp();});
-	ctx.canvas.addEventListener('mousemove', function(event) {obj.onMouseMove(event);});
-	ctx.canvas.addEventListener('mousewheel', function(event) {obj.onMouseWheel(event);});
-	ctx.canvas.addEventListener('DOMMouseScroll', function(event) {obj.onMouseWheel(event);});
-}
+	this.ctx.canvas.addEventListener('mousedown', function(event) {obj.onMouseDown(event);});
+	this.ctx.canvas.addEventListener('mouseup', function() {obj.onMouseUp();});
+	this.ctx.canvas.addEventListener('click', function() {obj.onMouseClick();});
+	this.ctx.canvas.addEventListener('mouseout', function() {obj.onMouseUp();});
+	this.ctx.canvas.addEventListener('mousemove', function(event) {obj.onMouseMove(event);});
+	this.ctx.canvas.addEventListener('mousewheel', function(event) {obj.onMouseWheel(event);});
+	this.ctx.canvas.addEventListener('DOMMouseScroll', function(event) {obj.onMouseWheel(event);});
 
+}
 
 Bubbles.Events.prototype.onWindowResize = function ()
 {
@@ -111,7 +110,6 @@ Bubbles.Events.prototype.onMouseMove = function (event)
 		}
 	}
 	this.lastintersect = this.intersect;
-
 
 	if (this.isUserInteracting === true) {
 		this.mouseX = event.clientX;
