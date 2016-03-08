@@ -20,7 +20,6 @@ Bubbles.Objects.prototype.loadSprites = function (sprites)
 
 Bubbles.Objects.prototype.updateSprites = function ()
 {
-	console.log(this.spritesMap);
 	for (var key in this.spritesMap) {
 		this.spritesMap[key].sprite.update()
 	}

@@ -105,6 +105,12 @@
 				],
 				"onout": [
 					{"action": "setProperty", "id": "up", "property": "opacity", "value": 1}
+				],
+				"ondown": [
+					{"action": "verticalMove", "speed": 1}
+				],
+				"onup": [
+					{"action": "verticalMove", "speed": 0}
 				]
 			}
 		},
@@ -115,6 +121,14 @@
 				"x": 0,
 				"y": 50,
 				"zorder": 0
+			},
+			"events": {
+				"ondown": [
+					{"action": "verticalMove", "speed": -1}
+				],
+				"onup": [
+					{"action": "verticalMove", "speed": 0}
+				]
 			}
 		},
 		"left": {
@@ -124,6 +138,14 @@
 				"x": -50,
 				"y": 68,
 				"zorder": 0
+			},
+			"events": {
+				"ondown": [
+					{"action": "horizontalMove", "speed": -1}
+				],
+				"onup": [
+					{"action": "horizontalMove", "speed": 0}
+				]
 			}
 		},
 		"right": {
@@ -133,6 +155,14 @@
 				"x": 50,
 				"y": 68,
 				"zorder": 0
+			},
+			"events": {
+				"ondown": [
+					{"action": "horizontalMove", "speed": 1}
+				],
+				"onup": [
+					{"action": "horizontalMove", "speed": 0}
+				]
 			}
 		}
 	}

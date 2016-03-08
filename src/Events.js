@@ -46,21 +46,43 @@ Bubbles.Events.prototype.onWindowResize = function ()
 
 Bubbles.Events.prototype.onMouseDown = function (event)
 {
-	this.isUserInteracting = true;
+	if (this.intersect == null) {
+		this.isUserInteracting = true;
+	}
 	
 	this.mouseDownX = event.clientX;
 	this.mouseDownY = event.clientY;
+
+	if (this.intersect != null) {
+		//down
+		if (this.intersect.userData.events !== undefined && this.intersect.userData.events.ondown !== undefined) {
+			for (var key in this.intersect.userData.events.ondown) {
+				this.ctx.actions.actionTrigger(this.intersect.userData.events.ondown[key]);
+			}
+		}
+		this.ctx.scene.render();
+	}
 }
 
 Bubbles.Events.prototype.onMouseUp = function ()
 {
 	this.isUserInteracting = false;
 	this.animate = false;
+
+	if (this.intersect != null) {
+		//up
+		if (this.intersect.userData.events !== undefined && this.intersect.userData.events.onup !== undefined) {
+			for (var key in this.intersect.userData.events.onup) {
+				this.ctx.actions.actionTrigger(this.intersect.userData.events.onup[key]);
+			}
+		}
+	}
 }
 
 Bubbles.Events.prototype.onMouseClick = function ()
 {
 	if (this.intersect != null) {
+		//click
 		if (this.intersect.userData.events !== undefined && this.intersect.userData.events.onclick !== undefined) {
 			for (var key in this.intersect.userData.events.onclick) {
 				this.ctx.actions.actionTrigger(this.intersect.userData.events.onclick[key]);
@@ -105,6 +127,12 @@ Bubbles.Events.prototype.onMouseMove = function (event)
 			if (this.lastintersect.userData.events !== undefined && this.lastintersect.userData.events.onout !== undefined) {
 				for (var key in this.lastintersect.userData.events.onout) {
 					this.ctx.actions.actionTrigger(this.lastintersect.userData.events.onout[key]);
+				}
+			}
+			//up
+			if (this.lastintersect.userData.events !== undefined && this.lastintersect.userData.events.onup !== undefined) {
+				for (var key in this.lastintersect.userData.events.onup) {
+					this.ctx.actions.actionTrigger(this.lastintersect.userData.events.onup[key]);
 				}
 			}
 		}

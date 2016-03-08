@@ -12,6 +12,12 @@ Bubbles.Actions.prototype.actionTrigger = function (action)
 		case "setProperty":
 			this.actionSetProperty(action.id, action.property, action.value);
 			break;
+		case "horizontalMove":
+			this.ctx.controls.horizontalMove(action.speed);
+			break;
+		case "verticalMove":
+			this.ctx.controls.verticalMove(action.speed);
+			break;
 	}
 }
 
