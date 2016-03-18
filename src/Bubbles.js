@@ -2,20 +2,74 @@ Bubbles = function (param)
 {
 	this.version = 'dev';
 
-	this.dataUrl = param.data;
-	this.target = param.target;
+	this.canvas = document.getElementById(param.target);
+	var bubbles = this;
 	
-	this.canvas = document.getElementById(this.target);
+	this.loadingManager = new THREE.LoadingManager();
+	this.loadingManager.onProgress = function (item, loaded, total) {bubbles.progress(item, loaded, total);};
+	this.loadingManager.onError = function (item) {bubbles.error(item);};
+	this.loadingManager.onLoad = function () {bubbles.load();};
 
-	
-	this.loader = new Bubbles.Loader(this);
-	
+	var loader = new THREE.XHRLoader(this.loadingManager);
+	loader.setResponseType('text');
 
-	this.objects = new Bubbles.Objects(this);
-	this.scene = new Bubbles.Scene(this);
+	try {
+		loader.load(param.data, function (text) {
+			bubbles.data = JSON.parse(text);
+			bubbles.init()
+		});
+	} catch (err) {
+		console.log("error: json loader");
+	}
+}
 
-	this.animations = new Bubbles.Animations(this);
-	this.events = new Bubbles.Events(this);
-	this.actions = new Bubbles.Actions(this);
-	this.controls = new Bubbles.Controls(this);
+Bubbles.prototype.init = function ()
+{
+	this.data = Bubbles.DataValidator(this.data);
+	this.loader = new Bubbles.Loader({ canvas: this.canvas, data: this.data.loader });
+
+	this.currentBubble = this.data.bubbles[this.data.start];
+
+	this.scene = new THREE.Scene();
+	this.sceneOrtho = new THREE.Scene();
+
+	this.camera = Bubbles.PerspectiveCamera(this.currentBubble.view.fov.init, this.canvas.offsetWidth/this.canvas.offsetHeight, 0.1, 1000);
+	this.cameraOrtho = Bubbles.OrthographicCamera(-this.canvas.offsetWidth/2, this.canvas.offsetWidth/2, this.canvas.offsetHeight/2, -this.canvas.offsetHeight/2, 0, 100);
+
+	this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+	this.renderer.setSize(this.canvas.offsetWidth, this.canvas.offsetHeight);
+	this.renderer.autoClear = false;
+	this.canvas.appendChild(this.renderer.domElement);
+
+	this.scene.add(new Bubbles.Panorama({ image: this.currentBubble.image, manager: this.loadingManager }).getMesh());
+	this.render();
+}
+
+Bubbles.prototype.render = function ()
+{
+	if (this.renderer !== undefined) {
+
+		this.renderer.clear();
+		this.renderer.render(this.scene, this.camera);
+
+		this.renderer.clearDepth();
+		this.renderer.render(this.sceneOrtho, this.cameraOrtho);
+	}
+}
+
+Bubbles.prototype.progress = function (item, loaded, total)
+{
+	console.log(item, loaded, total);
+	this.render();
+}
+
+Bubbles.prototype.error = function (item)
+{
+	console.log(item, "error: loading error!");
+}
+
+Bubbles.prototype.load = function ()
+{
+	console.log("done");
+	this.loader.hide();
 }

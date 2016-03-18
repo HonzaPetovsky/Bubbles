@@ -19,27 +19,20 @@
 	<body>
 		<div id="container"></div>
 
+		<!-- libs -->
 		<script src="lib/three.min.js"></script>
 
 		<!-- Bubbles -->
 		<script src="src/Bubbles.js"></script>
 		<script src="src/Loader.js"></script>
-		<script src="src/Scene.js"></script>
 		<script src="src/DataValidator.js"></script>
-		<script src="src/Skybox.js"></script>
-		<script src="src/Events.js"></script>
-		<script src="src/Animations.js"></script>
-		<script src="src/Objects.js"></script>
-		<script src="src/Sprite.js"></script>
-		<script src="src/Hotspot.js"></script>
-		<script src="src/Actions.js"></script>
-		<script src="src/Lensflare.js"></script>
-		<script src="src/Controls.js"></script>
+		<script src="src/Camera.js"></script>
+		<script src="src/Panorama.js"></script>
 
 		<script>
-			new Bubbles({
+			new Bubbles({ 
 				target: "container",
-				data: "pano.json"
+				data: "pano.json",
 			});
 		</script>
 	</body>

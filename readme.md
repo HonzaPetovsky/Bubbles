@@ -1,20 +1,16 @@
 # TODO #
 
-* Závislost fov a rychlosti posunu animace
-* doladit zoom
 * tween, easing
-* mapky
-* progress loader
-* směrové ovládání klávesnicí
-* layers
+* klávesnice
 * licence + uzamknutí kódu
 * chybové hlášky, ošetření všeho
-* crossOrigin, CORS
 * různé typy vstupních fotek, nekompletní fotky
 * lensflares, snowflakes
-* dotyková obrazovka
+* dotyková obrazovka, gyroskop
 * js interface
 * cardboard
 * grafika
 * přetáčení vrchní a spodní plochy cube-panoramatu
 * fish-eye planetky
+* data pouze pro mobil, pouze pro pc
+* mrknout na buffer geometry

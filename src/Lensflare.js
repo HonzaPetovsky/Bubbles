@@ -1,4 +1,0 @@
-Bubbles.Lensflare = function () 
-{
-
-}
