@@ -36,31 +36,19 @@ Bubbles.prototype.init = function ()
 	this.camera = Bubbles.PerspectiveCamera(this.currentBubble.view.fov.init, this.canvas.offsetWidth/this.canvas.offsetHeight, 0.1, 1000);
 	this.cameraOrtho = Bubbles.OrthographicCamera(-this.canvas.offsetWidth/2, this.canvas.offsetWidth/2, this.canvas.offsetHeight/2, -this.canvas.offsetHeight/2, 0, 100);
 
-	this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-	this.renderer.setSize(this.canvas.offsetWidth, this.canvas.offsetHeight);
-	this.renderer.autoClear = false;
-	this.canvas.appendChild(this.renderer.domElement);
+	this.renderer = new Bubbles.Renderer(this.canvas, this.scene, this.camera, this.sceneOrtho, this.cameraOrtho);
+	this.canvas.appendChild(this.renderer.renderer.domElement);
 
 	this.scene.add(new Bubbles.Panorama({ image: this.currentBubble.image, manager: this.loadingManager }).getMesh());
-	this.render();
-}
+	this.renderer.render();
 
-Bubbles.prototype.render = function ()
-{
-	if (this.renderer !== undefined) {
-
-		this.renderer.clear();
-		this.renderer.render(this.scene, this.camera);
-
-		this.renderer.clearDepth();
-		this.renderer.render(this.sceneOrtho, this.cameraOrtho);
-	}
+	this.initEvents();
 }
 
 Bubbles.prototype.progress = function (item, loaded, total)
 {
 	console.log(item, loaded, total);
-	this.render();
+	this.renderer.render();
 }
 
 Bubbles.prototype.error = function (item)
@@ -72,4 +60,17 @@ Bubbles.prototype.load = function ()
 {
 	console.log("done");
 	this.loader.hide();
+}
+
+Bubbles.prototype.initEvents = function ()
+{
+	var bubbles = this;
+	this.events = new Bubbles.Events(bubbles.camera, bubbles.renderer);
+
+	var hammer = new Hammer(this.canvas);
+	hammer.get("pan").set({ direction: Hammer.DIRECTION_ALL});
+
+	window.addEventListener('resize', function() { bubbles.events.onWindowResize(bubbles.canvas, bubbles.camera, bubbles.cameraOrtho, bubbles.renderer); });
+	
+	hammer.on("panstart panend pancancel pan", function (event) { bubbles.events.onPan(event, bubbles.camera, bubbles.renderer) });
 }
