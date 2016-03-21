@@ -3,16 +3,10 @@ Bubbles.Events = function (camera, renderer)
 	this.panAnimation = new Bubbles.Animation(camera, renderer);
 }
 
-Bubbles.Events.prototype.onWindowResize = function (canvas, camera, cameraOrtho, renderer)
+Bubbles.Events.prototype.onWindowResize = function (canvas, camera, renderer)
 {
 	camera.aspect = canvas.offsetWidth/canvas.offsetHeight;
 	camera.updateProjectionMatrix();
-
-	cameraOrtho.left = -canvas.offsetWidth/2;
-	cameraOrtho.right = canvas.offsetWidth/2;
-	cameraOrtho.top = canvas.offsetHeight/2;
-	cameraOrtho.bottom = -canvas.offsetHeight/2;
-	cameraOrtho.updateProjectionMatrix();
 
 	renderer.renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
 	renderer.render();

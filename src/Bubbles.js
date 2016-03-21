@@ -31,15 +31,16 @@ Bubbles.prototype.init = function ()
 	this.currentBubble = this.data.bubbles[this.data.start];
 
 	this.scene = new THREE.Scene();
-	this.sceneOrtho = new THREE.Scene();
-
 	this.camera = Bubbles.PerspectiveCamera(this.currentBubble.view.fov.init, this.canvas.offsetWidth/this.canvas.offsetHeight, 0.1, 1000);
-	this.cameraOrtho = Bubbles.OrthographicCamera(-this.canvas.offsetWidth/2, this.canvas.offsetWidth/2, this.canvas.offsetHeight/2, -this.canvas.offsetHeight/2, 0, 100);
 
-	this.renderer = new Bubbles.Renderer(this.canvas, this.scene, this.camera, this.sceneOrtho, this.cameraOrtho);
+	this.renderer = new Bubbles.Renderer(this.canvas, this.scene, this.camera);
 	this.canvas.appendChild(this.renderer.renderer.domElement);
 
 	this.scene.add(new Bubbles.Panorama({ image: this.currentBubble.image, manager: this.loadingManager }).getMesh());
+
+	this.objects = new Bubbles.Objects(this.loadingManager);
+	this.objects.loadHotspots(this.currentBubble.hotspots, this.scene);
+
 	this.renderer.render();
 
 	this.initEvents();
@@ -65,12 +66,11 @@ Bubbles.prototype.load = function ()
 Bubbles.prototype.initEvents = function ()
 {
 	var bubbles = this;
-	this.events = new Bubbles.Events(bubbles.camera, bubbles.renderer);
-
-	var hammer = new Hammer(this.canvas);
-	hammer.get("pan").set({ direction: Hammer.DIRECTION_ALL});
-
-	window.addEventListener('resize', function() { bubbles.events.onWindowResize(bubbles.canvas, bubbles.camera, bubbles.cameraOrtho, bubbles.renderer); });
 	
+	this.events = new Bubbles.Events(bubbles.camera, bubbles.renderer);
+	var hammer = new Hammer(this.canvas);
+	hammer.get("pan").set({ direction: Hammer.DIRECTION_ALL });
+
+	window.addEventListener('resize', function() { bubbles.events.onWindowResize(bubbles.canvas, bubbles.camera, bubbles.renderer); });
 	hammer.on("panstart panend pancancel pan", function (event) { bubbles.events.onPan(event, bubbles.camera, bubbles.renderer) });
 }

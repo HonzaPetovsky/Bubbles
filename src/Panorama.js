@@ -48,8 +48,8 @@ Bubbles.Panorama.prototype.getSkyboxMaterial = function (image)
 	texture.minFilter = THREE.LinearFilter;
 	texture.magFilter = THREE.LinearFilter;
 
-	var shader = THREE.ShaderLib['cube'];
-	shader.uniforms['tCube'].value = texture;
+	var shader = THREE.ShaderLib.cube;
+	shader.uniforms.tCube.value = texture;
 
 	return new THREE.ShaderMaterial({
 		uniforms: shader.uniforms,
@@ -65,7 +65,6 @@ Bubbles.Panorama.prototype.getSphereMaterial = function (image)
 	texture.minFilter = THREE.LinearFilter;
 	texture.magFilter = THREE.LinearFilter;
 
-	//return new THREE.MeshBasicMaterial({map:texture});
 	var shader = THREE.ShaderLib['equirect'];
 	shader.uniforms['tEquirect'].value = texture;
 
