@@ -70,7 +70,12 @@ Bubbles.prototype.initEvents = function ()
 	this.events = new Bubbles.Events(bubbles.camera, bubbles.renderer);
 	var hammer = new Hammer(this.canvas);
 	hammer.get("pan").set({ direction: Hammer.DIRECTION_ALL });
+	hammer.get("pinch").set({ enable: true });
 
-	window.addEventListener('resize', function() { bubbles.events.onWindowResize(bubbles.canvas, bubbles.camera, bubbles.renderer); });
-	hammer.on("panstart panend pancancel pan", function (event) { bubbles.events.onPan(event, bubbles.camera, bubbles.renderer) });
+	window.addEventListener('resize', function() { bubbles.events.onWindowResize(bubbles.canvas); });
+	hammer.on("panstart panend pancancel pan", function (event) { bubbles.events.onPan(event); });
+	
+	hammer.on("pinchin pinchout", function (event) { bubbles.events.onPinch(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
+	this.canvas.addEventListener('mousewheel', function (event) { bubbles.events.onMouseWheel(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
+	this.canvas.addEventListener('DOMMouseScroll', function (event) { bubbles.events.onMouseWheel(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
 }

@@ -13,4 +13,3 @@
 * přetáčení vrchní a spodní plochy cube-panoramatu
 * fish-eye planetky
 * data pouze pro mobil, pouze pro pc
-* mrknout na buffer geometry
