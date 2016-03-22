@@ -1,16 +1,22 @@
-Bubbles.Events = function (camera, renderer)
+Bubbles.Events = function (canvas, camera, renderer)
 {
 	this.panAnimation = new Bubbles.Animation(camera, renderer);
+	this.canvas = canvas;
 	this.camera = camera;
 	this.renderer = renderer;
+
+	this.raycaster = new THREE.Raycaster();
+	this.intersect = null;
+
+	this.isDown = false;
 }
 
-Bubbles.Events.prototype.onWindowResize = function (canvas)
+Bubbles.Events.prototype.onWindowResize = function ()
 {
-	this.camera.aspect = canvas.offsetWidth/canvas.offsetHeight;
+	this.camera.aspect = this.canvas.offsetWidth/this.canvas.offsetHeight;
 	this.camera.updateProjectionMatrix();
 
-	this.renderer.renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+	this.renderer.renderer.setSize(this.canvas.offsetWidth, this.canvas.offsetHeight);
 	this.renderer.render();
 }
 
@@ -57,4 +63,65 @@ Bubbles.Events.prototype.onMouseWheel = function (event, fovMin, fovMax)
 	this.camera.fov = Math.max(fovMin, Math.min(fovMax, this.camera.fov));
 	this.camera.updateProjectionMatrix();
 	this.renderer.render();
+}
+
+Bubbles.Events.prototype.onTap = function (event, scene)
+{
+	var pointer = new THREE.Vector2();
+	pointer.x = (event.pointers[0].clientX / this.canvas.offsetWidth) * 2 - 1;
+	pointer.y = -(event.pointers[0].clientY / this.canvas.offsetHeight) * 2 + 1;
+
+	this.raycaster.setFromCamera(pointer, this.camera);
+	var intersect = this.raycaster.intersectObjects(scene.children);
+	
+	if (intersect.length>1 && !this.panAnimation.animate) {
+		intersect = intersect[0].object;
+		console.log(intersect.name,"click");
+	}
+}
+
+Bubbles.Events.prototype.onMouseMove = function (event, scene)
+{
+	var mouse = new THREE.Vector2();
+	mouse.x = ( event.clientX / this.canvas.offsetWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / this.canvas.offsetHeight ) * 2 + 1;
+
+	this.raycaster.setFromCamera(mouse, this.camera);
+	var intersect = this.raycaster.intersectObjects(scene.children);
+	
+	if (intersect.length>1 && !this.panAnimation.animate) {
+		intersect = intersect[0].object;
+	} else {
+		intersect = null;
+	}
+
+	if (intersect !== this.intersect){
+		if (intersect != null) {
+			console.log(intersect.name,"over");
+		}
+		if (this.intersect != null) {
+			console.log(this.intersect.name,"out");
+
+			if (this.isDown) {
+				this.onMouseUp();
+			}
+		}
+	}
+	this.intersect = intersect;
+}
+
+Bubbles.Events.prototype.onMouseDown = function ()
+{	
+	if (this.intersect != null) {
+		this.isDown = true;
+		console.log(this.intersect.name,"down");
+	}
+}
+
+Bubbles.Events.prototype.onMouseUp = function ()
+{
+	if (this.intersect != null) {
+		this.isDown = false;
+		console.log(this.intersect.name,"up");
+	}
 }

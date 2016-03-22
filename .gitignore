@@ -1,3 +1,5 @@
 typings/
 project.sublime-project
 project.sublime-workspace
+Makefile
+build/

@@ -66,16 +66,22 @@ Bubbles.prototype.load = function ()
 Bubbles.prototype.initEvents = function ()
 {
 	var bubbles = this;
-	
-	this.events = new Bubbles.Events(bubbles.camera, bubbles.renderer);
+
+	this.events = new Bubbles.Events(bubbles.canvas, bubbles.camera, bubbles.renderer);
 	var hammer = new Hammer(this.canvas);
 	hammer.get("pan").set({ direction: Hammer.DIRECTION_ALL });
 	hammer.get("pinch").set({ enable: true });
 
-	window.addEventListener('resize', function() { bubbles.events.onWindowResize(bubbles.canvas); });
+	window.addEventListener("resize", function() { bubbles.events.onWindowResize(); });
 	hammer.on("panstart panend pancancel pan", function (event) { bubbles.events.onPan(event); });
 	
 	hammer.on("pinchin pinchout", function (event) { bubbles.events.onPinch(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
-	this.canvas.addEventListener('mousewheel', function (event) { bubbles.events.onMouseWheel(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
-	this.canvas.addEventListener('DOMMouseScroll', function (event) { bubbles.events.onMouseWheel(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
+	this.canvas.addEventListener("mousewheel", function (event) { bubbles.events.onMouseWheel(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
+	this.canvas.addEventListener("DOMMouseScroll", function (event) { bubbles.events.onMouseWheel(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
+
+	hammer.on("tap", function (event) { bubbles.events.onTap(event, bubbles.scene); });
+
+	this.canvas.addEventListener("mousemove", function (event) { bubbles.events.onMouseMove(event, bubbles.scene); });
+	this.canvas.addEventListener("mousedown", function (event) { bubbles.events.onMouseDown(); });
+	this.canvas.addEventListener("mouseup", function (event) { bubbles.events.onMouseUp(); });
 }
