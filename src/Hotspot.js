@@ -1,7 +1,5 @@
-Bubbles.Hotspot = function (key, hotspotData, loadingManager)
+Bubbles.Hotspot = function (key, hotspotData, loadingManager, actionTrigger)
 {
-	this.name = key;
-
 	var hotspot = this;
 	var texture = new THREE.TextureLoader(loadingManager).load(hotspotData.url, function () { hotspot.update(); });
 	texture.minFilter = THREE.LinearFilter;
@@ -10,18 +8,7 @@ Bubbles.Hotspot = function (key, hotspotData, loadingManager)
 	var material;
 	if (hotspotData.distorted) {
 		var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.PlaneGeometry(1, 1));
-		
-		var shader = THREE.ShaderLib.basic;
-		shader.uniforms.map.value = texture;
-
-		material = new THREE.ShaderMaterial({
-			uniforms: shader.uniforms,
-			vertexShader: shader.vertexShader,
-			fragmentShader: shader.fragmentShader,
-			transparent: true
-		});
-		material.map = true;
-
+		material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
 		this.hotspot = new THREE.Mesh(geometry, material);
 	} else {
 		material = new THREE.SpriteMaterial({ map: texture });
@@ -43,15 +30,29 @@ Bubbles.Hotspot = function (key, hotspotData, loadingManager)
 	this.hotspot.rotation.order = 'YXZ';
 	this.hotspot.rotation.y = -THREE.Math.degToRad(hotspotData.lon+90);
 	this.hotspot.rotation.x = THREE.Math.degToRad(hotspotData.lat);
+
+	this.hotspot.userData.actionTrigger = actionTrigger;
+	if (hotspotData.events !== undefined) {
+		if (hotspotData.events.onclick !== undefined) {
+			this.hotspot.addEventListener("click", Bubbles.ObjectListener.click);
+		}
+		if (hotspotData.events.onover !== undefined) {
+			this.hotspot.addEventListener("over", Bubbles.ObjectListener.over);
+		}
+		if (hotspotData.events.onout !== undefined) {
+			this.hotspot.addEventListener("out", Bubbles.ObjectListener.out);
+		}
+		if (hotspotData.events.ondown !== undefined) {
+			this.hotspot.addEventListener("down", Bubbles.ObjectListener.down);
+		}
+		if (hotspotData.events.onup !== undefined) {
+			this.hotspot.addEventListener("up", Bubbles.ObjectListener.up);
+		}
+	}
 }
 
 Bubbles.Hotspot.prototype.update = function ()
 {
-	if (this.hotspot.userData.distorted) {
-		this.hotspot.scale.x = this.hotspot.material.uniforms.map.value.image.width *0.2;
-		this.hotspot.scale.y = this.hotspot.material.uniforms.map.value.image.height *0.2;
-	} else {
-		this.hotspot.scale.x = this.hotspot.material.map.image.width *0.2;
-		this.hotspot.scale.y = this.hotspot.material.map.image.height *0.2;
-	}
+	this.hotspot.scale.x = this.hotspot.material.map.image.width *0.2;
+	this.hotspot.scale.y = this.hotspot.material.map.image.height *0.2;
 }

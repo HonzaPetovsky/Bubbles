@@ -52,8 +52,15 @@
 		},
 		"skokanek": {
 			"image": {
-				"type": "sphere",
-				"data": "pano/03.jpg"
+				"type": "cube",
+				"data": {
+					"back": "pano/03_b.jpg",
+					"down": "pano/03_d.jpg",
+					"front": "pano/03_f.jpg",
+					"left": "pano/03_l.jpg",
+					"right": "pano/03_r.jpg",
+					"up": "pano/03_u.jpg"
+				}
 			},
 			"view": {
 				"fov": {

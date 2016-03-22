@@ -76,7 +76,7 @@ Bubbles.Events.prototype.onTap = function (event, scene)
 	
 	if (intersect.length>1 && !this.panAnimation.animate) {
 		intersect = intersect[0].object;
-		console.log(intersect.name,"click");
+		intersect.dispatchEvent({ type: 'click' });
 	}
 }
 
@@ -97,10 +97,10 @@ Bubbles.Events.prototype.onMouseMove = function (event, scene)
 
 	if (intersect !== this.intersect){
 		if (intersect != null) {
-			console.log(intersect.name,"over");
+			intersect.dispatchEvent({ type: 'over' });
 		}
 		if (this.intersect != null) {
-			console.log(this.intersect.name,"out");
+			this.intersect.dispatchEvent({ type: 'out' });
 
 			if (this.isDown) {
 				this.onMouseUp();
@@ -114,7 +114,7 @@ Bubbles.Events.prototype.onMouseDown = function ()
 {	
 	if (this.intersect != null) {
 		this.isDown = true;
-		console.log(this.intersect.name,"down");
+		this.intersect.dispatchEvent({ type: 'down' });
 	}
 }
 
@@ -122,6 +122,6 @@ Bubbles.Events.prototype.onMouseUp = function ()
 {
 	if (this.intersect != null) {
 		this.isDown = false;
-		console.log(this.intersect.name,"up");
+		this.intersect.dispatchEvent({ type: 'up' });
 	}
 }

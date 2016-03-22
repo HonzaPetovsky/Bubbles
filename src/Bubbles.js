@@ -41,8 +41,10 @@ Bubbles.prototype.init = function ()
 
 	this.scene.add(new Bubbles.Panorama({ image: this.currentBubble.image, manager: this.loadingManager }).getMesh());
 
+	
 	this.objects = new Bubbles.Objects(this.loadingManager);
-	this.objects.loadHotspots(this.currentBubble.hotspots, this.scene);
+	this.actionTrigger = new Bubbles.ActionTrigger(this.objects, this.renderer, this.data, this.currentBubble, this.scene, this.loadingManager, this.loader);
+	this.objects.loadHotspots(this.currentBubble.hotspots, this.scene, this.actionTrigger);
 
 	this.renderer.render();
 
@@ -63,6 +65,7 @@ Bubbles.prototype.error = function (item)
 Bubbles.prototype.load = function ()
 {
 	console.log("done");
+	console.log(this.renderer.renderer.info);
 	this.loader.hide();
 }
 
@@ -76,15 +79,14 @@ Bubbles.prototype.initEvents = function ()
 	hammer.get("pinch").set({ enable: true });
 
 	window.addEventListener("resize", function() { bubbles.events.onWindowResize(); });
-	hammer.on("panstart panend pancancel pan", function (event) { bubbles.events.onPan(event); });
-	
-	hammer.on("pinchin pinchout", function (event) { bubbles.events.onPinch(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
+
 	this.canvas.addEventListener("mousewheel", function (event) { bubbles.events.onMouseWheel(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
 	this.canvas.addEventListener("DOMMouseScroll", function (event) { bubbles.events.onMouseWheel(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
-
-	hammer.on("tap", function (event) { bubbles.events.onTap(event, bubbles.scene); });
-
 	this.canvas.addEventListener("mousemove", function (event) { bubbles.events.onMouseMove(event, bubbles.scene); });
 	this.canvas.addEventListener("mousedown", function (event) { bubbles.events.onMouseDown(); });
 	this.canvas.addEventListener("mouseup", function (event) { bubbles.events.onMouseUp(); });
+
+	hammer.on("panstart panend pancancel pan", function (event) { bubbles.events.onPan(event); });
+	hammer.on("pinchin pinchout", function (event) { bubbles.events.onPinch(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
+	hammer.on("tap", function (event) { bubbles.events.onTap(event, bubbles.scene); });
 }
