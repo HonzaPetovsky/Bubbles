@@ -31,7 +31,10 @@ Bubbles.prototype.init = function ()
 	this.currentBubble = this.data.bubbles[this.data.start];
 
 	this.scene = new THREE.Scene();
-	this.camera = Bubbles.PerspectiveCamera(this.currentBubble.view.fov.init, this.canvas.offsetWidth/this.canvas.offsetHeight, 0.1, 1000);
+
+	this.camera = new THREE.PerspectiveCamera(this.currentBubble.view.fov.init, this.canvas.offsetWidth/this.canvas.offsetHeight, 0.1, 1000);
+	this.camera.target = new THREE.Vector3(1, 0, 0);
+	this.camera.lookAt(this.camera.target);
 
 	this.renderer = new Bubbles.Renderer(this.canvas, this.scene, this.camera);
 	this.canvas.appendChild(this.renderer.renderer.domElement);
