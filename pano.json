@@ -24,6 +24,11 @@
 					"min": 35
 				}
 			},
+			"lensflare": {
+				"lat": 0,
+				"lon": 20,
+				"size": 1.0 
+			},
 			"hotspots": {
 				"sipka1": {
 					"url": "pano/ru.png",

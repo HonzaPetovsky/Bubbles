@@ -39,15 +39,12 @@ Bubbles.prototype.init = function ()
 	this.renderer = new Bubbles.Renderer(this.canvas, this.scene, this.camera);
 	this.canvas.appendChild(this.renderer.renderer.domElement);
 
-	this.scene.add(new Bubbles.Panorama({ image: this.currentBubble.image, manager: this.loadingManager }).getMesh());
-
-	
 	this.objects = new Bubbles.Objects(this.loadingManager);
 	this.actionTrigger = new Bubbles.ActionTrigger(this.objects, this.renderer, this.data, this.currentBubble, this.scene, this.loadingManager, this.loader);
-	this.objects.loadHotspots(this.currentBubble.hotspots, this.scene, this.actionTrigger);
+
+	this.actionTrigger.trigger({"action": "changeBubble", "id": this.data.start});
 
 	this.renderer.render();
-
 	this.initEvents();
 }
 
@@ -65,7 +62,6 @@ Bubbles.prototype.error = function (item)
 Bubbles.prototype.load = function ()
 {
 	console.log("done");
-	console.log(this.renderer.renderer.info);
 	this.loader.hide();
 }
 

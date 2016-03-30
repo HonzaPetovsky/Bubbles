@@ -17,6 +17,10 @@ Bubbles.Actions.changeBubble = function (action, data, currentBubble, scene, loa
 	scene.add(new Bubbles.Panorama({ image: currentBubble.image, manager: loadingManager }).getMesh());
 
 	objects.loadHotspots(currentBubble.hotspots, scene, actionTrigger);
+
+	if (currentBubble.lensflare !== undefined) {
+		scene.add(Bubbles.Lensflare(currentBubble.lensflare.lat, currentBubble.lensflare.lon, currentBubble.lensflare.size ,loadingManager));
+	}
 }
 
 Bubbles.Actions.setProperty = function (action, objects, scene)

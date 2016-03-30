@@ -21,5 +21,4 @@ Bubbles.ActionTrigger.prototype.trigger = function (action)
 			this.renderer.render();
 			break;
 	}
-
 }
