@@ -4,6 +4,13 @@
 		"color": "black",
 		"url": "pano/loader.gif"
 	},
+	"view": {
+		"fov": {
+			"init": 75,
+			"max": 85,
+			"min": 35
+		}
+	},
 	"bubbles": {
 		"skluzavka": {
 			"image": {
@@ -16,18 +23,6 @@
 					"right": "pano/01_r.jpg",
 					"up": "pano/01_u.jpg"
 				}
-			},
-			"view": {
-				"fov": {
-					"init": 75,
-					"max": 85,
-					"min": 35
-				}
-			},
-			"lensflare": {
-				"lat": 0,
-				"lon": 20,
-				"size": 1.0 
 			},
 			"hotspots": {
 				"sipka1": {
@@ -67,13 +62,6 @@
 					"up": "pano/03_u.jpg"
 				}
 			},
-			"view": {
-				"fov": {
-					"init": 75,
-					"max": 85,
-					"min": 35
-				}
-			},
 			"hotspots": {
 				"sipka3": {
 					"url": "pano/lu.png",
@@ -95,88 +83,33 @@
 			}
 		}
 	},
-	"sprites": {
-		"up": {
-			"url": "pano/u.png",
-			"align": "bottom",
+	"ui": {
+		"b_full": {
+			"url": "pano/full.png",
+			"align": "topright",
 			"position": {
-				"x": 0,
-				"y": 86,
+				"x": 10,
+				"y": 10,
 				"zorder": 0
 			},
 			"events": {
 				"onover": [
-					{"action": "setProperty", "id": "up", "property": "opacity", "value": 0.8}
+					{"action": "setProperty", "id": "b_full", "property": "opacity", "value": 0.8}
 				],
 				"onout": [
-					{"action": "setProperty", "id": "up", "property": "opacity", "value": 1}
+					{"action": "setProperty", "id": "b_full", "property": "opacity", "value": 1}
 				],
-				"ondown": [
-					{"action": "verticalMove", "speed": 1}
-				],
-				"onup": [
-					{"action": "verticalMove", "speed": 0}
+				"onclick": [
+					{"action": "toggleFullscreen"}
 				]
 			}
-		},
-		"down": {
-			"url": "pano/d.png",
-			"align": "bottom",
-			"position": {
-				"x": 0,
-				"y": 50,
-				"zorder": 0
-			},
-			"events": {
-				"ondown": [
-					{"action": "verticalMove", "speed": -1}
-				],
-				"onup": [
-					{"action": "verticalMove", "speed": 0}
-				]
-			}
-		},
-		"left": {
-			"url": "pano/l.png",
-			"align": "bottom",
-			"position": {
-				"x": -50,
-				"y": 68,
-				"zorder": 0
-			},
-			"events": {
-				"ondown": [
-					{"action": "horizontalMove", "speed": -1}
-				],
-				"onup": [
-					{"action": "horizontalMove", "speed": 0}
-				]
-			}
-		},
-		"right": {
-			"url": "pano/r.png",
-			"align": "bottom",
-			"position": {
-				"x": 50,
-				"y": 68,
-				"zorder": 0
-			},
-			"events": {
-				"ondown": [
-					{"action": "horizontalMove", "speed": 1}
-				],
-				"onup": [
-					{"action": "horizontalMove", "speed": 0}
-				]
-			}
-		}
+		}		
 	},
 	"map": {
 		"align": "lefttop",
 		"position": {
 			"x": 20,
-			"y": 20,
-			"zorder": 0
+			"y": 20
 		},
 		"width": 100,
 		"height": 100

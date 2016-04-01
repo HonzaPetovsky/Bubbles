@@ -1,7 +1,7 @@
-Bubbles.Hotspot = function (key, hotspotData, loadingManager, actionTrigger)
+Bubbles.Hotspot = function (key, hotspotData, manager, actionTrigger)
 {
 	var hotspot = this;
-	var texture = new THREE.TextureLoader(loadingManager).load(hotspotData.url, function () { hotspot.update(); });
+	var texture = new THREE.TextureLoader(manager).load(hotspotData.url, function () { hotspot.update(); });
 	texture.minFilter = THREE.LinearFilter;
 	texture.magFilter = THREE.LinearFilter;
 
@@ -55,4 +55,9 @@ Bubbles.Hotspot.prototype.update = function ()
 {
 	this.hotspot.scale.x = this.hotspot.material.map.image.width *0.2;
 	this.hotspot.scale.y = this.hotspot.material.map.image.height *0.2;
+}
+
+Bubbles.Hotspot.prototype.getMesh = function ()
+{
+	return this.hotspot;
 }

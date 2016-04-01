@@ -2,6 +2,7 @@ Bubbles.ObjectListener = {}
 
 Bubbles.ObjectListener.click = function (event)
 {
+	console.log("click");
 	for (var key in event.target.userData.events.onclick) {
 		event.target.userData.actionTrigger.trigger(event.target.userData.events.onclick[key]);
 	}

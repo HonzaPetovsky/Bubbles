@@ -23,12 +23,29 @@ Bubbles.Actions.changeBubble = function (action, data, currentBubble, scene, loa
 	}
 }
 
-Bubbles.Actions.setProperty = function (action, objects, scene)
+Bubbles.Actions.setProperty = function (action, scene, sceneOrtho)
 {
-	var obj = scene.getObjectByName(action.id);
-	switch (action.property) {
-		case "opacity":
-			obj.material.opacity = action.value;
-			break;
+	var obj = sceneOrtho.getObjectByName(action.id);
+	if (obj == undefined) {
+		obj = scene.getObjectByName(action.id);
+	}
+	if (obj != undefined) {
+		switch (action.property) {
+			case "opacity":
+				obj.material.opacity = action.value;
+				break;
+		}
+	}
+}
+
+Bubbles.Actions.toggleFullscreen = function (canvas)
+{
+	canvas.requestFullscreen = canvas.requestFullscreen || canvas.mozRequestFullscreen || canvas.mozRequestFullScreen || canvas.webkitRequestFullscreen;
+	document.exitFullscreen = document.exitFullscreen || document.msExitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen;
+
+	if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+		canvas.requestFullscreen();
+	} else {
+		document.exitFullscreen();
 	}
 }

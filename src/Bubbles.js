@@ -6,9 +6,9 @@ Bubbles = function (param)
 	var bubbles = this;
 	
 	this.loadingManager = new THREE.LoadingManager();
-	this.loadingManager.onProgress = function (item, loaded, total) {bubbles.progress(item, loaded, total);};
-	this.loadingManager.onError = function (item) {bubbles.error(item);};
-	this.loadingManager.onLoad = function () {bubbles.load();};
+	this.loadingManager.onProgress = function (item, loaded, total) { bubbles.progress(item, loaded, total); };
+	this.loadingManager.onError = function (item) { bubbles.error(item); };
+	this.loadingManager.onLoad = function () { bubbles.load(); };
 
 	var loader = new THREE.XHRLoader(this.loadingManager);
 	loader.setResponseType('text');
@@ -31,18 +31,24 @@ Bubbles.prototype.init = function ()
 	this.currentBubble = this.data.bubbles[this.data.start];
 
 	this.scene = new THREE.Scene();
+	this.sceneOrtho = new THREE.Scene();
 
-	this.camera = new THREE.PerspectiveCamera(this.currentBubble.view.fov.init, this.canvas.offsetWidth/this.canvas.offsetHeight, 0.1, 1000);
+	this.camera = new THREE.PerspectiveCamera(this.data.view.fov.init, this.canvas.offsetWidth/this.canvas.offsetHeight, 0.1, 1000);
 	this.camera.target = new THREE.Vector3(1, 0, 0);
 	this.camera.lookAt(this.camera.target);
 
-	this.renderer = new Bubbles.Renderer(this.canvas, this.scene, this.camera);
+	this.cameraOrtho = new THREE.OrthographicCamera(-this.canvas.offsetWidth/2, this.canvas.offsetWidth/2, this.canvas.offsetHeight/2, -this.canvas.offsetHeight/2, 0, 100);
+	this.cameraOrtho.position.z = 10;
+
+	this.renderer = new Bubbles.Renderer(this.canvas, this.scene, this.camera, this.sceneOrtho, this.cameraOrtho);
 	this.canvas.appendChild(this.renderer.renderer.domElement);
 
 	this.objects = new Bubbles.Objects(this.loadingManager);
-	this.actionTrigger = new Bubbles.ActionTrigger(this.objects, this.renderer, this.data, this.currentBubble, this.scene, this.loadingManager, this.loader);
 
+	this.actionTrigger = new Bubbles.ActionTrigger(this.objects, this.renderer, this.data, this.currentBubble, this.scene, this.sceneOrtho, this.loadingManager, this.loader, this.canvas);
 	this.actionTrigger.trigger({"action": "changeBubble", "id": this.data.start});
+
+	this.objects.loadUI(this.data.ui, this.sceneOrtho, this.actionTrigger, this.canvas);
 
 	this.renderer.render();
 	this.initEvents();
@@ -67,22 +73,29 @@ Bubbles.prototype.load = function ()
 
 Bubbles.prototype.initEvents = function ()
 {
-	var bubbles = this;
-
-	this.events = new Bubbles.Events(bubbles.canvas, bubbles.camera, bubbles.renderer);
 	var hammer = new Hammer(this.canvas);
 	hammer.get("pan").set({ direction: Hammer.DIRECTION_ALL });
 	hammer.get("pinch").set({ enable: true });
 
-	window.addEventListener("resize", function() { bubbles.events.onWindowResize(); });
+	var events = new Bubbles.Events(this.canvas, this.camera, this.renderer, this.cameraOrtho, this.sceneOrtho);
 
-	this.canvas.addEventListener("mousewheel", function (event) { bubbles.events.onMouseWheel(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
-	this.canvas.addEventListener("DOMMouseScroll", function (event) { bubbles.events.onMouseWheel(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
-	this.canvas.addEventListener("mousemove", function (event) { bubbles.events.onMouseMove(event, bubbles.scene); });
-	this.canvas.addEventListener("mousedown", function (event) { bubbles.events.onMouseDown(); });
-	this.canvas.addEventListener("mouseup", function (event) { bubbles.events.onMouseUp(); });
+	var fovmin = this.data.view.fov.min;
+	var fovmax = this.data.view.fov.max;
+	var scene = this.scene;
+	var sceneOrtho = this.sceneOrtho;
 
-	hammer.on("panstart panend pancancel pan", function (event) { bubbles.events.onPan(event); });
-	hammer.on("pinchin pinchout", function (event) { bubbles.events.onPinch(event, bubbles.currentBubble.view.fov.min, bubbles.currentBubble.view.fov.max); });
-	hammer.on("tap", function (event) { bubbles.events.onTap(event, bubbles.scene); });
+	//window
+	window.addEventListener("resize", function() { events.onWindowResize(sceneOrtho); });
+
+	//mouse
+	this.canvas.addEventListener("mousewheel", function (event) { events.onMouseWheel(event, fovmin, fovmax); });
+	this.canvas.addEventListener("DOMMouseScroll", function (event) { events.onMouseWheel(event, fovmin, fovmax); });
+	this.canvas.addEventListener("mousemove", function (event) { events.onMouseMove(event, scene, sceneOrtho); });
+	this.canvas.addEventListener("mousedown", function (event) { events.onMouseDown(); });
+	this.canvas.addEventListener("mouseup", function (event) { events.onMouseUp(); });
+
+	//touch
+	hammer.on("panstart panend pancancel pan", function (event) { events.onPan(event); });
+	hammer.on("pinchin pinchout", function (event) { events.onPinch(event, fovmin, fovmax); });
+	hammer.on("tap", function (event) { events.onTap(event, scene, sceneOrtho); });
 }
