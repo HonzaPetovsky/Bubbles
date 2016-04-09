@@ -53,10 +53,7 @@ Bubbles.prototype.init = function ()
 
 	this.objects.loadUI(this.data.ui, this.sceneOrtho, this.actionTrigger, this.canvas);
 
-
-	this.controls = new Bubbles.Controls();
 	this.initEvents();
-
 }
 
 Bubbles.prototype.progress = function (item, loaded, total)
@@ -104,4 +101,3 @@ Bubbles.prototype.initEvents = function ()
 	hammer.on("pinchin pinchout", function (event) { events.onPinch(event, fovmin, fovmax); });
 	hammer.on("tap", function (event) { events.onTap(event, scene, sceneOrtho); });
 }
-

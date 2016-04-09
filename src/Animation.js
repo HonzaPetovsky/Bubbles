@@ -21,12 +21,16 @@ Bubbles.Animation.prototype.update = function (deltaX, deltaY)
 Bubbles.Animation.prototype.start = function ()
 {
 	this.animationCounter += 1;
-	this.run();
+	if (this.animationCounter < 2) {
+		this.run();
+	}
 }
 
 Bubbles.Animation.prototype.stop = function ()
 {
-	this.animationCounter -= 1;
+	if (this.animationCounter > 0) {
+		this.animationCounter -= 1;
+	}
 	this.deltaX = 0;
 	this.deltaY = 0;
 }

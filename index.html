@@ -3,7 +3,7 @@
 	<head>
 		<title>Diplomka</title>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0">
 		<style>
 			body {
 				margin: 0px;
@@ -11,6 +11,11 @@
 			}
 			#container {
 				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			#container:-webkit-full-screen {
+				position: initial;
 				width: 100%;
 				height: 100%;
 			}
@@ -39,6 +44,7 @@
 		<script src="src/Lensflare.js"></script>
 		<script src="src/Sprite.js"></script>
 		<script src="src/VideoHotspot.js"></script>
+		<script src="src/Shaders.js"></script>
 
 
 		<script>

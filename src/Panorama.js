@@ -67,12 +67,14 @@ Bubbles.Panorama.prototype.getSphereMaterial = function (image)
 	texture.minFilter = THREE.LinearFilter;
 	texture.magFilter = THREE.LinearFilter;
 
-	var shader = THREE.ShaderLib.equirect;
-	shader.uniforms.tEquirect.value = texture;
+	var shader = Bubbles.ShaderLib.spherePanorama;
+	shader.uniforms.texture.value = texture;
 
-	return new THREE.ShaderMaterial({
+	material = new THREE.ShaderMaterial({
 		uniforms: shader.uniforms,
 		vertexShader: shader.vertexShader,
 		fragmentShader: shader.fragmentShader,
 	});
+
+	return material;
 }
