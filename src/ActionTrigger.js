@@ -1,14 +1,15 @@
-Bubbles.ActionTrigger = function (objects, renderer, data, currentBubble, scene, sceneOrtho, loadingManager, loader, canvas)
+Bubbles.ActionTrigger = function (objects, renderer, data, currentBubble, loadingManager, loader, canvas, animation)
 {
 	this.objects = objects;
 	this.renderer = renderer;
 	this.data = data;
 	this.currentBubble = currentBubble;
-	this.scene = scene;
-	this.sceneOrtho = sceneOrtho;
+	this.scene = renderer.scene;
+	this.sceneOrtho = renderer.sceneOrtho;
 	this.loadingManager = loadingManager;
 	this.loader = loader;
 	this.canvas = canvas;
+	this.animation = animation;
 }
 
 Bubbles.ActionTrigger.prototype.trigger = function (action)
@@ -24,6 +25,13 @@ Bubbles.ActionTrigger.prototype.trigger = function (action)
 			break;
 		case "toggleFullscreen":
 			Bubbles.Actions.toggleFullscreen(this.canvas);
+			break;
+		case "toggleVideo":
+			Bubbles.Actions.toggleVideo(action, this.scene, this.animation);
+			break;
+
+		default:
+			console.log("unknown action", action.action);
 			break;
 	}
 }

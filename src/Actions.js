@@ -49,3 +49,15 @@ Bubbles.Actions.toggleFullscreen = function (canvas)
 		document.exitFullscreen();
 	}
 }
+
+Bubbles.Actions.toggleVideo = function (action, scene, animation)
+{
+	var video = scene.getObjectByName(action.id).userData.videoElement;
+	if (video.paused) {
+		animation.start();
+		video.play();
+	} else {
+		video.pause();
+		animation.stop();
+	}
+}

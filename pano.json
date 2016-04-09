@@ -26,6 +26,7 @@
 			},
 			"hotspots": {
 				"sipka1": {
+					"type": "image",
 					"url": "pano/ru.png",
 					"lat": -26,
 					"lon": -60,
@@ -42,11 +43,19 @@
 						]
 					}
 				},
-				"sipka2": {
-					"url": "pano/ru.png",
+				"video": {
+					"type": "video",
+					"url": "pano/mov_bbb.mp4",
 					"lat": 0,
 					"lon": 0,
-					"distorted": false
+					"width": 160,
+					"height": 90,
+					"distorted": true,
+					"events": {
+						"onclick": [
+							{"action": "toggleVideo", "id": "video"}
+						]
+					}
 				}
 			}
 		},

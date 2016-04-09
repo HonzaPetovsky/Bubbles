@@ -1,6 +1,7 @@
-Bubbles.Events = function (canvas, camera, renderer, cameraOrtho)
+Bubbles.Events = function (canvas, camera, renderer, cameraOrtho, animation)
 {
-	this.panAnimation = new Bubbles.Animation(camera, renderer);
+	this.animation = animation;
+
 	this.canvas = canvas;
 	this.camera = camera;
 	this.renderer = renderer;
@@ -35,14 +36,16 @@ Bubbles.Events.prototype.onPan = function (event)
 {
 	switch (event.type) {
 		case 'panstart':
-			this.panAnimation.start();
+			if (this.intersect == null) {
+				this.animation.start();
+			}
 			break;
 		case 'panend':
 		case 'pancancel':
-			this.panAnimation.stop();
+			this.animation.stop();
 			break;
 		default:
-			this.panAnimation.update(event.deltaX, event.deltaY);
+			this.animation.update(event.deltaX, event.deltaY);
 			break;
 	}
 }
@@ -85,14 +88,14 @@ Bubbles.Events.prototype.onTap = function (event, scene, sceneOrtho)
 	this.raycaster.setFromCamera(pointer, this.cameraOrtho);
 	var intersect = this.raycaster.intersectObjects(sceneOrtho.children);
 
-	if (intersect.length>0 && !this.panAnimation.animate) {
+	if (intersect.length>0 && !this.animation.animate) {
 		intersect = intersect[0].object;
 		intersect.dispatchEvent({ type: 'click' });
 	} else {
 		this.raycaster.setFromCamera(pointer, this.camera);
 		intersect = this.raycaster.intersectObjects(scene.children);
 
-		if (intersect.length>1 && !this.panAnimation.animate) {
+		if (intersect.length>1 && !this.animation.animate) {
 			intersect = intersect[0].object;
 			intersect.dispatchEvent({ type: 'click' });
 		}
@@ -108,13 +111,13 @@ Bubbles.Events.prototype.onMouseMove = function (event, scene, sceneOrtho)
 	this.raycaster.setFromCamera(mouse, this.cameraOrtho);
 	var intersect = this.raycaster.intersectObjects(sceneOrtho.children);
 
-	if (intersect.length>0 && !this.panAnimation.animate) {
+	if (intersect.length>0 && !this.animation.animate) {
 		intersect = intersect[0].object;
 	} else {
 		this.raycaster.setFromCamera(mouse, this.camera);
 		intersect = this.raycaster.intersectObjects(scene.children);
 
-		if (intersect.length>1 && !this.panAnimation.animate) {
+		if (intersect.length>1 && !this.animation.animate) {
 			intersect = intersect[0].object;
 		} else {
 			intersect = null;
@@ -146,8 +149,8 @@ Bubbles.Events.prototype.onMouseDown = function ()
 
 Bubbles.Events.prototype.onMouseUp = function ()
 {
+	this.isDown = false;
 	if (this.intersect != null) {
-		this.isDown = false;
 		this.intersect.dispatchEvent({ type: 'up' });
 	}
 }

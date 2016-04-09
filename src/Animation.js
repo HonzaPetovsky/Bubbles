@@ -1,13 +1,14 @@
-Bubbles.Animation = function (camera, renderer)
+Bubbles.Animation = function (renderer)
 {
-	this.animate = false;
+	this.animationCounter = 0;
+
 	this.lat = 0;
 	this.lon = 0;
 
 	this.deltaX = 0;
 	this.deltaY = 0;
 
-	this.camera = camera;
+	this.camera = renderer.camera;
 	this.renderer = renderer;
 }
 
@@ -19,13 +20,20 @@ Bubbles.Animation.prototype.update = function (deltaX, deltaY)
 
 Bubbles.Animation.prototype.start = function ()
 {
-	this.animate = true;
+	this.animationCounter += 1;
 	this.run();
 }
 
 Bubbles.Animation.prototype.stop = function ()
 {
-	this.animate = false;
+	this.animationCounter -= 1;
+	this.deltaX = 0;
+	this.deltaY = 0;
+}
+
+Bubbles.Animation.prototype.stopAll = function ()
+{
+	this.animationCounter = 0;
 	this.deltaX = 0;
 	this.deltaY = 0;
 }
@@ -33,7 +41,7 @@ Bubbles.Animation.prototype.stop = function ()
 Bubbles.Animation.prototype.run = function ()
 {
 	var animation = this;
-	if (this.animate) {
+	if (this.animationCounter > 0) {
 		requestAnimationFrame(function () { animation.run(); });
 
 		this.lon += this.deltaX*0.005;

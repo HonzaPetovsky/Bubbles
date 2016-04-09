@@ -6,7 +6,16 @@ Bubbles.Objects = function (loadingManager)
 Bubbles.Objects.prototype.loadHotspots = function (hotspots, scene, actionTrigger)
 {
 	for (var key in hotspots) {
-		var hotspot = new Bubbles.Hotspot(key, hotspots[key], this.loadingManager, actionTrigger);
+		
+		var hotspot;
+		switch (hotspots[key].type) {
+			case "image":
+				hotspot = new Bubbles.Hotspot(key, hotspots[key], this.loadingManager, actionTrigger);
+				break;
+			case "video":
+				hotspot = new Bubbles.VideoHotspot(key, hotspots[key], this.loadingManager, actionTrigger);
+				break;
+		}
 
 		scene.add(hotspot.getMesh());
 	}

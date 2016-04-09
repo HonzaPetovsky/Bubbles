@@ -35,6 +35,7 @@ Bubbles.prototype.init = function ()
 
 	this.camera = new THREE.PerspectiveCamera(this.data.view.fov.init, this.canvas.offsetWidth/this.canvas.offsetHeight, 0.1, 1000);
 	this.camera.target = new THREE.Vector3(1, 0, 0);
+	this.camera.position.z = 0.1;
 	this.camera.lookAt(this.camera.target);
 
 	this.cameraOrtho = new THREE.OrthographicCamera(-this.canvas.offsetWidth/2, this.canvas.offsetWidth/2, this.canvas.offsetHeight/2, -this.canvas.offsetHeight/2, 0, 100);
@@ -43,15 +44,19 @@ Bubbles.prototype.init = function ()
 	this.renderer = new Bubbles.Renderer(this.canvas, this.scene, this.camera, this.sceneOrtho, this.cameraOrtho);
 	this.canvas.appendChild(this.renderer.renderer.domElement);
 
+	this.animation = new Bubbles.Animation(this.renderer);
+
 	this.objects = new Bubbles.Objects(this.loadingManager);
 
-	this.actionTrigger = new Bubbles.ActionTrigger(this.objects, this.renderer, this.data, this.currentBubble, this.scene, this.sceneOrtho, this.loadingManager, this.loader, this.canvas);
+	this.actionTrigger = new Bubbles.ActionTrigger(this.objects, this.renderer, this.data, this.currentBubble, this.loadingManager, this.loader, this.canvas, this.animation);
 	this.actionTrigger.trigger({"action": "changeBubble", "id": this.data.start});
 
 	this.objects.loadUI(this.data.ui, this.sceneOrtho, this.actionTrigger, this.canvas);
 
-	this.renderer.render();
+
+	this.controls = new Bubbles.Controls();
 	this.initEvents();
+
 }
 
 Bubbles.prototype.progress = function (item, loaded, total)
@@ -77,7 +82,7 @@ Bubbles.prototype.initEvents = function ()
 	hammer.get("pan").set({ direction: Hammer.DIRECTION_ALL });
 	hammer.get("pinch").set({ enable: true });
 
-	var events = new Bubbles.Events(this.canvas, this.camera, this.renderer, this.cameraOrtho, this.sceneOrtho);
+	var events = new Bubbles.Events(this.canvas, this.camera, this.renderer, this.cameraOrtho, this.animation);
 
 	var fovmin = this.data.view.fov.min;
 	var fovmax = this.data.view.fov.max;
@@ -99,3 +104,4 @@ Bubbles.prototype.initEvents = function ()
 	hammer.on("pinchin pinchout", function (event) { events.onPinch(event, fovmin, fovmax); });
 	hammer.on("tap", function (event) { events.onTap(event, scene, sceneOrtho); });
 }
+
