@@ -51,7 +51,7 @@ Bubbles.prototype.init = function ()
 	this.actionTrigger = new Bubbles.ActionTrigger(this.objects, this.renderer, this.data, this.currentBubble, this.loadingManager, this.loader, this.canvas, this.animation);
 	this.actionTrigger.trigger({"action": "changeBubble", "id": this.data.start});
 
-	this.objects.loadUI(this.data.ui, this.sceneOrtho, this.actionTrigger, this.canvas);
+	this.objects.loadHUD(this.data.hud, this.sceneOrtho, this.actionTrigger, this.canvas);
 
 	this.initEvents();
 }

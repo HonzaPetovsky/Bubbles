@@ -5,15 +5,31 @@ Bubbles.Hotspot = function (key, hotspotData, manager, actionTrigger)
 	texture.minFilter = THREE.LinearFilter;
 	texture.magFilter = THREE.LinearFilter;
 
-	var material;
+	var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.PlaneGeometry(1, 1));
+
+	var uniforms = {
+		texture: { type: "t", value: texture },
+		opacity: { type: "f", value: 1.0 },
+		scale: { type: "v3", value: new THREE.Vector3() }
+	};
+
 	if (hotspotData.distorted) {
-		var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.PlaneGeometry(1, 1));
-		material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
-		this.hotspot = new THREE.Mesh(geometry, material);
+		uniforms.distorted = { type: "i", value: 1 }
 	} else {
-		material = new THREE.SpriteMaterial({ map: texture });
-		this.hotspot = new THREE.Sprite(material);
+		uniforms.distorted = { type: "i", value: 0 }
 	}
+
+	
+
+	var material = new THREE.ShaderMaterial({
+		uniforms: uniforms,
+		vertexShader: Bubbles.ShaderLib.basicPanoObject.vertexShader,
+		fragmentShader: Bubbles.ShaderLib.basicPanoObject.fragmentShader,
+		transparent: true,
+	});
+
+	this.hotspot = new THREE.Mesh(geometry, material);
+	
 
 	this.hotspot.userData = hotspotData;
 	this.hotspot.name = key;
@@ -53,8 +69,10 @@ Bubbles.Hotspot = function (key, hotspotData, manager, actionTrigger)
 
 Bubbles.Hotspot.prototype.update = function ()
 {
-	this.hotspot.scale.x = this.hotspot.material.map.image.width *0.2;
-	this.hotspot.scale.y = this.hotspot.material.map.image.height *0.2;
+	this.hotspot.scale.x = this.hotspot.material.uniforms.texture.value.image.width *0.2;
+	this.hotspot.scale.y = this.hotspot.material.uniforms.texture.value.image.height *0.2;
+	this.hotspot.material.uniforms.scale.value.x = this.hotspot.material.uniforms.texture.value.image.width *0.2;
+	this.hotspot.material.uniforms.scale.value.y = this.hotspot.material.uniforms.texture.value.image.height *0.2;
 }
 
 Bubbles.Hotspot.prototype.getMesh = function ()

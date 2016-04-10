@@ -32,7 +32,7 @@ Bubbles.Actions.setProperty = function (action, scene, sceneOrtho)
 	if (obj != undefined) {
 		switch (action.property) {
 			case "opacity":
-				obj.material.opacity = action.value;
+				obj.material.uniforms.opacity.value = action.value;
 				break;
 		}
 	}

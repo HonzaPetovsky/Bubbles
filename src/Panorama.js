@@ -49,13 +49,13 @@ Bubbles.Panorama.prototype.getSkyboxMaterial = function (image)
 	texture.minFilter = THREE.LinearFilter;
 	texture.magFilter = THREE.LinearFilter;
 
-	var shader = THREE.ShaderLib.cube;
-	shader.uniforms.tCube.value = texture;
-
 	return new THREE.ShaderMaterial({
-		uniforms: shader.uniforms,
-		vertexShader: shader.vertexShader,
-		fragmentShader: shader.fragmentShader,
+		uniforms: {
+			"tCube": { type: "t", value: texture },
+			"tFlip": { type: "f", value: - 1 }
+		},
+		vertexShader: THREE.ShaderLib.cube.vertexShader,
+		fragmentShader: THREE.ShaderLib.cube.fragmentShader,
 	});
 }
 
@@ -67,13 +67,12 @@ Bubbles.Panorama.prototype.getSphereMaterial = function (image)
 	texture.minFilter = THREE.LinearFilter;
 	texture.magFilter = THREE.LinearFilter;
 
-	var shader = Bubbles.ShaderLib.spherePanorama;
-	shader.uniforms.texture.value = texture;
-
 	material = new THREE.ShaderMaterial({
-		uniforms: shader.uniforms,
-		vertexShader: shader.vertexShader,
-		fragmentShader: shader.fragmentShader,
+		uniforms: {
+			"texture": { type: "t", value: texture },
+		},
+		vertexShader: Bubbles.ShaderLib.spherePanorama.vertexShader,
+		fragmentShader: Bubbles.ShaderLib.spherePanorama.fragmentShader,
 	});
 
 	return material;

@@ -21,10 +21,10 @@ Bubbles.Objects.prototype.loadHotspots = function (hotspots, scene, actionTrigge
 	}
 }
 
-Bubbles.Objects.prototype.loadUI = function (ui, scene, actionTrigger, canvas)
+Bubbles.Objects.prototype.loadHUD = function (hud, scene, actionTrigger, canvas)
 {
-	for (var key in ui) {
-		var layer = new Bubbles.Sprite(key, ui[key], this.loadingManager, actionTrigger, canvas);
+	for (var key in hud) {
+		var layer = new Bubbles.Sprite(key, hud[key], this.loadingManager, actionTrigger, canvas);
 
 		scene.add(layer.getMesh());
 	}
@@ -32,8 +32,11 @@ Bubbles.Objects.prototype.loadUI = function (ui, scene, actionTrigger, canvas)
 
 Bubbles.Objects.updateSprite = function (sprite, canvas)
 {
-	var imageWidth = sprite.material.map.image.width;
-	var imageHeight = sprite.material.map.image.height;
+	var imageWidth = sprite.material.uniforms.texture.value.image.width;
+	var imageHeight = sprite.material.uniforms.texture.value.image.height;
+
+	sprite.material.uniforms.scale.value.x = imageWidth;
+	sprite.material.uniforms.scale.value.y = imageHeight;
 
 	sprite.scale.set(imageWidth, imageHeight, 1);
 

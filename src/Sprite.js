@@ -7,8 +7,21 @@ Bubbles.Sprite = function (key, spriteData, manager, actionTrigger, canvas)
 	texture.minFilter = THREE.LinearFilter;
 	texture.magFilter = THREE.LinearFilter;
 
-	var material = new THREE.SpriteMaterial({ map: texture });
-	this.sprite = new THREE.Sprite(material);
+	var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.PlaneGeometry(1, 1));
+	
+	var material = new THREE.ShaderMaterial({
+		uniforms: {
+			texture: { type: "t", value: texture },
+			opacity: { type: "f", value: 1.0 },
+			scale: { type: "v3", value: new THREE.Vector3() },
+			distorted: { type: "i", value: 0 },
+		},
+		vertexShader: Bubbles.ShaderLib.basicPanoObject.vertexShader,
+		fragmentShader: Bubbles.ShaderLib.basicPanoObject.fragmentShader,
+		transparent: true,
+	});
+
+	this.sprite = new THREE.Mesh(geometry, material);
 
 	this.sprite.userData = spriteData;
 	this.sprite.name = key;

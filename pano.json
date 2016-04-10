@@ -24,6 +24,11 @@
 					"up": "pano/01_u.jpg"
 				}
 			},
+			"lensflare": {
+				"lat": 40,
+				"lon": 0,
+				"size": 1.0
+			},
 			"hotspots": {
 				"sipka1": {
 					"type": "image",
@@ -59,6 +64,7 @@
 			},
 			"hotspots": {
 				"sipka3": {
+					"type": "image",
 					"url": "pano/lu.png",
 					"lat": -20,
 					"lon": 75,
@@ -78,7 +84,7 @@
 			}
 		}
 	},
-	"ui": {
+	"hud": {
 		"b_full": {
 			"url": "pano/full.png",
 			"align": "topright",
