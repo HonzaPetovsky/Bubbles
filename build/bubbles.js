@@ -57,9 +57,9 @@ Bubbles.prototype.init = function ()
 		this.renderer = new Bubbles.Renderer(this.canvas, this.scene, this.camera, this.sceneOrtho, this.cameraOrtho);
 		this.canvas.appendChild(this.renderer.renderer.domElement);
 
-		this.animation = new Bubbles.Animation(this.renderer, this.deviceOrientation);
+		this.animation = new Bubbles.Animation(this.renderer, this.deviceOrientation, this.canvas);
 
-		this.objects = new Bubbles.Objects(this.loadingManager);
+		this.objects = new Bubbles.Objects(this.loadingManager, this.renderer);
 
 		this.actionTrigger = new Bubbles.ActionTrigger(this.objects, this.renderer, this.data, this.currentBubble, this.loadingManager, this.loader, this.canvas, this.animation);
 		this.actionTrigger.trigger({"action": "changeBubble", "id": this.data.start});
@@ -258,7 +258,7 @@ Bubbles.Actions.startGlass = function (action, animation, canvas)
 	animation.startGlass();
 }
 
-Bubbles.Animation = function (renderer, deviceOrientation)
+Bubbles.Animation = function (renderer, deviceOrientation, canvas)
 {
 	this.animationCounter = 0;
 	this.animationGlass = false;
@@ -272,6 +272,7 @@ Bubbles.Animation = function (renderer, deviceOrientation)
 	this.camera = renderer.camera;
 	this.renderer = renderer;
 	this.deviceOrientation = deviceOrientation;
+	this.canvas = canvas;
 }
 
 
@@ -346,6 +347,9 @@ Bubbles.Animation.prototype.runGlass = function ()
 
 		this.deviceOrientation.update();
 		this.renderer.renderGlass();
+	} else {
+		this.renderer.renderer.setSize(this.canvas.offsetWidth, this.canvas.offsetHeight);
+		this.renderer.render();
 	}
 }
 
@@ -436,14 +440,6 @@ Bubbles.Events.prototype.onWindowResize = function (sceneOrtho)
 	this.renderer.render();
 }
 
-// Bubbles.Events.prototype.onFSChange = function ()
-// {
-// 	if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
-// 		this.animation.stopGlass();
-// 		this.renderer.render();
-// 	}
-// }
-
 Bubbles.Events.prototype.onPan = function (event)
 {
 	switch (event.type) {
@@ -491,7 +487,7 @@ Bubbles.Events.prototype.onMouseWheel = function (event, fovMin, fovMax)
 
 Bubbles.Events.prototype.onTap = function (event, scene, sceneOrtho)
 {
-	//console.log(this.animation.lat, this.animation.lon);
+	
 
 	var pointer = new THREE.Vector2();
 	pointer.x = (event.pointers[0].clientX / this.canvas.offsetWidth) * 2 - 1;
@@ -553,6 +549,10 @@ Bubbles.Events.prototype.onMouseMove = function (event, scene, sceneOrtho)
 
 Bubbles.Events.prototype.onMouseDown = function ()
 {	
+	if (this.animation.animationGlass) {
+		this.animation.stopGlass();
+	}
+	
 	if (this.intersect != null) {
 		this.isDown = true;
 		this.intersect.dispatchEvent({ type: 'down' });
@@ -739,9 +739,10 @@ Bubbles.ObjectListener.up = function (event)
 	}
 }
 
-Bubbles.Objects = function (loadingManager)
+Bubbles.Objects = function (loadingManager, renderer)
 {
 	this.loadingManager = loadingManager;
+	this.renderer = renderer;
 }
 
 Bubbles.Objects.prototype.loadHotspots = function (hotspots, scene, actionTrigger)
@@ -754,7 +755,7 @@ Bubbles.Objects.prototype.loadHotspots = function (hotspots, scene, actionTrigge
 				hotspot = new Bubbles.Hotspot(key, hotspots[key], this.loadingManager, actionTrigger);
 				break;
 			case "video":
-				hotspot = new Bubbles.VideoHotspot(key, hotspots[key], this.loadingManager, actionTrigger);
+				hotspot = new Bubbles.VideoHotspot(key, hotspots[key], this.loadingManager, actionTrigger, this.renderer);
 				break;
 		}
 
@@ -1024,7 +1025,7 @@ Bubbles.Sprite.prototype.getMesh = function ()
 	return this.sprite;
 }
 
-Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger)
+Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger, renderer)
 {
 	var video = document.createElement('video');
 	video.autoplay = false;
@@ -1043,7 +1044,10 @@ Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger)
 
 
 	var hotspot = this;
-	video.onloadedmetadata = function () { hotspot.update(); }
+	video.onloadedmetadata = function () { 
+		hotspot.update();
+		renderer.render();
+	}
 	
 
 	var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.PlaneGeometry(1, 1));
@@ -1052,7 +1056,6 @@ Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger)
 	texture.minFilter = THREE.LinearFilter;
 	texture.magFilter = THREE.LinearFilter;
 
-	//var material = new THREE.MeshBasicMaterial({ map: texture });
 	
 	var mask = hotspotData.mask ? 1 : 0;
 	var uniforms = {

@@ -32,14 +32,6 @@ Bubbles.Events.prototype.onWindowResize = function (sceneOrtho)
 	this.renderer.render();
 }
 
-// Bubbles.Events.prototype.onFSChange = function ()
-// {
-// 	if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
-// 		this.animation.stopGlass();
-// 		this.renderer.render();
-// 	}
-// }
-
 Bubbles.Events.prototype.onPan = function (event)
 {
 	switch (event.type) {
@@ -87,7 +79,7 @@ Bubbles.Events.prototype.onMouseWheel = function (event, fovMin, fovMax)
 
 Bubbles.Events.prototype.onTap = function (event, scene, sceneOrtho)
 {
-	//console.log(this.animation.lat, this.animation.lon);
+	
 
 	var pointer = new THREE.Vector2();
 	pointer.x = (event.pointers[0].clientX / this.canvas.offsetWidth) * 2 - 1;
@@ -149,6 +141,10 @@ Bubbles.Events.prototype.onMouseMove = function (event, scene, sceneOrtho)
 
 Bubbles.Events.prototype.onMouseDown = function ()
 {	
+	if (this.animation.animationGlass) {
+		this.animation.stopGlass();
+	}
+	
 	if (this.intersect != null) {
 		this.isDown = true;
 		this.intersect.dispatchEvent({ type: 'down' });

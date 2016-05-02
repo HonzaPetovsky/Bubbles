@@ -1,4 +1,4 @@
-Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger)
+Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger, renderer)
 {
 	var video = document.createElement('video');
 	video.autoplay = false;
@@ -17,7 +17,10 @@ Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger)
 
 
 	var hotspot = this;
-	video.onloadedmetadata = function () { hotspot.update(); }
+	video.onloadedmetadata = function () { 
+		hotspot.update();
+		renderer.render();
+	}
 	
 
 	var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.PlaneGeometry(1, 1));
@@ -26,7 +29,6 @@ Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger)
 	texture.minFilter = THREE.LinearFilter;
 	texture.magFilter = THREE.LinearFilter;
 
-	//var material = new THREE.MeshBasicMaterial({ map: texture });
 	
 	var mask = hotspotData.mask ? 1 : 0;
 	var uniforms = {

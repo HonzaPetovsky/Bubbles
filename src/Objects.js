@@ -1,6 +1,7 @@
-Bubbles.Objects = function (loadingManager)
+Bubbles.Objects = function (loadingManager, renderer)
 {
 	this.loadingManager = loadingManager;
+	this.renderer = renderer;
 }
 
 Bubbles.Objects.prototype.loadHotspots = function (hotspots, scene, actionTrigger)
@@ -13,7 +14,7 @@ Bubbles.Objects.prototype.loadHotspots = function (hotspots, scene, actionTrigge
 				hotspot = new Bubbles.Hotspot(key, hotspots[key], this.loadingManager, actionTrigger);
 				break;
 			case "video":
-				hotspot = new Bubbles.VideoHotspot(key, hotspots[key], this.loadingManager, actionTrigger);
+				hotspot = new Bubbles.VideoHotspot(key, hotspots[key], this.loadingManager, actionTrigger, this.renderer);
 				break;
 		}
 

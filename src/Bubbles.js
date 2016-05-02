@@ -56,9 +56,9 @@ Bubbles.prototype.init = function ()
 		this.renderer = new Bubbles.Renderer(this.canvas, this.scene, this.camera, this.sceneOrtho, this.cameraOrtho);
 		this.canvas.appendChild(this.renderer.renderer.domElement);
 
-		this.animation = new Bubbles.Animation(this.renderer, this.deviceOrientation);
+		this.animation = new Bubbles.Animation(this.renderer, this.deviceOrientation, this.canvas);
 
-		this.objects = new Bubbles.Objects(this.loadingManager);
+		this.objects = new Bubbles.Objects(this.loadingManager, this.renderer);
 
 		this.actionTrigger = new Bubbles.ActionTrigger(this.objects, this.renderer, this.data, this.currentBubble, this.loadingManager, this.loader, this.canvas, this.animation);
 		this.actionTrigger.trigger({"action": "changeBubble", "id": this.data.start});

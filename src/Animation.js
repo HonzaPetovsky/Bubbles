@@ -1,4 +1,4 @@
-Bubbles.Animation = function (renderer, deviceOrientation)
+Bubbles.Animation = function (renderer, deviceOrientation, canvas)
 {
 	this.animationCounter = 0;
 	this.animationGlass = false;
@@ -12,6 +12,7 @@ Bubbles.Animation = function (renderer, deviceOrientation)
 	this.camera = renderer.camera;
 	this.renderer = renderer;
 	this.deviceOrientation = deviceOrientation;
+	this.canvas = canvas;
 }
 
 
@@ -86,5 +87,8 @@ Bubbles.Animation.prototype.runGlass = function ()
 
 		this.deviceOrientation.update();
 		this.renderer.renderGlass();
+	} else {
+		this.renderer.renderer.setSize(this.canvas.offsetWidth, this.canvas.offsetHeight);
+		this.renderer.render();
 	}
 }
