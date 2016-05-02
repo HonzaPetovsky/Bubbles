@@ -19,7 +19,7 @@ function dirToArray($dir) {
    return $result;
 }
 
-$dir = "../../".$_GET['dir'];
+$dir = "../examples/".$_GET['dir'];
 
 
 header('Content-Type: application/json');

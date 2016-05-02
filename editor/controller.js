@@ -20,7 +20,7 @@ app.run(['$rootScope', '$http', '$window', function($rootScope, $http, $window) 
 
 	$rootScope.save = function () {
 		console.log($rootScope.dataFolder);
-		$http.post("bubbles/editor/save.php",{
+		$http.post("../editor/save.php",{
 			'file':$rootScope.dataFolder,
 			'data':angular.toJson($rootScope.data, true)
 		});
@@ -179,7 +179,7 @@ Controllers.controller("filesController", function($rootScope, $scope, $http) {
 
 	$rootScope.selectFile = function (where) {
 		$rootScope.closeAll();
-		$http.get("bubbles/editor/files.php?dir="+$rootScope.dataFolder).then(function(res){
+		$http.get("../editor/files.php?dir="+$rootScope.dataFolder).then(function(res){
 			$scope.content = res.data;
 			$scope.currentFolder = $scope.content;
 			$rootScope.target = where;
