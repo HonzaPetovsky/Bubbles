@@ -8,6 +8,10 @@ Bubbles.Panorama = function (param)
 			break;
 		case 'sphere':
 			this.spherePanorama(param.image.data);
+			break;
+		case 'video':
+			this.videoPanorama(param.image.data);
+			break;
 	}
 }
 
@@ -27,6 +31,15 @@ Bubbles.Panorama.prototype.spherePanorama = function (image)
 	var bufferGeometry = new THREE.BufferGeometry().fromGeometry(geometry);
 
 	this.mesh = new THREE.Mesh(bufferGeometry, this.getSphereMaterial(image));
+}
+
+Bubbles.Panorama.prototype.videoPanorama = function (image)
+{
+	var geometry = new THREE.SphereGeometry(500, 60, 40);
+	geometry.scale(-1, 1, 1);
+	var bufferGeometry = new THREE.BufferGeometry().fromGeometry(geometry);
+
+	this.mesh = new THREE.Mesh(bufferGeometry, this.getVideoMaterial(image));
 }
 
 Bubbles.Panorama.prototype.getMesh = function()
@@ -75,5 +88,31 @@ Bubbles.Panorama.prototype.getSphereMaterial = function (image)
 		fragmentShader: Bubbles.ShaderLib.spherePanorama.fragmentShader,
 	});
 
+	return material;
+}
+
+Bubbles.Panorama.prototype.getVideoMaterial = function (image)
+{
+	var video = document.createElement( 'video' );
+	
+	video.autoplay = true;
+	video.loop = true;
+	
+	if (video.canPlayType('video/mp4') && image.mp4 != undefined) {
+		video.src = image.mp4;
+	} else if (video.canPlayType('video/ogg') && image.ogg != undefined) {
+		video.src = image.ogg;
+	} else if (video.canPlayType('video/webm') && image.webm != undefined) {
+		video.src = image.webm;
+	} else {
+		console.log("error: video not supported");
+	}
+
+	
+
+	var texture = new THREE.VideoTexture( video );
+	texture.minFilter = THREE.LinearFilter;
+	texture.format = THREE.RGBFormat;
+	var material = new THREE.MeshBasicMaterial( { map : texture } );
 	return material;
 }

@@ -1,5 +1,6 @@
-typings/
+pano/
 project.sublime-project
 project.sublime-workspace
 Makefile
-build/
+index.html
+pano.json

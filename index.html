@@ -20,6 +20,8 @@
 				height: 100%;
 			}
 		</style>
+
+		<link rel="stylesheet" href="lib/leaflet.css" />
 	</head>
 	<body>
 		<div id="container"></div>
@@ -27,6 +29,7 @@
 		<!-- libs -->
 		<script src="lib/three.min.js"></script>
 		<script src="lib/hammer.min.js"></script>
+		<script src="lib/leaflet.js"></script>
 
 		<!-- Bubbles -->
 		<script src="src/Bubbles.js"></script>
@@ -45,12 +48,15 @@
 		<script src="src/Sprite.js"></script>
 		<script src="src/VideoHotspot.js"></script>
 		<script src="src/ShaderLib.js"></script>
+		<script src="src/Leaflet.js"></script>
+		<script src="src/DeviceOrientationControls.js"></script>
 
 
 		<script>
+			
 			new Bubbles({ 
 				target: "container",
-				data: "pano.json",
+				file: "pano.json",
 			});
 		</script>
 	</body>

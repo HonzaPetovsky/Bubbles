@@ -1,6 +1,7 @@
-Bubbles.Animation = function (renderer)
+Bubbles.Animation = function (renderer, deviceOrientation)
 {
 	this.animationCounter = 0;
+	this.animationGlass = false;
 
 	this.lat = 0;
 	this.lon = 0;
@@ -10,7 +11,9 @@ Bubbles.Animation = function (renderer)
 
 	this.camera = renderer.camera;
 	this.renderer = renderer;
+	this.deviceOrientation = deviceOrientation;
 }
+
 
 Bubbles.Animation.prototype.update = function (deltaX, deltaY)
 {
@@ -26,6 +29,12 @@ Bubbles.Animation.prototype.start = function ()
 	}
 }
 
+Bubbles.Animation.prototype.startGlass = function ()
+{
+	this.animationGlass = true;
+	this.runGlass();
+}
+
 Bubbles.Animation.prototype.stop = function ()
 {
 	if (this.animationCounter > 0) {
@@ -33,6 +42,11 @@ Bubbles.Animation.prototype.stop = function ()
 	}
 	this.deltaX = 0;
 	this.deltaY = 0;
+}
+
+Bubbles.Animation.prototype.stopGlass = function ()
+{
+	this.animationGlass = false;
 }
 
 Bubbles.Animation.prototype.stopAll = function ()
@@ -61,5 +75,16 @@ Bubbles.Animation.prototype.run = function ()
 
 		this.camera.lookAt(this.camera.target);
 		this.renderer.render();
+	}
+}
+
+Bubbles.Animation.prototype.runGlass = function ()
+{
+	var animation = this;
+	if (this.animationGlass) {
+		requestAnimationFrame(function () { animation.runGlass(); });
+
+		this.deviceOrientation.update();
+		this.renderer.renderGlass();
 	}
 }

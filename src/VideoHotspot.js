@@ -1,20 +1,46 @@
 Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger)
 {
 	var video = document.createElement('video');
-	video.width = hotspotData.width;
-	video.height = hotspotData.height;
 	video.autoplay = false;
-	video.loop = true;
+	video.loop = false;
 	video.src = hotspotData.url;
 
+	if (video.canPlayType('video/mp4') && hotspotData.url.mp4 != undefined) {
+		video.src = hotspotData.url.mp4;
+	} else if (video.canPlayType('video/ogg') && hotspotData.url.ogg != undefined) {
+		video.src = hotspotData.url.ogg;
+	} else if (video.canPlayType('video/webm') && hotspotData.url.webm != undefined) {
+		video.src = hotspotData.url.webm;
+	} else {
+		console.log("error: video not supported");
+	}
 
-	var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.PlaneGeometry(160, 90));
+
+	var hotspot = this;
+	video.onloadedmetadata = function () { hotspot.update(); }
+	
+
+	var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.PlaneGeometry(1, 1));
 
 	var texture = new THREE.VideoTexture(video);
 	texture.minFilter = THREE.LinearFilter;
 	texture.magFilter = THREE.LinearFilter;
 
-	var material = new THREE.MeshBasicMaterial({ map: texture });
+	//var material = new THREE.MeshBasicMaterial({ map: texture });
+	
+	var mask = hotspotData.mask ? 1 : 0;
+	var uniforms = {
+		texture: { type: "t", value: texture },
+		mask: { type: "i", value: mask }
+	};
+	
+	var material = new THREE.ShaderMaterial({
+		uniforms: uniforms,
+		vertexShader: Bubbles.ShaderLib.video.vertexShader,
+		fragmentShader: Bubbles.ShaderLib.video.fragmentShader,
+		transparent: true,
+	});
+	
 	this.hotspot = new THREE.Mesh(geometry, material);
 
 	this.hotspot.name = key;
@@ -34,6 +60,7 @@ Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger)
 	this.hotspot.rotation.y = -THREE.Math.degToRad(hotspotData.lon+90);
 	this.hotspot.rotation.x = THREE.Math.degToRad(hotspotData.lat);
 
+
 	this.hotspot.userData.actionTrigger = actionTrigger;
 	if (hotspotData.events !== undefined) {
 		if (hotspotData.events.onclick !== undefined) {
@@ -52,6 +79,21 @@ Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger)
 			this.hotspot.addEventListener("up", Bubbles.ObjectListener.up);
 		}
 	}
+
+}
+
+Bubbles.VideoHotspot.prototype.update = function ()
+{
+
+	this.hotspot.scale.x = this.hotspot.userData.videoElement.videoWidth *0.2;
+	if (this.hotspot.userData.mask) {
+		this.hotspot.scale.y = this.hotspot.userData.videoElement.videoHeight *0.2/2;
+	} else {
+		this.hotspot.scale.y = this.hotspot.userData.videoElement.videoHeight *0.2;
+	}
+	
+	//this.hotspot.material.uniforms.scale.value.x = this.hotspot.material.uniforms.texture.value.image.width *0.2;
+	//this.hotspot.material.uniforms.scale.value.y = this.hotspot.material.uniforms.texture.value.image.height *0.2;
 }
 
 Bubbles.VideoHotspot.prototype.getMesh = function ()

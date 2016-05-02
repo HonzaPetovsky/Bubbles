@@ -1,0 +1,54 @@
+{
+  "start": "pano",
+  "loader": {
+    "color": "#000000",
+    "url": "guide/loader.gif"
+  },
+  "view": {
+    "fov": {
+      "init": 75,
+      "max": 85,
+      "min": 35
+    }
+  },
+  "bubbles": {
+    "pano": {
+      "image": {
+        "type": "cube",
+        "data": {
+          "back": "guide/4_b.jpg",
+          "down": "guide/4_d.jpg",
+          "front": "guide/4_f.jpg",
+          "left": "guide/4_l.jpg",
+          "right": "guide/4_r.jpg",
+          "up": "guide/4_u.jpg"
+        }
+      },
+      "view": {
+        "lat": 0,
+        "lon": 235
+      },
+      "hotspots": {
+        "guide": {
+          "type": "video",
+          "url": {
+            "mp4": "guide/vide3.mp4"},
+          "lat": 0,
+          "lon": 235,
+          "mask": true,
+          "events": {
+            "onclick": [
+              {"action": "toggleVideo", "id": "guide"}
+            ]
+          }
+        }
+      },
+      "lensflare": {
+        "lat": 40,
+        "lon": 269,
+        "size": 1
+      }
+    }
+  },
+  "hud": {}
+}

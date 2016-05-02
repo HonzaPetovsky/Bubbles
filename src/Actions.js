@@ -1,10 +1,15 @@
 Bubbles.Actions = {};
 
-Bubbles.Actions.changeBubble = function (action, data, currentBubble, scene, loadingManager, objects, actionTrigger)
+Bubbles.Actions.changeBubble = function (action, data, currentBubble, scene, loadingManager, objects, actionTrigger, animation, loader)
 {
 	console.log("changeBubble", action.id);
-
 	currentBubble = data.bubbles[action.id];
+
+	animation.lat = currentBubble.view.lat;
+	animation.lon = currentBubble.view.lon;
+	animation.start();
+	animation.run();
+	animation.stopAll();
 
 	for (key in scene.children) {
 		scene.children[key].removeEventListener("click", Bubbles.ObjectListener.click);
@@ -21,6 +26,12 @@ Bubbles.Actions.changeBubble = function (action, data, currentBubble, scene, loa
 	if (currentBubble.lensflare !== undefined) {
 		scene.add(Bubbles.Lensflare(currentBubble.lensflare.lat, currentBubble.lensflare.lon, currentBubble.lensflare.size ,loadingManager));
 	}
+
+	if (currentBubble.image.type == "video") {
+		animation.start();
+		loader.hide();
+	}
+
 }
 
 Bubbles.Actions.setProperty = function (action, scene, sceneOrtho)
@@ -33,6 +44,9 @@ Bubbles.Actions.setProperty = function (action, scene, sceneOrtho)
 		switch (action.property) {
 			case "opacity":
 				obj.material.uniforms.opacity.value = action.value;
+				break;
+			case "visible":
+				obj.visible = action.value;
 				break;
 		}
 	}
@@ -60,4 +74,12 @@ Bubbles.Actions.toggleVideo = function (action, scene, animation)
 		video.pause();
 		animation.stop();
 	}
+}
+
+Bubbles.Actions.startGlass = function (action, animation, canvas)
+{
+	console.log("glass");
+	canvas.requestFullscreen = canvas.requestFullscreen || canvas.mozRequestFullscreen || canvas.mozRequestFullScreen || canvas.webkitRequestFullscreen;
+	canvas.requestFullscreen();
+	animation.startGlass();
 }

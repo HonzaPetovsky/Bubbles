@@ -1,0 +1,404 @@
+{
+  "start": "beach",
+  "loader": {
+    "color": "#000000",
+    "url": "tour/loader.gif"
+  },
+  "view": {
+    "fov": {
+      "init": 75,
+      "max": 85,
+      "min": 35
+    }
+  },
+  "bubbles": {
+    "basket": {
+      "image": {
+        "type": "cube",
+        "data": {
+          "back": "tour/panorama/basket/01_b.jpg",
+          "down": "tour/panorama/basket/01_d.jpg",
+          "front": "tour/panorama/basket/01_f.jpg",
+          "left": "tour/panorama/basket/01_l.jpg",
+          "right": "tour/panorama/basket/01_r.jpg",
+          "up": "tour/panorama/basket/01_u.jpg"
+        }
+      },
+      "view": {
+        "lat": 0,
+        "lon": 293
+      },
+      "hotspots": {}
+    },
+    "bazen": {
+      "image": {
+        "type": "cube",
+        "data": {
+          "back": "tour/panorama/bazen/01_b.jpg",
+          "down": "tour/panorama/bazen/01_d.jpg",
+          "front": "tour/panorama/bazen/01_f.jpg",
+          "left": "tour/panorama/bazen/01_l.jpg",
+          "right": "tour/panorama/bazen/01_r.jpg",
+          "up": "tour/panorama/bazen/01_u.jpg"
+        }
+      },
+      "view": {
+        "lat": 0,
+        "lon": 0
+      },
+      "hotspots": {}
+    },
+    "beach": {
+      "image": {
+        "type": "cube",
+        "data": {
+          "back": "tour/panorama/beach/01_b.jpg",
+          "down": "tour/panorama/beach/01_d.jpg",
+          "front": "tour/panorama/beach/01_f.jpg",
+          "left": "tour/panorama/beach/01_l.jpg",
+          "right": "tour/panorama/beach/01_r.jpg",
+          "up": "tour/panorama/beach/01_u.jpg"
+        }
+      },
+      "view": {
+        "lat": 0,
+        "lon": 0
+      },
+      "hotspots": {},
+      "lensflare": {
+        "lat": 41,
+        "lon": 184,
+        "size": 1
+      }
+    },
+    "fotbal": {
+      "image": {
+        "type": "cube",
+        "data": {
+          "back": "tour/panorama/fotbal/01_b.jpg",
+          "down": "tour/panorama/fotbal/01_d.jpg",
+          "front": "tour/panorama/fotbal/01_f.jpg",
+          "left": "tour/panorama/fotbal/01_l.jpg",
+          "right": "tour/panorama/fotbal/01_r.jpg",
+          "up": "tour/panorama/fotbal/01_u.jpg"
+        }
+      },
+      "view": {
+        "lat": 0,
+        "lon": 167
+      },
+      "hotspots": {},
+      "lensflare": {
+        "lat": 52,
+        "lon": 213,
+        "size": 1
+      }
+    },
+    "hokej": {
+      "image": {
+        "type": "cube",
+        "data": {
+          "back": "tour/panorama/hokej/01_b.jpg",
+          "down": "tour/panorama/hokej/01_d.jpg",
+          "front": "tour/panorama/hokej/01_f.jpg",
+          "left": "tour/panorama/hokej/01_l.jpg",
+          "right": "tour/panorama/hokej/01_r.jpg",
+          "up": "tour/panorama/hokej/01_u.jpg"
+        }
+      },
+      "view": {
+        "lat": 0,
+        "lon": 87
+      },
+      "hotspots": {}
+    },
+    "kuzelna": {
+      "image": {
+        "type": "cube",
+        "data": {
+          "back": "tour/panorama/kuzelna/01_b.jpg",
+          "down": "tour/panorama/kuzelna/01_d.jpg",
+          "front": "tour/panorama/kuzelna/01_f.jpg",
+          "left": "tour/panorama/kuzelna/01_l.jpg",
+          "right": "tour/panorama/kuzelna/01_r.jpg",
+          "up": "tour/panorama/kuzelna/01_u.jpg"
+        }
+      },
+      "view": {
+        "lat": 0,
+        "lon": 229
+      },
+      "hotspots": {}
+    },
+    "tenis": {
+      "image": {
+        "type": "cube",
+        "data": {
+          "back": "tour/panorama/tenis/01_b.jpg",
+          "down": "tour/panorama/tenis/01_d.jpg",
+          "front": "tour/panorama/tenis/01_f.jpg",
+          "left": "tour/panorama/tenis/01_l.jpg",
+          "right": "tour/panorama/tenis/01_r.jpg",
+          "up": "tour/panorama/tenis/01_u.jpg"
+        }
+      },
+      "view": {
+        "lat": 0,
+        "lon": 17
+      },
+      "hotspots": {},
+      "lensflare": {
+        "lat": 47,
+        "lon": 308,
+        "size": 1
+      }
+    }
+  },
+  "hud": {
+    "to_basket": {
+      "url": "tour/icons/basketball.png",
+      "align": "bottom",
+      "position": {
+        "x": -210,
+        "y": 10,
+        "zorder": 0
+      },
+      "events": {
+        "onclick": [
+          {
+            "action": "changeBubble",
+            "id": "basket"
+          }
+        ],
+        "onover": [
+          {
+            "action": "setProperty",
+            "id": "to_basket",
+            "property": "opacity",
+            "value": 0.7
+          }
+        ],
+        "onout": [
+          {
+            "action": "setProperty",
+            "id": "to_basket",
+            "property": "opacity",
+            "value": 1
+          }
+        ],
+        "ondown": [],
+        "onup": []
+      }
+    },
+    "to_bazen": {
+      "url": "tour/icons/swimming-pool.png",
+      "align": "bottom",
+      "position": {
+        "x": -140,
+        "y": 10,
+        "zorder": 0
+      },
+      "events": {
+        "onclick": [
+          {
+            "action": "changeBubble",
+            "id": "bazen"
+          }
+        ],
+        "onover": [
+          {
+            "action": "setProperty",
+            "id": "to_bazen",
+            "property": "opacity",
+            "value": 0.7
+          }
+        ],
+        "onout": [
+          {
+            "action": "setProperty",
+            "id": "to_bazen",
+            "property": "opacity",
+            "value": 1
+          }
+        ],
+        "ondown": [],
+        "onup": []
+      }
+    },
+    "to_beach": {
+      "url": "tour/icons/volleyball.png",
+      "align": "bottom",
+      "position": {
+        "x": -70,
+        "y": 10,
+        "zorder": 0
+      },
+      "events": {
+        "onclick": [
+          {
+            "action": "changeBubble",
+            "id": "beach"
+          }
+        ],
+        "onover": [
+          {
+            "action": "setProperty",
+            "id": "to_beach",
+            "property": "opacity",
+            "value": 0.7
+          }
+        ],
+        "onout": [
+          {
+            "action": "setProperty",
+            "id": "to_beach",
+            "property": "opacity",
+            "value": 1
+          }
+        ],
+        "ondown": [],
+        "onup": []
+      }
+    },
+    "to_fotbal": {
+      "url": "tour/icons/football.png",
+      "align": "bottom",
+      "position": {
+        "x": 0,
+        "y": 10,
+        "zorder": 0
+      },
+      "events": {
+        "onclick": [
+          {
+            "action": "changeBubble",
+            "id": "fotbal"
+          }
+        ],
+        "onover": [
+          {
+            "action": "setProperty",
+            "id": "to_fotbal",
+            "property": "opacity",
+            "value": 0.7
+          }
+        ],
+        "onout": [
+          {
+            "action": "setProperty",
+            "id": "to_fotbal",
+            "property": "opacity",
+            "value": 1
+          }
+        ],
+        "ondown": [],
+        "onup": []
+      }
+    },
+    "to_hokej": {
+      "url": "tour/icons/ice-hockey.png",
+      "align": "bottom",
+      "position": {
+        "x": 70,
+        "y": 10,
+        "zorder": 0
+      },
+      "events": {
+        "onclick": [
+          {
+            "action": "changeBubble",
+            "id": "hokej"
+          }
+        ],
+        "onover": [
+          {
+            "action": "setProperty",
+            "id": "to_hokej",
+            "property": "opacity",
+            "value": 0.7
+          }
+        ],
+        "onout": [
+          {
+            "action": "setProperty",
+            "id": "to_hokej",
+            "property": "opacity",
+            "value": 1
+          }
+        ],
+        "ondown": [],
+        "onup": []
+      }
+    },
+    "to_kuzelna": {
+      "url": "tour/icons/bowling.png",
+      "align": "bottom",
+      "position": {
+        "x": 140,
+        "y": 10,
+        "zorder": 0
+      },
+      "events": {
+        "onclick": [
+          {
+            "action": "changeBubble",
+            "id": "kuzelna"
+          }
+        ],
+        "onover": [
+          {
+            "action": "setProperty",
+            "id": "to_kuzelna",
+            "property": "opacity",
+            "value": 0.7
+          }
+        ],
+        "onout": [
+          {
+            "action": "setProperty",
+            "id": "to_kuzelna",
+            "property": "opacity",
+            "value": 1
+          }
+        ],
+        "ondown": [],
+        "onup": []
+      }
+    },
+    "to_tenis": {
+      "url": "tour/icons/tennis.png",
+      "align": "bottom",
+      "position": {
+        "x": 210,
+        "y": 10,
+        "zorder": 0
+      },
+      "events": {
+        "onclick": [
+          {
+            "action": "changeBubble",
+            "id": "tenis"
+          }
+        ],
+        "onover": [
+          {
+            "action": "setProperty",
+            "id": "to_tenis",
+            "property": "opacity",
+            "value": 0.7
+          }
+        ],
+        "onout": [
+          {
+            "action": "setProperty",
+            "id": "to_tenis",
+            "property": "opacity",
+            "value": 1
+          }
+        ],
+        "ondown": [],
+        "onup": []
+      }
+    }
+  }
+}

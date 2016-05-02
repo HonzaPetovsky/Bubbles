@@ -32,13 +32,19 @@ Bubbles.Events.prototype.onWindowResize = function (sceneOrtho)
 	this.renderer.render();
 }
 
+// Bubbles.Events.prototype.onFSChange = function ()
+// {
+// 	if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+// 		this.animation.stopGlass();
+// 		this.renderer.render();
+// 	}
+// }
+
 Bubbles.Events.prototype.onPan = function (event)
 {
 	switch (event.type) {
 		case 'panstart':
-			if (this.intersect == null) {
-				this.animation.start();
-			}
+			this.animation.start();
 			break;
 		case 'panend':
 		case 'pancancel':
@@ -81,6 +87,8 @@ Bubbles.Events.prototype.onMouseWheel = function (event, fovMin, fovMax)
 
 Bubbles.Events.prototype.onTap = function (event, scene, sceneOrtho)
 {
+	//console.log(this.animation.lat, this.animation.lon);
+
 	var pointer = new THREE.Vector2();
 	pointer.x = (event.pointers[0].clientX / this.canvas.offsetWidth) * 2 - 1;
 	pointer.y = -(event.pointers[0].clientY / this.canvas.offsetHeight) * 2 + 1;

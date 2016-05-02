@@ -17,7 +17,7 @@ Bubbles.ActionTrigger.prototype.trigger = function (action)
 	switch (action.action) {
 		case "changeBubble":
 			this.loader.start();
-			Bubbles.Actions.changeBubble(action, this.data, this.currentBubble, this.scene, this.loadingManager, this.objects, this);
+			Bubbles.Actions.changeBubble(action, this.data, this.currentBubble, this.scene, this.loadingManager, this.objects, this, this.animation, this.loader);
 			break;
 		case "setProperty":
 			Bubbles.Actions.setProperty(action, this.scene, this.sceneOrtho);
@@ -28,6 +28,9 @@ Bubbles.ActionTrigger.prototype.trigger = function (action)
 			break;
 		case "toggleVideo":
 			Bubbles.Actions.toggleVideo(action, this.scene, this.animation);
+			break;
+		case "startGlass":
+			Bubbles.Actions.startGlass(action, this.animation, this.canvas);
 			break;
 
 		default:
