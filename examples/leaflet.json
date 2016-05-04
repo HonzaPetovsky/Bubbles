@@ -1,0 +1,133 @@
+{
+  "start": "vyskov",
+  "loader": {
+    "color": "#000000",
+    "url": "leaflet/loader.gif"
+  },
+  "view": {
+    "fov": {
+      "init": 75,
+      "max": 85,
+      "min": 35
+    }
+  },
+  "bubbles": {
+    "vyskov": {
+      "image": {
+        "type": "cube",
+        "data": {
+          "back": "leaflet/vyskov/02_b.jpg",
+          "down": "leaflet/vyskov/02_d.jpg",
+          "front": "leaflet/vyskov/02_f.jpg",
+          "left": "leaflet/vyskov/02_l.jpg",
+          "right": "leaflet/vyskov/02_r.jpg",
+          "up": "leaflet/vyskov/02_u.jpg"
+        }
+      },
+      "view": {
+        "lat": 0,
+        "lon": 174
+      },
+      "hotspots": {},
+      "lensflare": {
+        "lat": 36,
+        "lon": 42,
+        "size": 0.2
+      }
+    },
+    "prostejov": {
+      "image": {
+        "type": "cube",
+        "data": {
+          "back": "leaflet/prostejov/1_b.jpg",
+          "down": "leaflet/prostejov/1_d.jpg",
+          "front": "leaflet/prostejov/1_f.jpg",
+          "left": "leaflet/prostejov/1_l.jpg",
+          "right": "leaflet/prostejov/1_r.jpg",
+          "up": "leaflet/prostejov/1_u.jpg"
+        }
+      },
+      "view": {
+        "lat": 0,
+        "lon": 0
+      },
+      "hotspots": {},
+      "lensflare": {
+        "lat": 35,
+        "lon": 265,
+        "size": 1
+      }
+    },
+    "tisnov": {
+      "image": {
+        "type": "cube",
+        "data": {
+          "back": "leaflet/tisnov/1_b.jpg",
+          "down": "leaflet/tisnov/1_d.jpg",
+          "front": "leaflet/tisnov/1_f.jpg",
+          "left": "leaflet/tisnov/1_l.jpg",
+          "right": "leaflet/tisnov/1_r.jpg",
+          "up": "leaflet/tisnov/1_u.jpg"
+        }
+      },
+      "view": {
+        "lat": 0,
+        "lon": 23
+      },
+      "hotspots": {},
+      "lensflare": {
+        "lat": 43,
+        "lon": 330,
+        "size": 1
+      }
+    }
+  },
+  "hud": {
+    "mapka": {
+      "url": "leaflet/placeholder.png",
+      "align": "topleft",
+      "position": {
+        "x": 10,
+        "y": 10,
+        "zorder": 0
+      },
+      "events": {
+        "onclick": [
+              {"action": "toggleVideo", "id": "guide"}
+            ],
+        "onover": [],
+        "onout": [],
+        "ondown": [],
+        "onup": []
+      }
+    }
+  },
+  "map": {
+    "width": 200,
+    "height": 200,
+    "position": {
+      "align": "lefttop",
+      "x": 70,
+      "y": 10
+    },
+    "map": {
+      "lat": 49.2778519,
+      "lon": 16.9994644,
+      "zoom": 13
+    },
+    "markers": {
+      "vyskov": {
+        "lat": 49.2778519,
+        "lon": 16.9994644
+      },
+      "prostejov": {
+        "lat": 49.4725508,
+        "lon": 17.1099367
+      },
+      "tisnov": {
+        "lat": 49.3492456,
+        "lon": 16.4230528
+      }
+    }
+  }
+}

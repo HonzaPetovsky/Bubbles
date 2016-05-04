@@ -19,6 +19,9 @@ Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger, rende
 	var hotspot = this;
 	video.onloadedmetadata = function () { 
 		hotspot.update();
+	}
+	video.oncanplay = function () {
+		console.log("canplay");
 		renderer.render();
 	}
 	
@@ -86,16 +89,12 @@ Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger, rende
 
 Bubbles.VideoHotspot.prototype.update = function ()
 {
-
 	this.hotspot.scale.x = this.hotspot.userData.videoElement.videoWidth *0.2;
 	if (this.hotspot.userData.mask) {
 		this.hotspot.scale.y = this.hotspot.userData.videoElement.videoHeight *0.2/2;
 	} else {
 		this.hotspot.scale.y = this.hotspot.userData.videoElement.videoHeight *0.2;
 	}
-	
-	//this.hotspot.material.uniforms.scale.value.x = this.hotspot.material.uniforms.texture.value.image.width *0.2;
-	//this.hotspot.material.uniforms.scale.value.y = this.hotspot.material.uniforms.texture.value.image.height *0.2;
 }
 
 Bubbles.VideoHotspot.prototype.getMesh = function ()
