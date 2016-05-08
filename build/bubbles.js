@@ -165,6 +165,9 @@ Bubbles.ActionTrigger.prototype.trigger = function (action)
 		case "startGlass":
 			Bubbles.Actions.startGlass(action, this.animation, this.canvas);
 			break;
+		case "toggleMap":
+			Bubbles.Actions.toggleMap();
+			break;
 
 		default:
 			console.log("unknown action", action.action);
@@ -252,10 +255,19 @@ Bubbles.Actions.toggleVideo = function (action, scene, animation)
 
 Bubbles.Actions.startGlass = function (action, animation, canvas)
 {
-	console.log("glass");
 	canvas.requestFullscreen = canvas.requestFullscreen || canvas.mozRequestFullscreen || canvas.mozRequestFullScreen || canvas.webkitRequestFullscreen;
 	canvas.requestFullscreen();
 	animation.startGlass();
+}
+
+Bubbles.Actions.toggleMap = function ()
+{
+	var map = document.getElementById("bubbles-map");
+	if (map.style.display == 'none') {
+		map.style.display = 'block';
+	} else {
+		map.style.display = 'none';
+	}
 }
 
 Bubbles.Animation = function (renderer, deviceOrientation, canvas)
@@ -1369,11 +1381,12 @@ THREE.DeviceOrientationControls = function( object ) {
 Bubbles.Leaflet = function (mapData, actionTrigger, canvas)
 {
 	this.leaflet = document.createElement('div');
+	this.leaflet.id = "bubbles-map";
 	this.leaflet.style.cssText  = 'position:absolute;';
 	this.leaflet.style.width = mapData.width+"px";
 	this.leaflet.style.height = mapData.height+"px";
 
-	switch (mapData.position.align) {
+	switch (mapData.align) {
 		case 'center':
 			var left = canvas.offsetWidth/2-mapData.width/2+mapData.position.x;
 			var top = canvas.offsetHeight/2-mapData.height/2-mapData.position.y;
@@ -1422,6 +1435,10 @@ Bubbles.Leaflet = function (mapData, actionTrigger, canvas)
 			break;
 	}
 
+	if (!mapData.visible) {
+		this.leaflet.style.display = 'none';
+	}
+
 	this.map = L.map(this.leaflet).setView([mapData.map.lat, mapData.map.lon], mapData.map.zoom);
 
 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -1436,7 +1453,7 @@ Bubbles.Leaflet = function (mapData, actionTrigger, canvas)
 	});
 
 	for (key in mapData.markers) {
-		new bubblesMarker([mapData.markers[key].lat, mapData.markers[key].lon], {target: key}).on('click', function() {
+		new bubblesMarker([mapData.markers[key].lat, mapData.markers[key].lon], {target: mapData.markers[key].target}).on('click', function() {
 			actionTrigger.trigger({"action": "changeBubble", "id": this.options.target})
 		}).addTo(this.map);
 	}

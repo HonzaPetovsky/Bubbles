@@ -32,6 +32,9 @@ Bubbles.ActionTrigger.prototype.trigger = function (action)
 		case "startGlass":
 			Bubbles.Actions.startGlass(action, this.animation, this.canvas);
 			break;
+		case "toggleMap":
+			Bubbles.Actions.toggleMap();
+			break;
 
 		default:
 			console.log("unknown action", action.action);

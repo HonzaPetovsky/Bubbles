@@ -1,11 +1,12 @@
 Bubbles.Leaflet = function (mapData, actionTrigger, canvas)
 {
 	this.leaflet = document.createElement('div');
+	this.leaflet.id = "bubbles-map";
 	this.leaflet.style.cssText  = 'position:absolute;';
 	this.leaflet.style.width = mapData.width+"px";
 	this.leaflet.style.height = mapData.height+"px";
 
-	switch (mapData.position.align) {
+	switch (mapData.align) {
 		case 'center':
 			var left = canvas.offsetWidth/2-mapData.width/2+mapData.position.x;
 			var top = canvas.offsetHeight/2-mapData.height/2-mapData.position.y;
@@ -54,6 +55,10 @@ Bubbles.Leaflet = function (mapData, actionTrigger, canvas)
 			break;
 	}
 
+	if (!mapData.visible) {
+		this.leaflet.style.display = 'none';
+	}
+
 	this.map = L.map(this.leaflet).setView([mapData.map.lat, mapData.map.lon], mapData.map.zoom);
 
 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -68,7 +73,7 @@ Bubbles.Leaflet = function (mapData, actionTrigger, canvas)
 	});
 
 	for (key in mapData.markers) {
-		new bubblesMarker([mapData.markers[key].lat, mapData.markers[key].lon], {target: key}).on('click', function() {
+		new bubblesMarker([mapData.markers[key].lat, mapData.markers[key].lon], {target: mapData.markers[key].target}).on('click', function() {
 			actionTrigger.trigger({"action": "changeBubble", "id": this.options.target})
 		}).addTo(this.map);
 	}

@@ -1,4 +1,6 @@
 <?php
+
+# function from http://php.net/manual/en/function.scandir.php#110570
 function dirToArray($dir) {
    $result = array();
    $cdir = scandir($dir);
@@ -18,6 +20,7 @@ function dirToArray($dir) {
    }
    return $result;
 }
+
 
 $dir = "../examples/".$_GET['dir'];
 

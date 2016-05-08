@@ -93,10 +93,26 @@
       },
       "events": {
         "onclick": [
-              {"action": "toggleVideo", "id": "guide"}
-            ],
-        "onover": [],
-        "onout": [],
+          {
+            "action": "toggleMap"
+          }
+        ],
+        "onover": [
+          {
+            "action": "setProperty",
+            "id": "mapka",
+            "property": "opacity",
+            "value": 0.7
+          }
+        ],
+        "onout": [
+          {
+            "action": "setProperty",
+            "id": "mapka",
+            "property": "opacity",
+            "value": 1
+          }
+        ],
         "ondown": [],
         "onup": []
       }
@@ -105,8 +121,9 @@
   "map": {
     "width": 200,
     "height": 200,
+    "visible": true,
+    "align": "lefttop",
     "position": {
-      "align": "lefttop",
       "x": 70,
       "y": 10
     },
@@ -115,19 +132,22 @@
       "lon": 16.9994644,
       "zoom": 13
     },
-    "markers": {
-      "vyskov": {
+    "markers": [
+      {
         "lat": 49.2778519,
-        "lon": 16.9994644
+        "lon": 16.9994644,
+        "target": "vyskov" 
       },
-      "prostejov": {
+      {
         "lat": 49.4725508,
-        "lon": 17.1099367
+        "lon": 17.1099367,
+        "target": "prostejov"
       },
-      "tisnov": {
+      {
         "lat": 49.3492456,
-        "lon": 16.4230528
+        "lon": 16.4230528,
+        "target": "tisnov"
       }
-    }
+    ]
   }
 }

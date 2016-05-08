@@ -1,6 +1,4 @@
 pano/
-project.sublime-project
-project.sublime-workspace
 Makefile
 index.html
 pano.json

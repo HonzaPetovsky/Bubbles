@@ -78,8 +78,17 @@ Bubbles.Actions.toggleVideo = function (action, scene, animation)
 
 Bubbles.Actions.startGlass = function (action, animation, canvas)
 {
-	console.log("glass");
 	canvas.requestFullscreen = canvas.requestFullscreen || canvas.mozRequestFullscreen || canvas.mozRequestFullScreen || canvas.webkitRequestFullscreen;
 	canvas.requestFullscreen();
 	animation.startGlass();
+}
+
+Bubbles.Actions.toggleMap = function ()
+{
+	var map = document.getElementById("bubbles-map");
+	if (map.style.display == 'none') {
+		map.style.display = 'block';
+	} else {
+		map.style.display = 'none';
+	}
 }

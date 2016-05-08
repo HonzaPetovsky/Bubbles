@@ -1,0 +1,22 @@
+"<a href="" ng-click="selectFile()" ng-bind="target"></a>"
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="fil">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" ng-click="close()" class="btn btn-danger btn-sm">Close</button>
+				<h4 class="modal-title">Files</h4>
+			</div>
+			<div class="modal-body">
+				<ol class="breadcrumb">
+					<li ng-repeat="x in breadcrumbs" ng-class="{'active':$last}"><a ng-hide="$last" ng-click="breadcrumbsChange($index)" href="">{{x}}</a><span ng-show="$last">{{x}}</span></li>
+				</ol>
+				<ul class="files">
+					<li ng-repeat="x in folders"><span class="glyphicon glyphicon-folder-close"></span> <a href="" ng-click="changeFolder(x)">{{x}}</a></li>
+					<li ng-repeat="x in files"><span class="glyphicon glyphicon-file"></span> <a href="" class="text-success" ng-click="select(x)">{{x}}</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

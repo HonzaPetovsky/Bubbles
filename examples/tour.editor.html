@@ -13,6 +13,9 @@
 
 		<script src="../editor/js/angular.min.js"></script>
 		<script src="../editor/js/rzslider.min.js"></script>
+
+		<script src="../editor/modules/dropdown.js"></script>
+
 		<script src="../editor/js/bootstrap-colorpicker-module.min.js"></script>
 	</head>
 	<body>
@@ -35,6 +38,7 @@
 						<div class="well editor">
 							<ul class="ed">
 								<li>start: 
+									"<dropdown></dropdown>"
 									"<span class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="" ng-bind="data.start"></a><ul class="dropdown-menu" role="menu"><li role="presentation" ng-repeat="(key, value) in data.bubbles"><a role="menuitem" href="" ng-click="data.start=key">{{key}}</a></li></ul></span>"
 								</li>
 								<li>loader: 
@@ -77,7 +81,7 @@
 												</li>
 												<li>view:
 													<ul class="ed">
-															<li>lat: <a href="" ng-click="setLatLon('data.bubbles.'+key+'.view',bubble.image)">{{bubble.view.lat}}</a></li>
+														<li>lat: <a href="" ng-click="setLatLon('data.bubbles.'+key+'.view',bubble.image)">{{bubble.view.lat}}</a></li>
 														<li>lon: <a href="" ng-click="setLatLon('data.bubbles.'+key+'.view',bubble.image)">{{bubble.view.lon}}</a></li>
 														</ul>
 													</li>
@@ -190,6 +194,20 @@
 										<li><input class="editor" ng-model="hudModel" placeholder="New hud"></input><a ng-click="newHud()" href=""><span class="glyphicon glyphicon-plus text-success"></span></a></li>
 									</ul>
 								</li>
+								<li>map:
+									<ul class="ed" ng-if="data.map">
+										<li>width: <a href="" ng-click="setNumber('data.map.width',{},{},data.map.width)">{{data.map.width}}</a> <span ng-show="target=='data.map.width'" class="glyphicon glyphicon-wrench text-danger"></span></li>
+										<li>height: <a href="" ng-click="setNumber('data.map.height',{},{},data.map.height)">{{data.map.width}}</a> <span ng-show="target=='data.map.height'" class="glyphicon glyphicon-wrench text-danger"></span></li>
+										<li>visible: <a href="" ng-click="data.map.visible = !data.map.visible">{{data.map.visible}}</a></li>
+										<li>align: "<span class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="" ng-bind="data.map.align"></a><ul class="dropdown-menu" role="menu"><li role="presentation" ng-repeat="x in alignTypes"><a role="menuitem" href="" ng-click="data.map.align=x">{{x}}</a></li></ul></span>"</li>
+										<li>position: 
+											<ul class="ed">
+												<li>x: <a href="" ng-click="setNumber('data.map.position.x',{},{},data.map.position.x)">{{data.map.position.x}}</a> <span ng-show="target=='data.map.position.x'" class="glyphicon glyphicon-wrench text-danger"></span></li>
+												<li>y: <a href="" ng-click="setNumber('data.map.position.y',{},{},data.map.position.y)">{{data.map.position.y}}</a> <span ng-show="target=='data.map.position.y'" class="glyphicon glyphicon-wrench text-danger"></span></li>
+											</ul>
+										</li>
+									</ul>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -277,8 +295,12 @@
 									"<span class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="" ng-bind="property"></a><ul class="dropdown-menu" role="menu"><li role="presentation" ng-repeat="(key, value) in propertyTypes"><a role="menuitem" href="" ng-click="change_property(value)">{{value}}</a></li></ul></span>"
 								</div>
 
-								<div ng-show="show('valueSmall')"><h4>value:</h4>
+								<div ng-show="showVal('valueSmall')"><h4>value:</h4>
 									<rzslider rz-slider-model="valueSmall" rz-slider-options="sizeOptionsSmall"></rzslider>
+								</div>
+
+								<div ng-show="showVal('valueBool')"><h4>value:</h4>
+									"<a href="" ng-click="change_valueBool()" ng-bind="valueBool"></a>"
 								</div>
 
 							</div>

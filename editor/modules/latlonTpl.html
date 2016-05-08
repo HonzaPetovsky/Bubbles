@@ -1,0 +1,24 @@
+<li>lat: <a href="" ng-click="set()">{{target.lat}}</a></li>
+<li>lon: <a href="" ng-click="set()">{{target.lon}}</a></li>
+
+<div class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" ng-click="close()" class="btn btn-danger btn-sm">Close</button>
+				<h4 class="modal-title">Latitude &amp; Longitude</h4>
+			</div>
+			<div class="modal-body">
+				<h4>Lat</h4>
+				<rzslider rz-slider-model="lat" rz-slider-options="latOptions"></rzslider>
+				<h4>Lon</h4>
+				<rzslider rz-slider-model="lon" rz-slider-options="lonOptions"></rzslider>
+				<h4>Preview</h4>
+				<div class="latlonCanvas">
+					<canvas class="latlonCanvas"></canvas>
+					<div class="target"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
