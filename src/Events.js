@@ -79,8 +79,6 @@ Bubbles.Events.prototype.onMouseWheel = function (event, fovMin, fovMax)
 
 Bubbles.Events.prototype.onTap = function (event, scene, sceneOrtho)
 {
-	
-
 	var pointer = new THREE.Vector2();
 	pointer.x = (event.pointers[0].clientX / this.canvas.offsetWidth) * 2 - 1;
 	pointer.y = -(event.pointers[0].clientY / this.canvas.offsetHeight) * 2 + 1;
@@ -141,10 +139,6 @@ Bubbles.Events.prototype.onMouseMove = function (event, scene, sceneOrtho)
 
 Bubbles.Events.prototype.onMouseDown = function ()
 {	
-	if (this.animation.animationGlass) {
-		this.animation.stopGlass();
-	}
-	
 	if (this.intersect != null) {
 		this.isDown = true;
 		this.intersect.dispatchEvent({ type: 'down' });
@@ -156,5 +150,14 @@ Bubbles.Events.prototype.onMouseUp = function ()
 	this.isDown = false;
 	if (this.intersect != null) {
 		this.intersect.dispatchEvent({ type: 'up' });
+	}
+}
+
+Bubbles.Events.prototype.onFSChange = function () 
+{
+	if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+		if (this.animation.animationGlass) {
+			this.animation.stopGlass();
+		}
 	}
 }

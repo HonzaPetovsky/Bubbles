@@ -70,8 +70,6 @@ Bubbles.prototype.init = function ()
 			this.leaflet = new Bubbles.Leaflet(this.data.map, this.actionTrigger, this.canvas);
 			this.canvas.insertBefore(this.leaflet.getDomElement(), this.loader.image);
 		}
-		
-
 		this.initEvents();
 
 	} else {
@@ -101,7 +99,7 @@ Bubbles.prototype.load = function ()
 
 Bubbles.prototype.initEvents = function ()
 {
-	var hammer = new Hammer(this.canvas);
+	var hammer = new Hammer(this.canvas, {domEvents: true});
 	hammer.get("pan").set({ direction: Hammer.DIRECTION_ALL });
 	hammer.get("pinch").set({ enable: true });
 
@@ -114,9 +112,9 @@ Bubbles.prototype.initEvents = function ()
 
 	//window
 	window.addEventListener("resize", function() { events.onWindowResize(sceneOrtho); });
-	// window.addEventListener("mozfullscreenchange", function () { events.onFSChange(); });
-	// window.addEventListener("fullscreenchange", function () { events.onFSChange(); });
-	// window.addEventListener("webkitendfullscreen", function () { events.onFSChange(); });
+	window.addEventListener("mozfullscreenchange", function () { events.onFSChange(); });
+	window.addEventListener("fullscreenchange", function () { events.onFSChange(); });
+	window.addEventListener("webkitendfullscreen", function () { events.onFSChange(); });
 
 	//mouse
 	this.canvas.addEventListener("mousewheel", function (event) { events.onMouseWheel(event, fovmin, fovmax); });
@@ -499,8 +497,6 @@ Bubbles.Events.prototype.onMouseWheel = function (event, fovMin, fovMax)
 
 Bubbles.Events.prototype.onTap = function (event, scene, sceneOrtho)
 {
-	
-
 	var pointer = new THREE.Vector2();
 	pointer.x = (event.pointers[0].clientX / this.canvas.offsetWidth) * 2 - 1;
 	pointer.y = -(event.pointers[0].clientY / this.canvas.offsetHeight) * 2 + 1;
@@ -561,10 +557,6 @@ Bubbles.Events.prototype.onMouseMove = function (event, scene, sceneOrtho)
 
 Bubbles.Events.prototype.onMouseDown = function ()
 {	
-	if (this.animation.animationGlass) {
-		this.animation.stopGlass();
-	}
-	
 	if (this.intersect != null) {
 		this.isDown = true;
 		this.intersect.dispatchEvent({ type: 'down' });
@@ -576,6 +568,15 @@ Bubbles.Events.prototype.onMouseUp = function ()
 	this.isDown = false;
 	if (this.intersect != null) {
 		this.intersect.dispatchEvent({ type: 'up' });
+	}
+}
+
+Bubbles.Events.prototype.onFSChange = function () 
+{
+	if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+		if (this.animation.animationGlass) {
+			this.animation.stopGlass();
+		}
 	}
 }
 
@@ -961,6 +962,7 @@ Bubbles.Renderer = function (canvas, scene, camera, sceneOrtho, cameraOrtho)
 
 Bubbles.Renderer.prototype.render = function ()
 {
+	console.log("render");
 	this.renderer.clear();
 	this.renderer.render(this.scene, this.camera);
 
@@ -1054,16 +1056,19 @@ Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger, rende
 		console.log("error: video not supported");
 	}
 
-
 	var hotspot = this;
 	video.onloadedmetadata = function () { 
+		console.log("meta");
 		hotspot.update();
 	}
-	video.oncanplay = function () {
-		console.log("canplay");
+
+	video.onended = function () {
+		video.currentTime = 0;
+	}	
+	
+	video.onloadeddata = function () {
 		renderer.render();
 	}
-	
 
 	var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.PlaneGeometry(1, 1));
 

@@ -14,6 +14,7 @@ Bubbles.Renderer = function (canvas, scene, camera, sceneOrtho, cameraOrtho)
 
 Bubbles.Renderer.prototype.render = function ()
 {
+	console.log("render");
 	this.renderer.clear();
 	this.renderer.render(this.scene, this.camera);
 

@@ -69,8 +69,6 @@ Bubbles.prototype.init = function ()
 			this.leaflet = new Bubbles.Leaflet(this.data.map, this.actionTrigger, this.canvas);
 			this.canvas.insertBefore(this.leaflet.getDomElement(), this.loader.image);
 		}
-		
-
 		this.initEvents();
 
 	} else {
@@ -100,7 +98,7 @@ Bubbles.prototype.load = function ()
 
 Bubbles.prototype.initEvents = function ()
 {
-	var hammer = new Hammer(this.canvas);
+	var hammer = new Hammer(this.canvas, {domEvents: true});
 	hammer.get("pan").set({ direction: Hammer.DIRECTION_ALL });
 	hammer.get("pinch").set({ enable: true });
 
@@ -113,9 +111,9 @@ Bubbles.prototype.initEvents = function ()
 
 	//window
 	window.addEventListener("resize", function() { events.onWindowResize(sceneOrtho); });
-	// window.addEventListener("mozfullscreenchange", function () { events.onFSChange(); });
-	// window.addEventListener("fullscreenchange", function () { events.onFSChange(); });
-	// window.addEventListener("webkitendfullscreen", function () { events.onFSChange(); });
+	window.addEventListener("mozfullscreenchange", function () { events.onFSChange(); });
+	window.addEventListener("fullscreenchange", function () { events.onFSChange(); });
+	window.addEventListener("webkitendfullscreen", function () { events.onFSChange(); });
 
 	//mouse
 	this.canvas.addEventListener("mousewheel", function (event) { events.onMouseWheel(event, fovmin, fovmax); });

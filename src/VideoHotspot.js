@@ -15,16 +15,19 @@ Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger, rende
 		console.log("error: video not supported");
 	}
 
-
 	var hotspot = this;
 	video.onloadedmetadata = function () { 
+		console.log("meta");
 		hotspot.update();
 	}
-	video.oncanplay = function () {
-		console.log("canplay");
+
+	video.onended = function () {
+		video.currentTime = 0;
+	}	
+	
+	video.onloadeddata = function () {
 		renderer.render();
 	}
-	
 
 	var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.PlaneGeometry(1, 1));
 
