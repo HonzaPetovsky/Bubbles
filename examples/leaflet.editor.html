@@ -69,7 +69,7 @@
 											<ul ng-show="collapse[$id]">
 												<li>image:
 													<ul>
-														<li>type: <dropdown data="imageTypes" target="bubble.image.type" type="'value'" after="imageTypeChange(bubble)"></dropdown></li>
+														<li>type: <dropdown data="imageTypes" target="bubble.image.type" type="'value'" after="bubble.image.data=undefinedTypes[bubble.image.type]"></dropdown></li>
 														<li ng-if="bubble.image.type=='sphere'">data: <filepicker target="bubble.image.data" folder="dataFolder"></filepicker></li>
 														<li ng-if="bubble.image.type=='cube'">data: 
 															<ul>
@@ -79,6 +79,13 @@
 																<li>left: <filepicker target="bubble.image.data.left" folder="dataFolder"></filepicker></li>
 																<li>right: <filepicker target="bubble.image.data.right" folder="dataFolder"></filepicker></li>
 																<li>up: <filepicker target="bubble.image.data.up" folder="dataFolder"></filepicker></li>
+															</ul>
+														</li>
+														<li ng-if="bubble.image.type=='video'">data:
+															<ul>
+																<li>mp4:</li>
+																<li>ogg:</li>
+																<li>webm:</li>
 															</ul>
 														</li>
 													</ul>

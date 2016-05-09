@@ -15,15 +15,15 @@
 				<div ng-show="show('noparam')" class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> Nothing to set up.</div>
 		
 				<div ng-show="show('id_bubbles')"><h4>id:</h4>
-					"<span class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="" ng-bind="id_bubbles"></a><ul class="dropdown-menu" role="menu"><li role="presentation" ng-repeat="(key, value) in data.bubbles"><a role="menuitem" href="" ng-click="change_id_bubbles(key)">{{key}}</a></li></ul></span>"
+					<dropdown target="id_bubbles" data="data.bubbles" type="'key'" after="change_id_bubbles(id_bubbles)"></dropdown>
 				</div>
 
 				<div ng-show="show('id_objects')"><h4>id:</h4>
-					"<span class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="" ng-bind="id_objects"></a><ul class="dropdown-menu" role="menu"><li role="presentation" ng-repeat="(key, value) in getIds()"><a role="menuitem" href="" ng-click="change_id_objects(value)">{{value}}</a></li></ul></span>"
+					<dropdown target="id_objects" data="getIds()" type="'value'" after="change_id_objects(id_objects)"></dropdown>
 				</div>
 
 				<div ng-show="show('property')"><h4>property:</h4>
-					"<span class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="" ng-bind="property"></a><ul class="dropdown-menu" role="menu"><li role="presentation" ng-repeat="(key, value) in propertyTypes"><a role="menuitem" href="" ng-click="change_property(value)">{{value}}</a></li></ul></span>"
+					<dropdown target="property" data="propertyTypes" type="'value'" after="change_property(property)"></dropdown>
 				</div>
 
 				<div ng-show="showVal('valueSmall')"><h4>value:</h4>

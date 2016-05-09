@@ -12,10 +12,15 @@ app.directive("dropdown", function () {
 			
 			$scope.update = function (key) {
 				$scope.target = key;
-				if ($scope.after !== undefined) {
-					$scope.after();
-				}
 			}
+			
+			$scope.$watch('target', function (newValue, oldValue) {
+				if ($scope.after !== undefined) {
+					if (newValue != oldValue) {
+						$scope.after();
+					}
+				}
+			});
 
 		}
 	};

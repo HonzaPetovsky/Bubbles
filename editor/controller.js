@@ -32,6 +32,11 @@ app.controller("editorController", function($rootScope, $scope) {
 			"left": "undefined",
 			"right": "undefined",
 			"up": "undefined"
+		},
+		"video": {
+			"mp4": {},
+			"ogg": {},
+			"webm": {}
 		}
 	}
 	$scope.newValues = {
@@ -110,7 +115,7 @@ app.controller("editorController", function($rootScope, $scope) {
 
 
 	$scope.imageTypeChange = function (image) {
-		//console.log(image);
+		console.log(image);
 	}
 
 	$scope.hotspotModel = [];
