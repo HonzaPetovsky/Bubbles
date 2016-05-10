@@ -1,4 +1,4 @@
-var app = angular.module("bubblesEditor", ['dropdown', 'colpicker', 'filepicker', 'slider', 'latlon', 'numberpicker', 'eventpicker', 'maper']);
+var app = angular.module("bubblesEditor", ['dropdown', 'colpicker', 'filepicker', 'slider', 'latlon', 'numberpicker', 'eventpicker', 'maper', 'videopicker']);
 
 app.run(['$rootScope', '$http', '$window', function($rootScope, $http, $window) {
 
@@ -52,7 +52,8 @@ app.controller("editorController", function($rootScope, $scope) {
 			"right": "undefined",
 			"up": "undefined"
 		},
-		"video": {}
+		"video": {},
+		"image": "undefined"
 	}
 	$scope.newValues = {
 		"hud": {
@@ -139,6 +140,21 @@ app.controller("editorController", function($rootScope, $scope) {
 
 			$rootScope.data.bubbles[key].hotspots[$scope.hotspotModel[key]] = angular.copy($scope.newValues.hotspot);
 			$scope.hotspotModel[key] = undefined;
+		}
+	}
+	
+	$scope.changeHotspotType = function (hotspot) {
+		hotspot.url = $scope.undefinedTypes[hotspot.type];
+		switch (hotspot.type) {
+			case 'image':
+				delete hotspot.mask;
+				hotspot['distorted'] = true;
+				break;
+			case 'video':
+				delete hotspot.distorted;
+				hotspot['mask'] = false;
+			default:
+				break;
 		}
 	}
 
