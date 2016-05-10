@@ -12,6 +12,10 @@ app.directive("videopicker", function () {
 				$scope.target[type] = "undefined";
 			}
 			
+			$scope.remove = function (type) {
+				delete $scope.target[type];
+			}
+			
 		}
 	};
 });

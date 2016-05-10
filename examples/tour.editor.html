@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="../editor/css/colorpicker.min.css">
 		<link rel="stylesheet" href="../editor/css/rzslider.min.css">
 		<link rel="stylesheet" href="../editor/css/style.css">
+        <link rel="stylesheet" href="../lib/leaflet.css">
 
 
 		<script src="../editor/js/angular.min.js"></script>
@@ -22,6 +23,7 @@
 		<script src="../editor/modules/numberpicker.js"></script>
 		<script src="../editor/modules/eventpicker.js"></script>
 		<script src="../editor/modules/maper.js"></script>
+        <script src="../editor/modules/videopicker.js"></script>
 
 		<script src="../editor/js/bootstrap-colorpicker-module.min.js"></script>
 	</head>
@@ -81,13 +83,7 @@
                                                                 <li>up: <filepicker target="bubble.image.data.up" folder="dataFolder"></filepicker></li>
                                                             </ul>
                                                         </li>
-                                                        <li ng-if="bubble.image.type=='video'">data:
-                                                            <ul>
-                                                                <li>mp4:</li>
-                                                                <li>ogg:</li>
-                                                                <li>webm:</li>
-                                                            </ul>
-                                                        </li>
+                                                        <li ng-if="bubble.image.type=='video'">data: <videopicker target="bubble.image.data" folder="dataFolder"></videopicker></li>
                                                     </ul>
                                                 </li>
                                                 <li>view:
@@ -107,9 +103,12 @@
                                                         <li ng-repeat="(key_h, hotspot) in bubble.hotspots">
                                                             <div class="bg-red inline"><a ng-init="collapse[$id]=false" ng-click="collapse[$id] = !collapse[$id]" href="">{{key_h}}</a>: </div> <span ng-show="collapse[$id]" class="glyphicon glyphicon-collapse-up"></span><span ng-hide="collapse[$id]" class="glyphicon glyphicon-collapse-down"></span><a ng-click="remove('data.bubbles.'+key+'.hotspots.'+key_h)" href=""><span class="glyphicon glyphicon-remove text-danger"></span></a>
                                                             <ul ng-show="collapse[$id]">
-                                                                <li>type: <dropdown data="hotspotTypes" target="hotspot.type" type="'value'"></dropdown></li>
-                                                                <li>url:</li>
+                                                                <li>type: <dropdown data="hotspotTypes" target="hotspot.type" type="'value'" after="changeHotspotType(hotspot)"></dropdown></li>
+                                                                <li ng-if="hotspot.type=='image'">url: <filepicker target="hotspot.url" folder="dataFolder"></filepicker></li>
+                                                                <li ng-if="hotspot.type=='video'">url: <videopicker target="hotspot.url" folder="dataFolder"></videopicker></li>
                                                                 <latlon target="hotspot" preview="bubble.image"></latlon>
+                                                                <li ng-if="hotspot.type=='image'">distorted: <a href="" ng-click="hotspot.distorted = !hotspot.distorted" ng-bind="hotspot.distorted"></a></li>
+                                                                <li ng-if="hotspot.type=='video'">mask: <a href="" ng-click="hotspot.mask = !hotspot.mask" ng-bind="hotspot.mask"></a></li>
                                                                 <li>events:
                                                                     <ul>
                                                                         <li>onclick: <eventpicker target="hotspot.events.onclick" data="data" actions="actionValues"></eventpicker></li>
@@ -189,6 +188,22 @@
                             </ul>
                         </div>
                     </div>
+                    <div>
+                        <div class="modal fade" id="saveModal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" ng-click="close()" class="btn btn-danger btn-sm">Close</button>
+                                        <button type="button" ng-click="save()" class="btn btn-success btn-sm">Save to file</button>
+                                        <h4 class="modal-title">Save JSON</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <textarea ng-model="saveArea" readonly="true"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -197,6 +212,7 @@
 		<script src="../lib/three.min.js"></script>
 		<script src="../editor/controller.js"></script>
 		<script src="../editor/js/bootstrap.min.js"></script>
+        <script src="../lib/leaflet.js"></script>
 	</body>
 </html>
 

@@ -103,7 +103,7 @@
                                                         <li ng-repeat="(key_h, hotspot) in bubble.hotspots">
                                                             <div class="bg-red inline"><a ng-init="collapse[$id]=false" ng-click="collapse[$id] = !collapse[$id]" href="">{{key_h}}</a>: </div> <span ng-show="collapse[$id]" class="glyphicon glyphicon-collapse-up"></span><span ng-hide="collapse[$id]" class="glyphicon glyphicon-collapse-down"></span><a ng-click="remove('data.bubbles.'+key+'.hotspots.'+key_h)" href=""><span class="glyphicon glyphicon-remove text-danger"></span></a>
                                                             <ul ng-show="collapse[$id]">
-                                                                <li>type: <dropdown data="hotspotTypes" target="hotspot.type" type="'value'"></dropdown></li>
+                                                                <li>type: <dropdown data="hotspotTypes" target="hotspot.type" type="'value'" after="changeHotspotType(hotspot)"></dropdown></li>
                                                                 <li ng-if="hotspot.type=='image'">url: <filepicker target="hotspot.url" folder="dataFolder"></filepicker></li>
                                                                 <li ng-if="hotspot.type=='video'">url: <videopicker target="hotspot.url" folder="dataFolder"></videopicker></li>
                                                                 <latlon target="hotspot" preview="bubble.image"></latlon>

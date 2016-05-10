@@ -1,5 +1,5 @@
 <ul>
-    <li>mp4: <a ng-show="!target.mp4" ng-click="add('mp4')" href=""><span class="glyphicon glyphicon-plus text-success"></span></a><span ng-show="target.mp4"><filepicker target="target.mp4" folder="folder"></filepicker></span></li>
-    <li>ogg: <a ng-show="!target.ogg" ng-click="add('ogg')" href=""><span class="glyphicon glyphicon-plus text-success"></span></a><span ng-show="target.ogg"><filepicker target="target.ogg" folder="folder"></filepicker></span></li>
-    <li>webm: <a ng-show="!target.webm" ng-click="add('webm')" href=""><span class="glyphicon glyphicon-plus text-success"></span></a><span ng-show="target.webm"><filepicker target="target.webm" folder="folder"></filepicker></span></li>
+    <li>mp4: <a ng-show="!target.mp4" ng-click="add('mp4')" href=""><span class="glyphicon glyphicon-plus text-success"></span></a><span ng-show="target.mp4"><filepicker target="target.mp4" folder="folder"></filepicker><a ng-click="remove('mp4')" href=""><span class="glyphicon glyphicon-remove text-danger"></span></a></span></li>
+    <li>ogg: <a ng-show="!target.ogg" ng-click="add('ogg')" href=""><span class="glyphicon glyphicon-plus text-success"></span></a><span ng-show="target.ogg"><filepicker target="target.ogg" folder="folder"></filepicker><a ng-click="remove('ogg')" href=""><span class="glyphicon glyphicon-remove text-danger"></span></a></span></li>
+    <li>webm: <a ng-show="!target.webm" ng-click="add('webm')" href=""><span class="glyphicon glyphicon-plus text-success"></span></a><span ng-show="target.webm"><filepicker target="target.webm" folder="folder"></filepicker><a ng-click="remove('webm')" href=""><span class="glyphicon glyphicon-remove text-danger"></span></a></span></li>
 </ul>
