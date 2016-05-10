@@ -11,10 +11,29 @@ app.run(['$rootScope', '$http', '$window', function($rootScope, $http, $window) 
 	$http.get(filename+".json", {responseType:"text"}).then(function(res){
 		$rootScope.data = res.data;
 	});
+	
 	$rootScope.saveJSON = function () {
 		console.log($rootScope.data);
+		$rootScope.saveArea = angular.toJson($rootScope.data, true);
+		$('#saveModal').modal('show');
 	}
-
+	
+	$rootScope.save = function () {
+		console.log($rootScope.dataFolder);
+		$http.post("../editor/save.php",{
+			'file':$rootScope.dataFolder,
+			'data':angular.toJson($rootScope.data, true)
+		});
+		$('#saveModal').modal('hide');
+	}
+	
+	$rootScope.refreshPage = function () {
+		$window.location.reload();
+	}
+	
+	$rootScope.close = function () {
+		$('#saveModal').modal('hide');
+	}
 
 }]);
 
@@ -33,11 +52,7 @@ app.controller("editorController", function($rootScope, $scope) {
 			"right": "undefined",
 			"up": "undefined"
 		},
-		"video": {
-			"mp4": {},
-			"ogg": {},
-			"webm": {}
-		}
+		"video": {}
 	}
 	$scope.newValues = {
 		"hud": {
