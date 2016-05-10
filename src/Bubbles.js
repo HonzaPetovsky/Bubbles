@@ -113,7 +113,7 @@ Bubbles.prototype.initEvents = function ()
 	window.addEventListener("resize", function() { events.onWindowResize(sceneOrtho); });
 	window.addEventListener("mozfullscreenchange", function () { events.onFSChange(); });
 	window.addEventListener("fullscreenchange", function () { events.onFSChange(); });
-	window.addEventListener("webkitendfullscreen", function () { events.onFSChange(); });
+	window.addEventListener("webkitfullscreenchange", function () { events.onFSChange(); });
 
 	//mouse
 	this.canvas.addEventListener("mousewheel", function (event) { events.onMouseWheel(event, fovmin, fovmax); });
