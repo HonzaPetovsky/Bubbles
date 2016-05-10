@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="../editor/css/colorpicker.min.css">
 		<link rel="stylesheet" href="../editor/css/rzslider.min.css">
 		<link rel="stylesheet" href="../editor/css/style.css">
+        <link rel="stylesheet" href="../lib/leaflet.css">
 
 
 		<script src="../editor/js/angular.min.js"></script>
@@ -26,16 +27,178 @@
 		<script src="../editor/js/bootstrap-colorpicker-module.min.js"></script>
 	</head>
 	<body>
-		<div id="include"></div>
+        <div class="container-fluid" ng-app="bubblesEditor">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid">
+                    <button class="btn btn-success navbar-btn" type="submit" ng-click="saveJSON()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>  <button ng-click="refreshPage()" class="btn btn-danger navbar-btn" type="submit"><span class="glyphicon glyphicon-refresh"></span> Reload</button> <p class="navbar-text"><strong>{{dataFolder}}</strong>/</p>
+                </div>
+            </nav>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>JSON Editor:</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <div ng-controller="editorController">
+                        <div class="text-right"><span class="glyphicon glyphicon-collapse-down"></span> <a ng-click="collapse_down()" href="">Expand All</a> / <span class="glyphicon glyphicon-collapse-up"></span> <a ng-click="collapse_up()" href="">Collapse All</a></div>
+                        <div class="well editor">
+                            <ul>
+                                <li>start: <dropdown data="data.bubbles" target="data.start" type="'key'"></dropdown></li>
+                                <li>loader: 
+                                    <ul>
+                                        <li>color: <colpicker target="data.loader.color"></colpicker></li>
+                                        <li>url: <filepicker target="data.loader.url" folder="dataFolder"></filepicker></li>
+                                    </ul>
+                                </li>
+                                <li>view:
+                                    <ul>
+                                        <li>fov:
+                                            <ul>
+                                                <li>init: <slider target="data.view.fov.init" options="[data.view.fov.min,data.view.fov.max,1,1]"></slider></li>
+                                                <li>min: <slider target="data.view.fov.min" options="[0,data.view.fov.max,1,1]"></slider></li>
+                                                <li>max: <slider target="data.view.fov.max" options="[data.view.fov.min,180,1,1]"></slider></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>bubbles:
+                                    <ul>
+                                        <li ng-repeat="(key, bubble) in data.bubbles">
+                                            <div class="bg-primary inline"><a ng-init="collapse[$id]=false" ng-click="collapse[$id] = !collapse[$id]" href="">{{key}}</a>: </div>  <span ng-show="collapse[$id]" class="glyphicon glyphicon-collapse-up"></span><span ng-hide="collapse[$id]" class="glyphicon glyphicon-collapse-down"></span><a ng-click="remove('data.bubbles.'+key)" href=""><span class="glyphicon glyphicon-remove text-danger"></span></a>
+                                            <ul ng-show="collapse[$id]">
+                                                <li>image:
+                                                    <ul>
+                                                        <li>type: <dropdown data="imageTypes" target="bubble.image.type" type="'value'" after="bubble.image.data=undefinedTypes[bubble.image.type]"></dropdown></li>
+                                                        <li ng-if="bubble.image.type=='sphere'">data: <filepicker target="bubble.image.data" folder="dataFolder"></filepicker></li>
+                                                        <li ng-if="bubble.image.type=='cube'">data: 
+                                                            <ul>
+                                                                <li>back: <filepicker target="bubble.image.data.back" folder="dataFolder"></filepicker></li>
+                                                                <li>down: <filepicker target="bubble.image.data.down" folder="dataFolder"></filepicker></li>
+                                                                <li>front: <filepicker target="bubble.image.data.front" folder="dataFolder"></filepicker></li>
+                                                                <li>left: <filepicker target="bubble.image.data.left" folder="dataFolder"></filepicker></li>
+                                                                <li>right: <filepicker target="bubble.image.data.right" folder="dataFolder"></filepicker></li>
+                                                                <li>up: <filepicker target="bubble.image.data.up" folder="dataFolder"></filepicker></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li ng-if="bubble.image.type=='video'">data:
+                                                            <ul>
+                                                                <li>mp4:</li>
+                                                                <li>ogg:</li>
+                                                                <li>webm:</li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>view:
+                                                    <ul>
+                                                        <latlon target="bubble.view" preview="bubble.image"></latlon>
+                                                    </ul>
+                                                </li>
+                                                <li ng-if="bubble.lensflare">lensflare:<a ng-click="remove('data.bubbles.'+key+'.lensflare')" href=""><span class="glyphicon glyphicon-remove text-danger"></span></a>
+                                                    <ul>
+                                                        <li>size: <slider target="bubble.lensflare.size" options="[1,20,0.1,100]"></slider></li>
+                                                        <latlon target="bubble.lensflare" preview="bubble.image"></latlon>
+                                                    </ul>
+                                                </li>
+                                                <li ng-if="!bubble.lensflare">lensflare:<a ng-click="addLensflare(key)" href=""><span class="glyphicon glyphicon-plus text-success"></span></a></li>
+                                                <li>hotspots:
+                                                    <ul>
+                                                        <li ng-repeat="(key_h, hotspot) in bubble.hotspots">
+                                                            <div class="bg-red inline"><a ng-init="collapse[$id]=false" ng-click="collapse[$id] = !collapse[$id]" href="">{{key_h}}</a>: </div> <span ng-show="collapse[$id]" class="glyphicon glyphicon-collapse-up"></span><span ng-hide="collapse[$id]" class="glyphicon glyphicon-collapse-down"></span><a ng-click="remove('data.bubbles.'+key+'.hotspots.'+key_h)" href=""><span class="glyphicon glyphicon-remove text-danger"></span></a>
+                                                            <ul ng-show="collapse[$id]">
+                                                                <li>type: <dropdown data="hotspotTypes" target="hotspot.type" type="'value'"></dropdown></li>
+                                                                <li>url:</li>
+                                                                <latlon target="hotspot" preview="bubble.image"></latlon>
+                                                                <li>events:
+                                                                    <ul>
+                                                                        <li>onclick: <eventpicker target="hotspot.events.onclick" data="data" actions="actionValues"></eventpicker></li>
+                                                                        <li>onover: <eventpicker target="hotspot.events.onover" data="data" actions="actionValues"></eventpicker></li>
+                                                                        <li>onout: <eventpicker target="hotspot.events.onout" data="data" actions="actionValues"></eventpicker></li>
+                                                                        <li>ondown: <eventpicker target="hotspot.events.ondown" data="data" actions="actionValues"></eventpicker></li>
+                                                                        <li>onup: <eventpicker target="hotspot.events.onup" data="data" actions="actionValues"></eventpicker></li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><input class="editor" ng-model="hotspotModel[key]" placeholder="New hotspot"></input><a ng-click="newHotspot(key)" href=""><span class="glyphicon glyphicon-plus text-success"></span></a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><input class="editor" ng-model="bubbleModel" placeholder="New bubble"></input><a ng-click="newBubble()" href=""><span class="glyphicon glyphicon-plus text-success"></span></a></li>
+                                    </ul>
+                                </li>
+                                <li>hud:
+                                    <ul>
+                                        <li ng-repeat="(key, element) in data.hud">
+                                            <div class="bg-green inline"><a ng-init="collapse[$id]=false" ng-click="collapse[$id] = !collapse[$id]" href="">{{key}}</a>: </div> <span ng-show="collapse[$id]" class="glyphicon glyphicon-collapse-up"></span><span ng-hide="collapse[$id]" class="glyphicon glyphicon-collapse-down"></span><a ng-click="remove('data.hud.'+key)" href=""><span class="glyphicon glyphicon-remove text-danger"></span></a>
+                                            <ul ng-show="collapse[$id]">
+                                                <li>url: <filepicker target="element.url" folder="dataFolder"></filepicker></li>
+                                                <li>align: <dropdown data="alignTypes" target="element.align" type="'value'"></dropdown></li>
+                                                <li>position:
+                                                    <ul>
+                                                        <li>x: <numberpicker target="element.position.x"></numberpicker></li>
+                                                        <li>y: <numberpicker target="element.position.y"></numberpicker></li>
+                                                        <li>zorder: <slider target="element.position.zorder" options="[0,100,1,1]"></slider></li>
+                                                    </ul>
+                                                </li>
+                                                <li>events:
+                                                    <ul>
+                                                        <li>onclick: <eventpicker target="element.events.onclick" data="data" actions="actionValues"></eventpicker></li>
+                                                        <li>onover: <eventpicker target="element.events.onover" data="data" actions="actionValues"></eventpicker></li>
+                                                        <li>onout: <eventpicker target="element.events.onout" data="data" actions="actionValues"></eventpicker></li>
+                                                        <li>ondown: <eventpicker target="element.events.ondown" data="data" actions="actionValues"></eventpicker></li>
+                                                        <li>onup: <eventpicker target="element.events.onup" data="data" actions="actionValues"></eventpicker></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><input class="editor" ng-model="hudModel" placeholder="New hud"></input><a ng-click="newHud()" href=""><span class="glyphicon glyphicon-plus text-success"></span></a></li>
+                                    </ul>
+                                </li>
+                                <li>map:
+                                    <ul ng-if="data.map">
+                                        <li>width: <numberpicker target="data.map.width"></numberpicker></li>
+                                        <li>height: <numberpicker target="data.map.height"></numberpicker></li>
+                                        <li>visible: <a href="" ng-click="data.map.visible = !data.map.visible" ng-bind="data.map.visible"></a></li>
+                                        <li>align: <dropdown data="alignTypes" target="data.map.align" type="'value'"></dropdown></li>
+                                        <li>position:
+                                            <ul>
+                                                <li>x: <numberpicker target="data.map.position.x"></numberpicker></li>
+                                                <li>y: <numberpicker target="data.map.position.y"></numberpicker></li>
+                                            </ul>
+                                        </li>
+                                        <li>map:
+                                            <ul>
+                                                <li><maper target="data.map.map"></maper></li>
+                                                <li>zoom: <slider target="data.map.map.zoom" options="[0,19,1,1]"></slider></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <div class="bg-gold inline"><a ng-init="collapse[$id]=false" ng-click="collapse[$id] = !collapse[$id]" href="">markers:</a></div> <span ng-show="collapse[$id]" class="glyphicon glyphicon-collapse-up"></span><span ng-hide="collapse[$id]" class="glyphicon glyphicon-collapse-down"></span>
+                                            <ul ng-show="collapse[$id]">
+                                                <li ng-repeat="(key, element) in data.map.markers">
+                                                    {<maper target="element"></maper>, "target": <dropdown data="data.bubbles" target="element.target" type="'key'"></dropdown>}<a ng-click="removeMarker(key)" href=""><span class="glyphicon glyphicon-remove text-danger"></span></a>
+                                                </li>
+                                                <li><a ng-click="newMarker()" href=""><span class="glyphicon glyphicon-plus text-success"></span></a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 		
 		<script src="../editor/js/jquery-2.2.3.min.js"></script>
-		<script>
-			$("#include").load("../editor/include.html")
-		</script>
-		
 		<script src="../lib/three.min.js"></script>
 		<script src="../editor/controller.js"></script>
 		<script src="../editor/js/bootstrap.min.js"></script>
+        <script src="../lib/leaflet.js"></script>
 	</body>
 </html>
 

@@ -30,6 +30,12 @@ ul
 	height: 30em;
 	position: relative;
 }
+.latlon
+{
+	width: 100%;
+	height: 30em;
+	position: relative;
+}
 .target
 {
 	position: absolute;

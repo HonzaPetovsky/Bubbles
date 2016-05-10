@@ -962,7 +962,6 @@ Bubbles.Renderer = function (canvas, scene, camera, sceneOrtho, cameraOrtho)
 
 Bubbles.Renderer.prototype.render = function ()
 {
-	console.log("render");
 	this.renderer.clear();
 	this.renderer.render(this.scene, this.camera);
 
@@ -1058,7 +1057,6 @@ Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger, rende
 
 	var hotspot = this;
 	video.onloadedmetadata = function () { 
-		console.log("meta");
 		hotspot.update();
 	}
 

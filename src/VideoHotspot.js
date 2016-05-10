@@ -17,7 +17,6 @@ Bubbles.VideoHotspot = function (key, hotspotData, manager, actionTrigger, rende
 
 	var hotspot = this;
 	video.onloadedmetadata = function () { 
-		console.log("meta");
 		hotspot.update();
 	}
 
