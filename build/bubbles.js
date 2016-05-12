@@ -365,7 +365,6 @@ Bubbles.Animation.prototype.runGlass = function ()
 
 Bubbles.DataValidator = function (data)
 {
-	return data;
 	var newData = {};
 	var bubbles = [];
 
@@ -406,8 +405,26 @@ Bubbles.DataValidator = function (data)
 			if (bubble.image == undefined) {
 				return null;
 			}
+			
+			if (bubble.view != undefined) {
+				bubble.view.lat = bubble.view.lat != undefined ? bubble.view.lat : 0;
+				bubble.view.lon = bubble.view.lon != undefined ? bubble.view.lon : 0;
+			} else {
+				bubble.view = {
+					"lat": 0,
+					"lon": 0
+				}
+			}
+			
+			if (bubble.hotspots == undefined) {
+				bubble.hotspots = [];
+			}
 		} 
 
+		if (newData.hud == undefined) {
+			newData.hud = [];
+		}
+		
 		newData.hud = data.hud;
 		newData.map = data.map;
 
