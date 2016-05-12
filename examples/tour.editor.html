@@ -156,7 +156,7 @@
                                         <li><input class="editor" ng-model="hudModel" placeholder="New hud"></input><a ng-click="newHud()" href=""><span class="glyphicon glyphicon-plus text-success"></span></a></li>
                                     </ul>
                                 </li>
-                                <li>map:
+                                <li>map:<a ng-if="data.map" ng-click="remove('data.map')" href=""><span class="glyphicon glyphicon-remove text-danger"></span></a><a ng-if="!data.map" ng-click="addMap()" href=""><span class="glyphicon glyphicon-plus text-success"></span></a>
                                     <ul ng-if="data.map">
                                         <li>width: <numberpicker target="data.map.width"></numberpicker></li>
                                         <li>height: <numberpicker target="data.map.height"></numberpicker></li>

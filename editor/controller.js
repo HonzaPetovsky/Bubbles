@@ -98,9 +98,25 @@ app.controller("editorController", function($rootScope, $scope) {
 			}
 		},
 		"marker": {
-			"lat": 0,
-			"lon": 0,
+			"lat": 49.7437506,
+			"lon": 15.3386478,
 			"target": "undefined"
+		},
+		"map": {
+			"width": 100,
+			"height": 100,
+			"visible": true,
+			"align": "lefttop",
+			"position": {
+				"x": 0,
+				"y": 0
+			},
+			"map": {
+				"lat": 49.7437506,
+				"lon": 15.3386478,
+				"zoom": 7
+			},
+			"markers": []
 		}
 	}
 	$scope.actionValues = {
@@ -176,6 +192,10 @@ app.controller("editorController", function($rootScope, $scope) {
 
 	$scope.newMarker = function () {
 		$rootScope.data.map.markers.push(angular.copy($scope.newValues.marker));
+	}
+	
+	$scope.addMap = function () {
+		$rootScope.data.map = $scope.newValues.map;
 	}
 
 	$scope.addLensflare = function (key) {
