@@ -67,30 +67,64 @@ app.directive("latlon", function () {
 					$scope.renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
 					$scope.renderer.autoClear = false;
 
+					if ($scope.preview.type == 'cube') {
+						
+						var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.BoxGeometry(500, 500, 500));
+						geometry.scale(-1, 1, 1);
+						var loader = new THREE.CubeTextureLoader();
+						var texture = loader.load([
+							$scope.preview.data.back,
+							$scope.preview.data.front,
+							$scope.preview.data.up,
+							$scope.preview.data.down,
+							$scope.preview.data.right,
+							$scope.preview.data.left
+						], function () {
+							$scope.renderer.render($scope.scene, $scope.camera)
+						});
+						texture.minFilter = THREE.LinearFilter;
 
-					var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.BoxGeometry(500, 500, 500));
-					geometry.scale(-1, 1, 1);
-					var loader = new THREE.CubeTextureLoader();
-					var texture = loader.load([
-						$scope.preview.data.back,
-						$scope.preview.data.front,
-						$scope.preview.data.up,
-						$scope.preview.data.down,
-						$scope.preview.data.right,
-						$scope.preview.data.left
-					], function () {
-						$scope.renderer.render($scope.scene, $scope.camera)
-					});
-					texture.minFilter = THREE.LinearFilter;
+						var material = new THREE.ShaderMaterial({
+							uniforms: {
+								"tCube": { type: "t", value: texture },
+								"tFlip": { type: "f", value: - 1 }
+							},
+							vertexShader: THREE.ShaderLib.cube.vertexShader,
+							fragmentShader: THREE.ShaderLib.cube.fragmentShader,
+						});
+						
+					} else {
+						
+						var geometry = new THREE.BufferGeometry().fromGeometry(new THREE.SphereGeometry(500, 60, 40));
+						geometry.scale(-1, 1, 1);
+						
+						var loader = new THREE.TextureLoader(this.manager);
+						var texture = loader.load(image, function () {
+							$scope.renderer.render($scope.scene, $scope.camera)
+						});
+						texture.minFilter = THREE.LinearFilter;
 
-					var material = new THREE.ShaderMaterial({
-						uniforms: {
-							"tCube": { type: "t", value: texture },
-							"tFlip": { type: "f", value: - 1 }
-						},
-						vertexShader: THREE.ShaderLib.cube.vertexShader,
-						fragmentShader: THREE.ShaderLib.cube.fragmentShader,
-					});
+						var material = new THREE.ShaderMaterial({
+							uniforms: {
+								"texture": { type: "t", value: texture },
+							},
+							vertexShader: [
+								"varying vec2 vUv;",
+								"void main() {",
+									"vUv = uv;",
+									"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+								"}"
+							].join( "\n" ),
+							fragmentShader: [
+								"uniform sampler2D texture;",
+								"varying vec2 vUv;",
+								"void main() {",
+									"vec4 texel = texture2D( texture, vUv );",
+									"gl_FragColor = texel;",
+								"}"
+							].join( "\n" )	
+						});
+					}
 
 					var mesh = new THREE.Mesh(geometry, material);
 
