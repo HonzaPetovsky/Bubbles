@@ -682,9 +682,9 @@ Bubbles.Hotspot.prototype.getMesh = function ()
 Bubbles.Lensflare = function (lat, lon, size, manager)
 {
 	var textureLoader = new THREE.TextureLoader(this.loadingManager);
-	var textureFlare0 = textureLoader.load("../lensflare/lensflare0.png");
-	var textureFlare2 = textureLoader.load("../lensflare/lensflare2.png");
-	var textureFlare3 = textureLoader.load("../lensflare/lensflare3.png");
+	var textureFlare0 = textureLoader.load("lensflare/lensflare0.png");
+	var textureFlare2 = textureLoader.load("lensflare/lensflare2.png");
+	var textureFlare3 = textureLoader.load("lensflare/lensflare3.png");
 	
 	var flareColor = new THREE.Color( 0xffffff );
 

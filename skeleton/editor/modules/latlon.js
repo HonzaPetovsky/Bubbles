@@ -5,7 +5,7 @@ app.directive("latlon", function () {
 			target: '=',
 			preview: '='
 		},
-		templateUrl: '../editor/modules/latlonTpl.html',
+		templateUrl: 'editor/modules/latlonTpl.html',
 		controller: function ($scope, $element) {
 
 			$scope.element = $($element[0].children[2]);

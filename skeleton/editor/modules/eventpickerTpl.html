@@ -1,0 +1,40 @@
+<span class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href=""><span class="glyphicon glyphicon-plus text-success"></span></a><ul class="dropdown-menu" role="menu"><li role="presentation" ng-repeat="x in actions"><a role="menuitem" href="" ng-click="addEvent(x.action)">{{x.action}}</a></li></ul></span>
+<ul>
+	<li ng-repeat="(num,action) in target"><a ng-click="editEvent(num)" href="">{{action.action}}</a>(<span ng-repeat="(key,value) in action" ng-hide="$first"><em>{{key}}:</em>{{value}}<span ng-hide="$last">, </span></span>)<a ng-click="removeEvent(num)" href=""><span class="glyphicon glyphicon-remove text-danger"></span></a></li>
+</ul>
+
+
+<div class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" ng-click="close()" class="btn btn-danger btn-sm">Close</button>
+				<h4 class="modal-title">Event</h4>
+			</div>
+			<div class="modal-body">
+				<div ng-show="show('noparam')" class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> Nothing to set up.</div>
+				
+				<div ng-show="show('id_bubbles')"><h4>id:</h4>
+					"<span class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="" ng-bind="id_bubbles"></a><ul class="dropdown-menu" role="menu"><li role="presentation" ng-repeat="(key, value) in data.bubbles"><a role="menuitem" href="" ng-click="change_id_bubbles(key)">{{key}}</a></li></ul></span>"
+				</div>
+
+				<div ng-show="show('id_objects')"><h4>id:</h4>
+					"<span class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="" ng-bind="id_objects"></a><ul class="dropdown-menu" role="menu"><li role="presentation" ng-repeat="(key, value) in getIds()"><a role="menuitem" href="" ng-click="change_id_objects(value)">{{value}}</a></li></ul></span>"
+				</div>
+
+				<div ng-show="show('property')"><h4>property:</h4>
+					"<span class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="" ng-bind="property"></a><ul class="dropdown-menu" role="menu"><li role="presentation" ng-repeat="(key, value) in propertyTypes"><a role="menuitem" href="" ng-click="change_property(value)">{{value}}</a></li></ul></span>"
+				</div>
+		
+				<div ng-show="showVal('valueSmall')"><h4>value:</h4>
+					<rzslider rz-slider-model="valueSmall" rz-slider-options="sizeOptionsSmall"></rzslider>
+				</div>
+
+				<div ng-show="showVal('valueBool')"><h4>value:</h4>
+					"<a href="" ng-click="change_valueBool()" ng-bind="valueBool"></a>"
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
