@@ -1,0 +1,28 @@
+{
+  "start": "pano",
+  "loader": {
+    "color": "#000000",
+    "url": "pano/loader.gif"
+  },
+  "view": {
+    "fov": {
+      "init": 75,
+      "max": 85,
+      "min": 35
+    }
+  },
+  "bubbles": {
+    "pano": {
+      "image": {
+        "type": "sphere",
+        "data": "undefined"
+      },
+      "view": {
+        "lat": 0,
+        "lon": 0
+      },
+      "hotspots": {}
+    }
+  },
+  "hud": {}
+}

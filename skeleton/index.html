@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pano</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0">
+		<style>
+			body {
+				margin: 0px;
+				overflow: hidden;
+			}
+			#container {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			#container:-webkit-full-screen {
+				position: initial;
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+		<link rel="stylesheet" href="bubbles/lib/leaflet.css" />
+	</head>
+	<body>
+		<div id="container"></div>
+
+		<!-- libs -->
+		<script src="bubbles/lib/three.min.js"></script>
+		<script src="bubbles/lib/hammer.min.js"></script>
+		<script src="bubbles/bubbles.min.js"></script>
+		<script src="bubbles/lib/leaflet.js"></script>
+
+		
+		<script>
+			new Bubbles({ 
+				target: "container",
+				file: "pano.json",
+			});
+		</script>
+	</body>
+</html>
