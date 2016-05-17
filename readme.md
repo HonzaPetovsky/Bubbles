@@ -6,7 +6,7 @@ Bubbles is a HTML5 viewer for panoramatic images and virtual tours. The viewer i
 Download the skeleton folder and use the `pano.editor.html` app.
 
 ### index.html
-```javascript
+```html
 <script>
     new Bubbles({ 
         target: "container",
